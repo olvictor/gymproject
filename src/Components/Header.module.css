@@ -1,0 +1,17 @@
+.navbar{
+    height: 50px;
+    width: 100% ;
+    display: flex;
+    align-items: center;    
+    justify-content: space-between;
+}
+
+.links{
+    display: flex;
+    gap: 30px;
+}
+
+
+.logo:hover{
+    filter: drop-shadow(0px 0px 5px #1bfaad);
+}
