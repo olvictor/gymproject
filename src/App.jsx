@@ -9,15 +9,15 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 const App = () => {
 
   return (
-      <div> 
+      <> 
         <BrowserRouter>
           <Header />
           <Routes>
             <Route path='/' element={<Home />} />
-            <Route path='/login' element={<Login />} />
+            <Route path='/login/*' element={<Login />} />
           </Routes>
         </BrowserRouter>
-      </div>
+      </>
   )
 }
 

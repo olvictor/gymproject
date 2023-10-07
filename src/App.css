@@ -9,8 +9,8 @@
 
 
 body{
-    --cor-primaria: #1c234a;
-    --cor-secundaria: #1bfaad;
+    --cor-primaria: #1a2037;
+    --cor-secundaria: #3a97d4;
     background-color: var(--cor-primaria);
     color: #fff;
 }
