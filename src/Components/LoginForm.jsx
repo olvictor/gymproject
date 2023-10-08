@@ -7,24 +7,26 @@ import UseForm from '../CustomHooks/UseForm'
 
 const LoginForm = () => {
 
-  const email = UseForm()
+  const email = UseForm('email')
   const senha = UseForm()
 
   const handleSubmit = (e)=>{
     e.preventDefault()
 
-    fetch('http://localhost:3000/user/login',{
-      method: 'POST',
-      headers:{
-        'Content-Type' : 'application/json'
-      },
-      body: JSON.stringify({
-        email:email.value,
-        senha:senha.value
+    if(email.validate() && senha.validate()){
+      fetch('http://localhost:3000/user/login',{
+        method: 'POST',
+        headers:{
+          'Content-Type' : 'application/json'
+        },
+        body: JSON.stringify({
+          email:email.value,
+          senha:senha.value
+        })
       })
-    })
-    .then(response => response.json())
-    .then(data => console.log(data))
+      .then(response => response.json())
+      .then(data => console.log(data))
+    }
 
   }
 
