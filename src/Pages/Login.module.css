@@ -1,3 +1,9 @@
 .loginPage{
     display: flex;
 }
+
+
+.loginPage img{
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+}

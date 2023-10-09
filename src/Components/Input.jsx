@@ -12,7 +12,7 @@ const Input = ({type,placeholder,label,name, handleChange,error,onblur,validate}
           onChange={handleChange}
           onBlur={onblur}
           />
-        {error && <p>{error}</p>}
+        {error && <p className='error'>{error}</p>}
     </>
   )
 }

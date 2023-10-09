@@ -15,6 +15,22 @@ body{
     color: #fff;
 }
 
+input{
+    border: none;
+    border-radius: 8px;
+    height: 30px;
+    padding: 10px;
+    background-color: #ff5733;
+    filter:saturate(70%);
+    color: white;
+    margin: 10px 0px;
+}
+
+label{
+    font-weight: bolder;
+}
+
+
 a{
     text-decoration: none;
     color: #fff;
@@ -42,7 +58,7 @@ button:disabled{
 .container{
     max-width: 50rem;
     padding:  0 1rem;
-    margin: 0 auto;
+    margin: 10px auto;
 }
 
 header{
@@ -50,4 +66,9 @@ header{
     width: 100vw;
     padding: 0 100px;
     z-index: 100;
+}
+
+.error{
+    color: rgb(186, 30, 30);
+    font-size: .8;
 }

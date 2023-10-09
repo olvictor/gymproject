@@ -35,7 +35,7 @@ const UseForm = (type) => {
       return true
     }
     
-  }
+}
   
   return {
     value,

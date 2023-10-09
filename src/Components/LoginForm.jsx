@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import styles from './LoginForm.module.css'
 import Input from './Input'
 import UseForm from '../CustomHooks/UseForm'
+import { userLogin } from '../CustomHooks/UseFetch'
 
 
 const LoginForm = () => {
@@ -10,35 +11,37 @@ const LoginForm = () => {
   const email = UseForm('email')
   const senha = UseForm()
 
-  const handleSubmit = (e)=>{
+  const handleSubmit = async (e)=>{
     e.preventDefault()
 
+    
     if(email.validate() && senha.validate()){
-      fetch('http://localhost:3000/user/login',{
-        method: 'POST',
-        headers:{
-          'Content-Type' : 'application/json'
-        },
-        body: JSON.stringify({
-          email:email.value,
-          senha:senha.value
-        })
+      const {options, url} = userLogin({
+        email:email.value,
+        senha:senha.value
       })
-      .then(response => response.json())
-      .then(data => console.log(data))
+
+      const response =  await fetch(url,options)
+      const json = await response.json()
+      if(response.ok){
+        window.localStorage.setItem('token',json.token)
+      }
     }
 
   }
 
   return (
     <div className={styles.loginForm}>
+      <h1 className={styles.titulo}>LOGIN</h1>
           <form  onSubmit={handleSubmit}>
-            <Input type='email' placeholder={'Digite seu email'} label={'Email'} name={email} {...email} />
-            <Input type='password' placeholder={'Digite sua senha'} label={'Senha'} name={senha} {...senha}/>
-            <button>Entrar</button>
+            <Input type='email' placeholder={'xx@xxxx.com'} label={'Email'} name={email} {...email} />
+            <Input type='password' placeholder={'****'} label={'Senha'} name={senha} {...senha}/>
+            <button className={styles.buttonForm}>Entrar</button>
           </form>
+        <div className={styles.link}>
         <span>Não possui uma conta ?</span>
-        <Link to='/login/registrar'>Registrar</Link>
+        <Link className={styles.linkRegistrar} to='/login/registrar'>Registrar</Link>
+        </div>
     </div>
 
   )
