@@ -12,3 +12,16 @@ export const userLogin = (body) =>{
         }
     }
 }
+
+
+export const getToken = (token) =>{
+    return {
+        url: API_URL + '/user/perfil',
+        options: {
+            method: 'GET',
+            headers:{
+                Authorization : `Bearer ${token}`
+            },
+        }
+    }
+}

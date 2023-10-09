@@ -1,35 +1,27 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useContext, useEffect } from 'react'
+import { Link, json } from 'react-router-dom'
 import styles from './LoginForm.module.css'
 import Input from './Input'
 import UseForm from '../CustomHooks/UseForm'
-import { userLogin } from '../CustomHooks/UseFetch'
+import { UserContext } from '../UserContext'
 
 
 const LoginForm = () => {
 
   const email = UseForm('email')
   const senha = UseForm()
+  const {loginUser} = useContext(UserContext)
 
   const handleSubmit = async (e)=>{
     e.preventDefault()
-
     
     if(email.validate() && senha.validate()){
-      const {options, url} = userLogin({
-        email:email.value,
-        senha:senha.value
-      })
-
-      const response =  await fetch(url,options)
-      const json = await response.json()
-      if(response.ok){
-        window.localStorage.setItem('token',json.token)
-      }
+      loginUser(
+        email.value,
+        senha.value
+      )  
     }
-
-  }
-
+}
   return (
     <div className={styles.loginForm}>
       <h1 className={styles.titulo}>LOGIN</h1>
