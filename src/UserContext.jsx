@@ -21,17 +21,23 @@ export const UserStorage = ({children}) => {
     }
 
     const loginUser = async (email,senha) =>{
-   
         const {options, url} = userLogin({
             email,
             senha
           })
+        setLoading(true)
         const tokenRes = await fetch(url,options);
-        const { token } = await tokenRes.json()
-        window.localStorage.setItem('token', token)
-        getUser(token)
+        const json = await tokenRes.json();
+        if(!tokenRes.ok){
+          setLoading(false)
+          setError(json.mensagem)
+        }
         if(tokenRes.ok){
-            navigate('/perfil')
+          setLoading(false)
+          setError(null)
+          window.localStorage.setItem('token', json.token)
+          getUser(json.token)
+          navigate('/user')
         }
     }
 

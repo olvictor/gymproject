@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Input = ({type,placeholder,label,name, handleChange,error,onblur,validate}) => {
+const Input = ({type,placeholder,label,name, handleChange,error,onblur}) => {
   return (
     <>  
         <label htmlFor={name}>{label}</label>

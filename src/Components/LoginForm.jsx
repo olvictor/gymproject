@@ -10,8 +10,8 @@ const LoginForm = () => {
 
   const email = UseForm('email')
   const senha = UseForm()
-  const {loginUser} = useContext(UserContext)
-
+  const {loginUser, error, loading} = useContext(UserContext)
+  
   const handleSubmit = async (e)=>{
     e.preventDefault()
     
@@ -26,9 +26,10 @@ const LoginForm = () => {
     <div className={styles.loginForm}>
       <h1 className={styles.titulo}>LOGIN</h1>
           <form  onSubmit={handleSubmit}>
-            <Input type='email' placeholder={'xx@xxxx.com'} label={'Email'} name={email} {...email} />
+            <Input type='email' placeholder={'********'} label={'Email'} name={email} {...email} />
             <Input type='password' placeholder={'****'} label={'Senha'} name={senha} {...senha}/>
-            <button className={styles.buttonForm}>Entrar</button>
+            {error ? <p className='error'>{error}</p> : ''}
+            <button disabled={loading ? true : false} className={styles.buttonForm}>Entrar</button>
           </form>
         <div className={styles.link}>
         <span>Não possui uma conta ?</span>

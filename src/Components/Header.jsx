@@ -3,7 +3,7 @@ import styles from './Header.module.css'
 import { Link } from 'react-router-dom'
 import  Dumbbell  from '../Assets/dumbbell.svg'
 import { UserContext } from '../UserContext'
-
+import { FaUserCircle } from 'react-icons/fa'
 
 const Header = () => {
   const {data,logado} = useContext(UserContext)
@@ -16,7 +16,7 @@ const Header = () => {
         </Link>
           <div className={styles.links}>
               <Link to='/'>Home</Link>
-          {logado ? <Link to='/login'>{data.username} </Link> : <Link to='/login'>Login/criar</Link>}
+          {logado ? <Link to='/user' className={styles.linkUser}><FaUserCircle /> {data.username} </Link> : <Link to='/login'>Login/criar</Link>}
           </div>
       </nav>
     </header>

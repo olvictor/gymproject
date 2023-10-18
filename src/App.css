@@ -1,10 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Young+Serif&display=swap'); */
+@import url('https://fonts.googleapis.com/css2?family=Spectral&display=swap');
 
 *{
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Spectral', serif;
 }
 
 
@@ -35,6 +36,9 @@ a{
     text-decoration: none;
     color: #fff;
 }
+ul img{
+    height: 40px;
+}
 
 li{
     list-style: none;
@@ -58,17 +62,23 @@ button:disabled{
 .container{
     max-width: 50rem;
     padding:  0 1rem;
-    margin: 10px auto;
+    margin: 1.3rem auto;
 }
 
 header{
-    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 1px 1px rgba(255, 255, 255, 0.1);
     width: 100vw;
     padding: 0 100px;
     z-index: 100;
+    background-color: #1a2037;
 }
 
 .error{
     color: rgb(186, 30, 30);
     font-size: .8;
+}
+
+.header-profile{
+    display:flex;
+    gap: 10px;
 }

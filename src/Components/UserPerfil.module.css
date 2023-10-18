@@ -1,0 +1,36 @@
+.containerPerfil{
+    height: 400px;
+    background-color:#1a2037;
+    filter:saturate(100%);
+    border-radius: 12px;
+    margin-top: 20px;
+    text-align: center;
+}
+
+
+.tituloUser{
+    font-weight: bolder;
+    font-size: 3rem;
+}
+
+
+.containerUserInfo{
+    width: 50%;
+    background-color: #cfcfcf;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+.infoUser{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
+
+.infoUser input::placeholder{
+    font-size: 1rem;
+    font-weight: bolder;
+}

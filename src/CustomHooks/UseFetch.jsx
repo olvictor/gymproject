@@ -25,3 +25,17 @@ export const getToken = (token) =>{
         }
     }
 }
+
+
+export const userPOST = (formData,  token) =>{
+    return {
+        url: API_URL + '/user/post',
+        options: {
+            method: 'POST',
+            headers:{
+                Authorization : `Bearer ${token}`
+            },
+            body: formData
+        }
+    }
+}
