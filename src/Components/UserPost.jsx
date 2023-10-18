@@ -1,7 +1,7 @@
 import React from 'react'
 import Input from '../Components/Input'
 import UseForm from '../CustomHooks/UseForm'
-
+import styles from './UserPost.module.css'
 
 import { useState } from 'react'
 import { userPOST } from '../CustomHooks/UseFetch'
@@ -36,18 +36,19 @@ const UserPost = () => {
 
   const handleImgChange = ({target}) =>{
     setImg({
+        preview: URL.createObjectURL(target.files[0]),
         raw: target.files[0]
     });
 
   }
-
   return (
-    <div>
+    <div className={styles.userPost}>
         <form onSubmit={handleSubmit}>
-            <Input  type={'text'} placeholder={'conteúdo'} name={'conteudo'} {...conteudo}/>
+            <Input  type={'text'} placeholder={'Título'} name={'conteudo'} {...conteudo}/>
             <input  type='file' name='imagem' id='imagem' onChange={handleImgChange} />
             <button type='submit'>Enviar</button>
         </form>
+        {img ? <img src={img.preview}/> : '' }
     </div>
   )
 }

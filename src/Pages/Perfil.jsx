@@ -15,7 +15,6 @@ const Perfil = () => {
             <Route path='treino' element={<UserTreino />}></Route>
             <Route path='date' element={<UserDate />}></Route>
             <Route path='post' element={<UserPost />}></Route>
-
         </Routes>
 
     </div>
