@@ -1,0 +1,28 @@
+.feed{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.feedItem{ 
+    width: 30%;
+    height: 200px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    cursor: pointer;
+    /* background-color: #1bfaad; */
+    border-radius: 4px;
+}
+.feedItem:hover{
+    opacity: .7;
+}
+.feedItem img{
+   max-width: 100%;
+   height: 220px;
+}

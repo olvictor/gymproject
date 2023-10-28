@@ -39,3 +39,16 @@ export const userPOST = (formData,  token) =>{
         }
     }
 }
+
+
+export const feedGET = ( token ) =>{
+    return {
+        url: API_URL + '/user/feed',
+        options: {
+            method: 'get',
+            headers:{
+                Authorization : `Bearer ${token}`
+            }
+        }
+    }
+}

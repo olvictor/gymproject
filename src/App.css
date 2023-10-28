@@ -76,6 +76,7 @@ header{
 .error{
     color: rgb(186, 30, 30);
     font-size: .8;
+    font-weight: bolder;
 }
 
 .header-profile{

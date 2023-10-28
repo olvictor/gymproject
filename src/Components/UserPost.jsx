@@ -29,7 +29,7 @@ const UserPost = () => {
     
     const response = await fetch(url,options)
     if(response.ok){
-        navigate('/user/posts')
+        navigate('/user/feed')
     }
 
   }
@@ -48,7 +48,7 @@ const UserPost = () => {
             <input  type='file' name='imagem' id='imagem' onChange={handleImgChange} />
             <button type='submit'>Enviar</button>
         </form>
-        {img ? <img src={img.preview}/> : '' }
+        {img.preview ? <img src={img.preview}/> : '' }
     </div>
   )
 }
