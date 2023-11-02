@@ -52,3 +52,15 @@ export const feedGET = ( token ) =>{
         }
     }
 }
+
+export const infoGET = ( token ) =>{
+    return {
+        url: API_URL + '/user/info',
+        options: {
+            method: 'get',
+            headers:{
+                Authorization : `Bearer ${token}`
+            }
+        }
+    }
+}
