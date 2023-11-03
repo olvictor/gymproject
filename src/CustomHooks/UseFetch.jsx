@@ -64,3 +64,17 @@ export const infoGET = ( token ) =>{
         }
     }
 }
+
+export const infoPOST = ( token, body ) =>{
+    return {
+        url: API_URL + '/user/info',
+        options: {
+            method: 'POST',
+            headers:{
+                'Content-Type' : 'application/json',
+                Authorization : `Bearer ${token}`
+            },
+            body: JSON.stringify(body)
+        }
+    }
+}

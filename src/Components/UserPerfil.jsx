@@ -1,11 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react'
+import { BsFillGearFill} from 'react-icons/bs'
 import styles from './UserPerfil.module.css'
 import { imc } from '../utlilitarios/imc'
-import { infoGET } from '../CustomHooks/UseFetch'
+import { infoGET, infoPOST } from '../CustomHooks/UseFetch'
 import { UserContext } from '../UserContext'
 import { calcularTMB } from '../utlilitarios/calcTMB'
 import Input from './Input'
-
+import UseForm from '../CustomHooks/UseForm'
 const UserPerfil = () => {
   const {data} = useContext(UserContext)
 
@@ -15,6 +16,15 @@ const UserPerfil = () => {
   const [idade , setIdade] = useState(null)
   const [sexo , setSexo] = useState(null)
   const [altura, setAltura] = useState(null)
+  const [nivelDeAtividade,setNivelDeAtividade] = useState(null)
+  const [objetivo,setObjetivo] = useState(null)
+  const [userObjetivo,setUserObjetivo] = useState(null)
+  const [userAtividade,setUserAtividade] = useState(null)
+
+  const userAltura = UseForm()
+  const userPeso = UseForm()
+  const userIdade = UseForm()
+  const userSexo = UseForm()
 
   
   useEffect(()=>{
@@ -25,11 +35,14 @@ const UserPerfil = () => {
       
       const response =  await fetch(url,options)
       const json = await response.json()
+      console.log(json)
       setPeso(json.peso)
       setAltura(json.altura)
       setIdade(json.idade)
       setSexo(json.sexo)
-      setUserInfo(false)
+      setNivelDeAtividade(json.nivel_de_atividade)
+      setObjetivo(json.objetivo)
+      setUserInfo(true)
       
     }
     buscarInformacoes()
@@ -39,10 +52,27 @@ const UserPerfil = () => {
   
   const imcINFO = imc(peso,altura);
   const tmb = calcularTMB(peso,sexo,'moderado')
-  console.log(tmb)
-  const handleSubmit = async () =>{
+  console.log(imcINFO)
+  const handleSubmit = async (e) =>{
+    e.preventDefault()
+    const token = window.localStorage.getItem('token')
+
+    const user = {
+     peso: userPeso.value,
+     altura: userAltura.value,
+     idade: userIdade.value,
+     sexo: userSexo.value,
+     nivel_de_atividade: userAtividade,
+     objetivo: userObjetivo
+    }
+
+    const {url , options} = infoPOST(token,user)
+    const response = await fetch(url,options);
+    const json =  await response.json()
 
   }
+
+
 
   return (
     
@@ -51,22 +81,21 @@ const UserPerfil = () => {
       {!userInfo ?  
         <div>
             <form onSubmit={handleSubmit} className={styles.formINFO}>
-                <Input type='text' label='Altura' />
-                <Input type='text' label='Peso' />
-                <Input type='text' label='Idade' />
-                <Input type='text' label='Sexo' />
-                <Input type='text' label='Nivel de atividade' />
-                <select defaultValue={0}>
+                <Input type='text' label='Altura' {...userAltura}/>
+                <Input type='text' label='Peso' {...userPeso}/>
+                <Input type='text' label='Idade'{...userIdade} />
+                <Input type='text' label='Sexo' {...userSexo} />
+                <select defaultValue={0} onChange={({target})=> setUserObjetivo(target.value)}>
                   <option value="0">Selecione o objetivo</option>
-                  <option value="1">Manter Peso</option>
-                  <option value="2">Ganhar Peso</option>
-                  <option value="3">Emagrecer</option>
+                  <option value="manter">Manter Peso</option>
+                  <option value="ganhar">Ganhar Peso</option>
+                  <option value="perder">Emagrecer</option>
                 </select>
-                <select defaultValue={0}>
+                <select defaultValue={0} onChange={({target})=> setUserAtividade(target.value)}>
                   <option value="0">Nivel de atividade</option>
-                  <option value="1">Leve</option>
-                  <option value="2">Moderado</option>
-                  <option value="3">Pesado</option>
+                  <option value="leve">Leve</option>
+                  <option value="moderado">Moderado</option>
+                  <option value="pesado">Pesado</option>
                 </select>
 
                 <button className={styles.buttonForm}>Enviar</button>
@@ -98,7 +127,21 @@ const UserPerfil = () => {
                 <label>Imc:</label>
                 <input type="text" placeholder={imcINFO.imc} disabled/>
               </div>
-      </div>}
+              <div className={styles.infoUser}>
+                <label>Classificação:</label>
+                <input type="text" placeholder={imcINFO.classificacao} disabled/>
+              </div>
+              <div className={styles.infoUser}>
+                <label>Nivel de Atividade:</label>
+                <input type="text" placeholder={nivelDeAtividade} disabled/>
+              </div>
+              <div className={styles.infoUser}>
+                <label>Objetivo:</label>
+                <input type="text" placeholder={`${objetivo} peso`} disabled/>
+              </div>
+              <BsFillGearFill />
+      </div>
+      }
       
 </div>
   )

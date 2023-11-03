@@ -16,7 +16,6 @@
 
 .containerUserInfo{
     width: 50%;
-    background-color: #cfcfcf;
     padding: 10px;
     display: flex;
     flex-direction: column;
@@ -66,4 +65,13 @@ select{
     font-weight: bolder;
     font-size: 1rem;
     cursor: pointer;
+}
+
+svg{
+    cursor: pointer;
+}
+
+
+svg:hover{
+    color: #ff5733;
 }
