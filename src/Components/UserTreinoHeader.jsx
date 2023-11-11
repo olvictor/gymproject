@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import styles from './UserTreino.module.css'
 
-const UserTreinoHeader = ({setMusculoAlvo}) => {
-const [bodyparts, setBodyParts] = useState([])
+const UserTreinoHeader = ({setExercisesShow}) => {
 
+const [bodyparts, setBodyParts] = useState([])
+const [musculoAlvo,setMusculoAlvo] = useState(null)
 const options = {
     method: 'GET',
     headers: {
@@ -17,7 +18,6 @@ const options = {
             const response = await fetch('https://exercisedb.p.rapidapi.com/exercises/bodyPartList',options)
             const json = await response.json()
             setBodyParts([...json])
-            console.log(bodyparts)
         }
         getBodyParts()
 
@@ -27,6 +27,22 @@ const options = {
             setMusculoAlvo(target.value)
     }
 
+
+    const handleClick = async () =>{
+      const options = {
+        method: 'GET',
+        headers: {
+          'X-RapidAPI-Key': 'f1c6fe8ad9msh54f8722877ef276p13b3bfjsn2b3b8d943027',
+          'X-RapidAPI-Host': 'exercisedb.p.rapidapi.com'
+        }
+      };
+  
+  
+      const response  =  await fetch(`https://exercisedb.p.rapidapi.com/exercises/bodyPart/${musculoAlvo}`,options)
+      const json = await response.json()
+      setExercisesShow(json)
+  
+    }
   return (
     <header className={styles.headerUsertreino}>
         <span>Selecione o grupamento muscular : </span>
@@ -37,7 +53,7 @@ const options = {
             ))}
         </select>
 
-        <button>Pesquisar</button>
+        <button onClick={handleClick}>Pesquisar</button>
     </header>
   )
 }

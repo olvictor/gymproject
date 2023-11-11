@@ -10,7 +10,7 @@ import { UserStorage } from './UserContext'
 const App = () => {
 
   return (
-      <> 
+      <main> 
         <BrowserRouter>
         <UserStorage>
           <Header />
@@ -21,7 +21,7 @@ const App = () => {
           </Routes>
         </UserStorage>
         </BrowserRouter>
-      </>
+      </main>
   )
 }
 

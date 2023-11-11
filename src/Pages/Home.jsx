@@ -6,7 +6,7 @@ import styles from './Home.module.css'
 
 const Home = () => {
   return (
-    <section className={`${styles.homeSection} container`}>
+    <section className={`${styles.homeSection} home container`}>
       <div className={styles.homeText}>
         <TyperAnimation texto={'Se for para sofrer que seja na academia. Lá a dor traz resultados.'} />
       </div>

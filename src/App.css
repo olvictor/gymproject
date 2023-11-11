@@ -1,11 +1,16 @@
 /* @import url('https://fonts.googleapis.com/css2?family=Young+Serif&display=swap'); */
-@import url('https://fonts.googleapis.com/css2?family=Spectral&display=swap');
-
+/* @import url('https://fonts.googleapis.com/css2?family=Spectral&display=swap'); */
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
 *{
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    font-family: 'Spectral', serif;
+    font-family: 'Anton', sans-serif;
+}
+main{
+    position: relative;
+    grid-template-columns: 1fr 3fr 1fr;
+    grid-template-rows: 50px calc(100vh - 50px);
 }
 
 
@@ -14,6 +19,11 @@ body{
     --cor-secundaria: #3a97d4;
     background-color: var(--cor-primaria);
     color: #fff;
+}
+
+.home{
+    display: flex;
+    grid-column: 1/2;
 }
 
 input{

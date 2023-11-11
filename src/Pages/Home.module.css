@@ -1,6 +1,6 @@
 .homeSection{
     display: flex;
-    position: relative;
+    grid-column: 1/2;
 }
 
 .homeText{
