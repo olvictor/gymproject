@@ -1,9 +1,14 @@
-.loginPage{
-    display: flex;
+.loginPage {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.loginBoxImg {
+  grid-column: 1/2;
+  height: 100%;
 }
 
-
-.loginPage img{
-    border-top-left-radius: 4px;
-    border-bottom-left-radius: 4px;
+.loginBoxImg img {
+  height: 100%;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
 }
