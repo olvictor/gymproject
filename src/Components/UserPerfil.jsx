@@ -48,7 +48,6 @@ const UserPerfil = () => {
 
   const imcINFO = imc(peso, altura);
   const tmb = calcularTMB(peso, sexo, "moderado");
-  console.log(imcINFO);
   const handleSubmit = async (e) => {
     e.preventDefault();
     const token = window.localStorage.getItem("token");

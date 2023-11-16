@@ -8,7 +8,8 @@ const UserFeed = () => {
   const [feed, setFeed] = useState([]);
   const [currentShow, setCurrentShow] = useState(null);
   const [openModal, setOpenModal] = useState(false);
-  const [itemModal, setItemModal] = useState(null);
+  const [currentItem, setCurrentItem] = useState(null);
+
   useEffect(() => {
     const token = window.localStorage.getItem("token");
     const { url, options } = feedGET(token);
@@ -22,8 +23,8 @@ const UserFeed = () => {
     buscarFeed();
   }, []);
 
-  const handleClick = (item) => {
-    setItemModal(item);
+  const handleClick = (index) => {
+    setCurrentItem(index);
     setOpenModal(true);
   };
 
@@ -36,7 +37,7 @@ const UserFeed = () => {
               key={index}
               onMouseEnter={() => setCurrentShow(index)}
               onMouseLeave={() => setCurrentShow(null)}
-              onClick={() => handleClick(item)}
+              onClick={() => handleClick(index)}
             >
               <img src={item.imagem_url} alt={item.conteudo} />
               <IoEyeSharp
@@ -51,7 +52,14 @@ const UserFeed = () => {
           ))
         : ""}
 
-      {openModal && <Modal item={itemModal} setOpenModal={setOpenModal} />}
+      {openModal && (
+        <Modal
+          feed={feed}
+          currentItem={currentItem}
+          setCurrentItem={setCurrentItem}
+          setOpenModal={setOpenModal}
+        />
+      )}
     </div>
   );
 };

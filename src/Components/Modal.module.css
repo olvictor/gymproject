@@ -11,8 +11,84 @@
 }
 
 .modalContent {
-  background-color: white;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: grid;
+  grid-template-columns: 1.25fr 0.75fr;
+  grid-template-rows: 1fr;
+  height: 80%;
+}
+
+.modalLeft {
+  grid-column: 1/2;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+.modalLeft img {
+  height: 100%;
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+}
+.modalLeft svg:hover {
+  filter: drop-shadow(0px 0px 5px #1bfaad);
+}
+.left {
+  position: absolute;
+  left: 0;
+  top: 45%;
+}
+
+.right {
+  position: absolute;
+  right: 0;
+  top: 45%;
+}
+
+.rightModal {
+  position: relative;
+  grid-column: 2/3;
+  background-color: white;
+  padding: 10px;
+  color: black;
+  display: grid;
+  grid-template-rows: 1fr 0.25fr;
+}
+
+.close {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.rightModalPostInfo {
+  grid-row: 1/2;
+}
+.rightModalComentario {
+  display: flex;
+  grid-row: 2/3;
+  height: 100%;
+  width: 100%;
+  align-items: center;
+  text-align: center;
+  gap: 10px;
+}
+.rightModalComentario input {
+  background-color: gray;
+  filter: saturate(70%);
+  outline: none;
+  color: #fff;
+}
+.rightModalComentario input::placeholder {
+  color: #fff;
+}
+.rightModalComentario button {
+  outline: none;
+  border: none;
+  cursor: pointer;
+  background-color: #1bfaad;
+  padding: 6px;
+  border-radius: 8px;
+  color: #fff;
 }
