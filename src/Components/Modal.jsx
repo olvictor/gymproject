@@ -15,7 +15,7 @@ const Modal = ({ feed, currentItem, setCurrentItem, setOpenModal }) => {
       const token = window.localStorage.getItem("token");
 
       const response = await fetch(
-        `http://localhost:3000/comentario/${post_id}`,
+        `http://localhost:3000/comentarios/${post_id}`,
         {
           method: "GET",
           headers: {
@@ -84,7 +84,10 @@ const Modal = ({ feed, currentItem, setCurrentItem, setOpenModal }) => {
             <ul>
               {comentarios &&
                 comentarios.map((item) => (
-                  <li key={item.id}>{item.comentario}</li>
+                  <li className={styles.itemComentario} key={item.id}>
+                    <img src={item.usuario_photo} alt="Foto perfil" />
+                    <i>{item.comentario}</i>
+                  </li>
                 ))}
             </ul>
           </div>
