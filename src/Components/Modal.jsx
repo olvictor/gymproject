@@ -28,7 +28,6 @@ const Modal = ({ feed, currentItem, setCurrentItem, setOpenModal }) => {
     };
     buscarComentarios();
   }, [currentItem]);
-  console.log(comentarios);
   const leftClick = () => {
     if (currentItem > 0) {
       setCurrentItem(currentItem - 1);
@@ -40,6 +39,10 @@ const Modal = ({ feed, currentItem, setCurrentItem, setOpenModal }) => {
       setCurrentItem(currentItem + 1);
     }
   };
+
+  const dataCurrentItem = new Date(
+    feed[currentItem].data_publicacao
+  ).toLocaleString("pt-BR", { timezone: "UTC" });
 
   return (
     <div className={`${styles.modal} container`}>
@@ -79,16 +82,29 @@ const Modal = ({ feed, currentItem, setCurrentItem, setOpenModal }) => {
             </h3>
             <h4>
               {" "}
-              <MdOutlineDateRange /> {feed[currentItem].data_publicacao}
+              <MdOutlineDateRange /> {dataCurrentItem}
             </h4>
             <ul>
               {comentarios &&
-                comentarios.map((item) => (
-                  <li className={styles.itemComentario} key={item.id}>
-                    <img src={item.usuario_photo} alt="Foto perfil" />
-                    <i>{item.comentario}</i>
-                  </li>
-                ))}
+                comentarios.map((item) => {
+                  const data = new Date(item.data_comentario).toLocaleString(
+                    "pt-BR",
+                    { timezone: "UTC" }
+                  );
+                  console.log(item);
+                  return (
+                    <li className={styles.itemComentario} key={item.id}>
+                      <img src={item.usuario_photo} alt="Foto perfil" />
+                      <div className={styles.itemComentarioInfo}>
+                        <p className={styles.itemComentarioInfoData}>{data}</p>
+                        <p className={styles.itemComentarioInfoUsuario}>
+                          {item.usuario_username}
+                        </p>
+                        <p>{item.comentario}</p>
+                      </div>
+                    </li>
+                  );
+                })}
             </ul>
           </div>
           <div className={styles.rightModalComentario}>

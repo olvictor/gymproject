@@ -72,10 +72,13 @@
   width: 100%;
   align-items: center;
   text-align: center;
+  justify-content: center;
   gap: 10px;
 }
 
 .rightModalComentario input {
+  width: 80%;
+  height: 40px;
   background-color: gray;
   filter: saturate(70%);
   outline: none;
@@ -85,6 +88,8 @@
   color: #fff;
 }
 .rightModalComentario button {
+  height: 40px;
+  width: 20%;
   outline: none;
   border: none;
   cursor: pointer;
@@ -99,7 +104,32 @@
   gap: 10px;
 }
 .itemComentario {
-  background-color: red;
   border-radius: 6px;
+  height: 50px;
   display: flex;
+  position: relative;
+  align-items: center;
+  text-align: center;
+}
+
+.itemComentario img {
+  height: 100%;
+}
+.itemComentarioInfo {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.7rem;
+  font-style: italic;
+  padding: 3px;
+}
+.itemComentarioInfoData {
+  position: absolute;
+  font-size: 0.77rem;
+  color: blue;
+  top: 0;
+  right: 0;
+}
+.itemComentarioInfoUsuario {
+  font-size: 1.1rem;
+  text-align: left;
 }

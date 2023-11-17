@@ -1,30 +1,34 @@
 import React, { useContext, useEffect, useState } from "react";
+import { UserContext } from "../UserContext";
 import { BsFillGearFill } from "react-icons/bs";
-import styles from "./UserPerfil.module.css";
 import { imc } from "../utlilitarios/imc";
 import { infoGET, infoPOST } from "../CustomHooks/UseFetch";
-import { UserContext } from "../UserContext";
 import { calcularTMB } from "../utlilitarios/calcTMB";
 import Input from "./Input";
 import UseForm from "../CustomHooks/UseForm";
-const UserPerfil = () => {
-  const { data } = useContext(UserContext);
+import styles from "./UserPerfil.module.css";
 
-  const [userInfo, setUserInfo] = useState(true);
+const UserPerfil = () => {
+  const [userInfo, setUserInfo] = useState(false);
   const [nome, setNome] = useState(null);
   const [peso, setPeso] = useState(null);
   const [idade, setIdade] = useState(null);
   const [sexo, setSexo] = useState(null);
   const [altura, setAltura] = useState(null);
+  const [classificacao, setClassificacao] = useState(null);
   const [nivelDeAtividade, setNivelDeAtividade] = useState(null);
+  const [imcValue, setImcValue] = useState(null);
   const [objetivo, setObjetivo] = useState(null);
   const [userObjetivo, setUserObjetivo] = useState(null);
   const [userAtividade, setUserAtividade] = useState(null);
+  const [userSexo, setUserSexo] = useState(null);
+  const { data } = useContext(UserContext);
 
+  console.log(data);
+  const userNome = UseForm();
   const userAltura = UseForm();
   const userPeso = UseForm();
   const userIdade = UseForm();
-  const userSexo = UseForm();
 
   useEffect(() => {
     const buscarInformacoes = async () => {
@@ -34,53 +38,72 @@ const UserPerfil = () => {
 
       const response = await fetch(url, options);
       const json = await response.json();
-      console.log(json);
-      setPeso(json.peso);
-      setAltura(json.altura);
-      setIdade(json.idade);
-      setSexo(json.sexo);
-      setNivelDeAtividade(json.nivel_de_atividade);
-      setObjetivo(json.objetivo);
-      setUserInfo(true);
+      if (response.ok) {
+        setNome(json.nome);
+        setPeso(json.peso);
+        setAltura(json.altura);
+        setIdade(json.idade);
+        setSexo(json.sexo);
+        setImcValue(json.imc);
+        setClassificacao(json.imc_classificacao);
+        setNivelDeAtividade(json.nivel_de_atividade);
+        setObjetivo(json.objetivo);
+        setUserInfo(true);
+      }
     };
     buscarInformacoes();
   }, []);
 
-  const imcINFO = imc(peso, altura);
+  const imcINFO = imc(userPeso.value, userAltura.value);
   const tmb = calcularTMB(peso, sexo, "moderado");
   const handleSubmit = async (e) => {
     e.preventDefault();
     const token = window.localStorage.getItem("token");
 
     const user = {
+      nome: userNome.value,
       peso: userPeso.value,
       altura: userAltura.value,
       idade: userIdade.value,
-      sexo: userSexo.value,
+      sexo: userSexo,
       nivel_de_atividade: userAtividade,
+      imc: imcINFO.imc,
+      imc_classificacao: imcINFO.resultado[0].classificacao,
       objetivo: userObjetivo,
     };
 
     const { url, options } = infoPOST(token, user);
     const response = await fetch(url, options);
     const json = await response.json();
+    if (response.ok) {
+      setUserInfo(true);
+    }
   };
 
   return (
     <div className={styles.containerPerfil}>
-      <h1 className={styles.tituloUser}>Perfil do usuário</h1>
+      <BsFillGearFill className={styles.svgEditar} />
       {!userInfo ? (
         <div>
           <form onSubmit={handleSubmit} className={styles.formINFO}>
+            <Input type="text" label="Nome" {...userNome} />
             <Input type="text" label="Altura" {...userAltura} />
             <Input type="text" label="Peso" {...userPeso} />
             <Input type="text" label="Idade" {...userIdade} />
-            <Input type="text" label="Sexo" {...userSexo} />
+            <select
+              defaultValue={0}
+              onChange={({ target }) => setUserSexo(target.value)}
+            >
+              <option value="0">Selecione o seu sexo</option>
+              <option value="masculino">Masculino</option>
+              <option value="feminino">Feminino</option>
+            </select>
+
             <select
               defaultValue={0}
               onChange={({ target }) => setUserObjetivo(target.value)}
             >
-              <option value="0">Selecione o objetivo</option>
+              <option value="0">Selecione o seu objetivo</option>
               <option value="manter">Manter Peso</option>
               <option value="ganhar">Ganhar Peso</option>
               <option value="perder">Emagrecer</option>
@@ -100,43 +123,46 @@ const UserPerfil = () => {
         </div>
       ) : (
         <div className={styles.containerUserInfo}>
-          <div className={styles.infoUser}>
-            <label>Nome:</label>
-            <input type="text" placeholder={data && data.username} disabled />
+          <div className={styles.boxUsuario}>
+            <img src={data && data.user_photo} alt="" />
+            <h3 className={styles.userNome}>{nome}</h3>
           </div>
           <div className={styles.infoUser}>
-            <label>idade:</label>
-            <input type="text" placeholder={`${idade} anos`} disabled />
+            <h4>Idade :</h4>
+            <p>{idade}</p>
           </div>
           <div className={styles.infoUser}>
-            <label>Altura:</label>
-            <input type="text" placeholder={`${altura} metros`} disabled />
+            <h4>Altura :</h4>
+            <p>{altura}</p>
           </div>
           <div className={styles.infoUser}>
-            <label>Peso:</label>
-            <input type="text" placeholder={`${peso} kg`} disabled />
+            <h4>Peso :</h4>
+            <p>{`${peso} KG`}</p>
           </div>
           <div className={styles.infoUser}>
-            <label>Sexo:</label>
-            <input type="text" placeholder={sexo} disabled />
+            <h4>Sexo :</h4>
+            <p>{sexo}</p>
           </div>
           <div className={styles.infoUser}>
-            <label>Imc:</label>
-            <input type="text" placeholder={imcINFO.imc} disabled />
+            <div className={styles.infoUser}>
+              <h4>IMC :</h4>
+              <p>{imcValue} </p>
+            </div>
           </div>
           <div className={styles.infoUser}>
-            <label>Classificação:</label>
-            <input type="text" placeholder={imcINFO.classificacao} disabled />
+            <div className={styles.infoUser}>
+              <h4>Classificacao :</h4>
+              <p>{classificacao}</p>
+            </div>
           </div>
           <div className={styles.infoUser}>
-            <label>Nivel de Atividade:</label>
-            <input type="text" placeholder={nivelDeAtividade} disabled />
+            <h4>Nivel de Atividade :</h4>
+            <p>{nivelDeAtividade}</p>
           </div>
           <div className={styles.infoUser}>
-            <label>Objetivo:</label>
-            <input type="text" placeholder={`${objetivo} peso`} disabled />
+            <h4>Objetivo :</h4>
+            <p>{`${objetivo} peso`}</p>
           </div>
-          <BsFillGearFill />
         </div>
       )}
     </div>
