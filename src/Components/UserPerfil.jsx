@@ -4,6 +4,15 @@ import { BsFillGearFill } from "react-icons/bs";
 import { imc } from "../utlilitarios/imc";
 import { infoGET, infoPOST } from "../CustomHooks/UseFetch";
 import { calcularTMB } from "../utlilitarios/calcTMB";
+import { LiaBirthdayCakeSolid } from "react-icons/lia";
+import { GiBodyHeight } from "react-icons/gi";
+import { FaScaleBalanced } from "react-icons/fa6";
+import { PiGenderIntersexDuotone } from "react-icons/pi";
+import { GoGoal } from "react-icons/go";
+import { HiOutlineAnnotation } from "react-icons/hi";
+import { IoIosCalculator } from "react-icons/io";
+import { MdDirectionsRun } from "react-icons/md";
+
 import Input from "./Input";
 import UseForm from "../CustomHooks/UseForm";
 import styles from "./UserPerfil.module.css";
@@ -24,7 +33,6 @@ const UserPerfil = () => {
   const [userSexo, setUserSexo] = useState(null);
   const { data } = useContext(UserContext);
 
-  console.log(data);
   const userNome = UseForm();
   const userAltura = UseForm();
   const userPeso = UseForm();
@@ -56,6 +64,7 @@ const UserPerfil = () => {
 
   const imcINFO = imc(userPeso.value, userAltura.value);
   const tmb = calcularTMB(peso, sexo, "moderado");
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const token = window.localStorage.getItem("token");
@@ -127,41 +136,62 @@ const UserPerfil = () => {
             <img src={data && data.user_photo} alt="" />
             <h3 className={styles.userNome}>{nome}</h3>
           </div>
-          <div className={styles.infoUser}>
-            <h4>Idade :</h4>
-            <p>{idade}</p>
-          </div>
-          <div className={styles.infoUser}>
-            <h4>Altura :</h4>
-            <p>{altura}</p>
-          </div>
-          <div className={styles.infoUser}>
-            <h4>Peso :</h4>
-            <p>{`${peso} KG`}</p>
-          </div>
-          <div className={styles.infoUser}>
-            <h4>Sexo :</h4>
-            <p>{sexo}</p>
-          </div>
-          <div className={styles.infoUser}>
+          <div
+            style={{ display: "flex", flexDirection: "column", gap: "10px" }}
+          >
             <div className={styles.infoUser}>
-              <h4>IMC :</h4>
-              <p>{imcValue} </p>
+              <LiaBirthdayCakeSolid />
+              <h4>Idade :</h4>
+              <p>{`${idade} anos`}</p>
+            </div>
+            <div className={styles.infoUser}>
+              <GiBodyHeight />
+              <h4>Altura :</h4>
+              <p>{`${altura} m`}</p>
+            </div>
+            <div className={styles.infoUser}>
+              <FaScaleBalanced />
+              <h4>Peso :</h4>
+              <p>{`${peso} KG`}</p>
+            </div>
+            <div className={styles.infoUser}>
+              <PiGenderIntersexDuotone />
+              <h4>Sexo :</h4>
+              <p>{sexo}</p>
+            </div>
+            <div className={styles.infoUser}>
+              <div className={styles.infoUser}>
+                <IoIosCalculator />
+                <h4>IMC :</h4>
+                <p>{imcValue} </p>
+              </div>
+            </div>
+            <div className={styles.infoUser}>
+              <div className={styles.infoUser}>
+                <HiOutlineAnnotation />
+                <h4>Classificacao :</h4>
+                <p>{classificacao}</p>
+              </div>
+            </div>
+            <div className={styles.infoUser}>
+              <MdDirectionsRun />
+              <h4>Nivel de Atividade :</h4>
+              <p>{nivelDeAtividade}</p>
+            </div>
+            <div className={styles.infoUser}>
+              <GoGoal />
+              <h4>Objetivo :</h4>
+              <p>{`${objetivo} peso`}</p>
             </div>
           </div>
-          <div className={styles.infoUser}>
-            <div className={styles.infoUser}>
-              <h4>Classificacao :</h4>
-              <p>{classificacao}</p>
+          <div>
+            <h2>
+              Quantidadade de calorias necessárias para o seu objetivo : {tmb}{" "}
+              kcal
+            </h2>
+            <div className={styles.barraDeProgresso}>
+              <div></div>
             </div>
-          </div>
-          <div className={styles.infoUser}>
-            <h4>Nivel de Atividade :</h4>
-            <p>{nivelDeAtividade}</p>
-          </div>
-          <div className={styles.infoUser}>
-            <h4>Objetivo :</h4>
-            <p>{`${objetivo} peso`}</p>
           </div>
         </div>
       )}
