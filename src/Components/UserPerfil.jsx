@@ -136,9 +136,7 @@ const UserPerfil = () => {
             <img src={data && data.user_photo} alt="" />
             <h3 className={styles.userNome}>{nome}</h3>
           </div>
-          <div
-            style={{ display: "flex", flexDirection: "column", gap: "10px" }}
-          >
+          <div className={styles.boxUsuarioInformacoes}>
             <div className={styles.infoUser}>
               <LiaBirthdayCakeSolid />
               <h4>Idade :</h4>
@@ -184,13 +182,25 @@ const UserPerfil = () => {
               <p>{`${objetivo} peso`}</p>
             </div>
           </div>
-          <div>
+          <div className={styles.infoUserCalorias}>
             <h2>
-              Quantidadade de calorias necessárias para o seu objetivo : {tmb}{" "}
-              kcal
+              Quantidadade de calorias necessárias para o seu objetivo : kcal
             </h2>
-            <div className={styles.barraDeProgresso}>
-              <div></div>
+            <div className={styles.infoCircle}>
+              <svg>
+                <circle
+                  cx="150"
+                  cy="100"
+                  r="90"
+                  fill="#1bfaad"
+                  stroke="#fff"
+                  stroke-width={3}
+                ></circle>
+                <circle cx="150" cy="100" r="75" fill="#1a2037"></circle>
+              </svg>
+              <div className={styles.infoCircleNumber}>
+                <h3>{tmb} kcal</h3>
+              </div>
             </div>
           </div>
         </div>
