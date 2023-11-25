@@ -2,20 +2,22 @@ import React, { useState } from "react";
 import styles from "./RegistroForm.module.css";
 import Input from "./Input";
 import UseForm from "../CustomHooks/UseForm";
+import axios from "axios";
 import { userRegister } from "../CustomHooks/UseFetch";
 import { useNavigate } from "react-router-dom";
 import { useMutation } from "react-query";
-import axios from "axios";
+
 const RegistroForm = () => {
   const [error, setError] = useState(null);
 
   const usuario = UseForm();
-  const email = UseForm();
+  const email = UseForm("email");
   const senha = UseForm();
 
   const { url, options } = userRegister();
 
   const navigate = useNavigate();
+
   const mutation = useMutation({
     mutationFn: (user) => {
       return axios.post(url, user).then((response) => response.data);
@@ -27,15 +29,16 @@ const RegistroForm = () => {
       return error.response;
     },
   });
-  console.log(mutation.error);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    mutation.mutate({
-      username: usuario.value,
-      email: email.value,
-      senha: senha.value,
-    });
+    if (usuario.value && email.value && senha.value) {
+      mutation.mutate({
+        username: usuario.value,
+        email: email.value,
+        senha: senha.value,
+      });
+    }
   };
 
   return (
@@ -48,12 +51,15 @@ const RegistroForm = () => {
         {mutation.isError && (
           <p className="error">{mutation.error.response.data.mensagem}</p>
         )}
-        <button
-          className={styles.buttonForm}
-          disabled={mutation.isLoading ? true : false}
-        >
-          Registrar
-        </button>
+        {mutation.isLoading ? (
+          <button className={styles.buttonForm} disabled={true}>
+            Cadastrando...
+          </button>
+        ) : (
+          <button className={styles.buttonForm} disabled={false}>
+            Registrar
+          </button>
+        )}
       </form>
     </div>
   );

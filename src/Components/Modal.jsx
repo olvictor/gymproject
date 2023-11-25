@@ -5,41 +5,61 @@ import { FaArrowLeft } from "react-icons/fa";
 import { FaArrowRight } from "react-icons/fa";
 import { PiSubtitlesLight } from "react-icons/pi";
 import { MdOutlineDateRange } from "react-icons/md";
+import { useQuery } from "react-query";
+import axios from "axios";
 
 const Modal = ({ feed, currentItem, setCurrentItem, setOpenModal }) => {
   const [comentarios, setComentarios] = useState([]);
+  let post_id = feed[currentItem].id;
+  const token = window.localStorage.getItem("token");
 
-  useEffect(() => {
-    const buscarComentarios = async () => {
-      const post_id = feed[currentItem].id;
-      const token = window.localStorage.getItem("token");
+  const axiosConfig = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
 
-      const response = await fetch(
-        `http://localhost:3000/comentarios/${post_id}`,
-        {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      const json = await response.json();
-      setComentarios([...json]);
-    };
-    buscarComentarios();
-  }, [currentItem]);
+  console.log(post_id);
+
+  const { data, isLoading, refetch } = useQuery(
+    "getComentarios",
+    async () => {
+      return await axios
+        .get(`http://localhost:3000/comentarios/${post_id}`, axiosConfig)
+        .then((response) => response.data);
+    },
+    {
+      retry: false,
+      initialData: [],
+      onSuccess: (data) => {
+        setComentarios(data);
+      },
+      onError: () => {
+        setComentarios([]);
+      },
+    }
+  );
+
   const leftClick = () => {
     if (currentItem > 0) {
       setCurrentItem(currentItem - 1);
+      post_id -= 1;
+      refetch();
     }
   };
 
   const rightClick = () => {
     if (currentItem < feed.length - 1) {
       setCurrentItem(currentItem + 1);
+      post_id += 1;
+      refetch();
     }
   };
 
+  if (isLoading) {
+    return <div>Carregando...</div>;
+  }
+  console.log(comentarios);
   const dataCurrentItem = new Date(
     feed[currentItem].data_publicacao
   ).toLocaleString("pt-BR", { timezone: "UTC" });
@@ -81,7 +101,6 @@ const Modal = ({ feed, currentItem, setCurrentItem, setOpenModal }) => {
               <PiSubtitlesLight /> {feed[currentItem].conteudo}
             </h3>
             <h4>
-              {" "}
               <MdOutlineDateRange /> {dataCurrentItem}
             </h4>
             <ul>
@@ -91,16 +110,17 @@ const Modal = ({ feed, currentItem, setCurrentItem, setOpenModal }) => {
                     "pt-BR",
                     { timezone: "UTC" }
                   );
-                  console.log(item);
                   return (
                     <li className={styles.itemComentario} key={item.id}>
                       <img src={item.usuario_photo} alt="Foto perfil" />
                       <div className={styles.itemComentarioInfo}>
+                        <div className={styles.itemComentarioBox}>
+                          <h5 className={styles.itemComentarioInfoUsuario}>
+                            {item.usuario_username}
+                          </h5>
+                          <p>{item.comentario}</p>
+                        </div>
                         <p className={styles.itemComentarioInfoData}>{data}</p>
-                        <p className={styles.itemComentarioInfoUsuario}>
-                          {item.usuario_username}
-                        </p>
-                        <p>{item.comentario}</p>
                       </div>
                     </li>
                   );
@@ -108,7 +128,7 @@ const Modal = ({ feed, currentItem, setCurrentItem, setOpenModal }) => {
             </ul>
           </div>
           <div className={styles.rightModalComentario}>
-            <input type="text" placeholder="Digite um comentário" />{" "}
+            <input type="text" placeholder="Digite um comentário" />
             <button>Comentar</button>
           </div>
         </div>

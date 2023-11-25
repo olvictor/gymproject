@@ -110,26 +110,35 @@
   position: relative;
   align-items: center;
   text-align: center;
+  background-color: rgba(128, 128, 128, 0.5);
+  padding: 5px;
 }
 
 .itemComentario img {
   height: 100%;
+  border-radius: 50%;
+}
+
+.itemComentarioBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .itemComentarioInfo {
   display: flex;
   flex-direction: column;
-  font-size: 0.7rem;
   font-style: italic;
   padding: 3px;
 }
 .itemComentarioInfoData {
   position: absolute;
-  font-size: 0.77rem;
-  color: blue;
+  font-size: 0.7rem;
+  color: black;
   top: 0;
-  right: 0;
+  right: 5px;
 }
 .itemComentarioInfoUsuario {
   font-size: 1.1rem;
   text-align: left;
+  background-color: red;
 }
