@@ -89,6 +89,5 @@ header select {
 }
 
 .container {
-  margin-top: 50px;
   grid-column: 2/3;
 }

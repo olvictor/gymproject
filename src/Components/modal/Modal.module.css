@@ -3,7 +3,7 @@
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: 60vh;
   background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
@@ -30,6 +30,8 @@
   height: 100%;
   border-top-left-radius: 8px;
   border-bottom-left-radius: 8px;
+  object-fit: cover;
+  object-position: bottom;
 }
 .modalLeft svg:hover {
   filter: drop-shadow(0px 0px 5px #1bfaad);
@@ -53,7 +55,7 @@
   padding: 10px;
   color: black;
   display: grid;
-  grid-template-rows: 1fr 0.25fr;
+  grid-template-rows: 1fr 0.35fr;
 }
 
 .close {
@@ -103,6 +105,24 @@
   flex-direction: column;
   gap: 10px;
 }
+.postInfoTittleData {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  height: 20%;
+  gap: 20px;
+}
+.postInfoTittleData svg {
+  font-size: 2rem;
+}
+.postInfoTittleData h3 {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  gap: 5px;
+}
 .itemComentario {
   border-radius: 6px;
   height: 50px;
@@ -124,6 +144,11 @@
   flex-direction: column;
   align-items: center;
 }
+.itemComentarioBox p {
+  align-self: flex-start;
+  font-size: 0.8rem;
+}
+
 .itemComentarioInfo {
   display: flex;
   flex-direction: column;
@@ -139,6 +164,9 @@
 }
 .itemComentarioInfoUsuario {
   font-size: 1.1rem;
-  text-align: left;
-  background-color: red;
+  align-self: flex-start;
+}
+.itemComentarioInfoUsuario:hover {
+  text-decoration: underline;
+  cursor: pointer;
 }

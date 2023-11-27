@@ -3,6 +3,7 @@ import { feedGET } from "../../CustomHooks/UseFetch";
 import styles from "./UserFeed.module.css";
 import { IoEyeSharp } from "react-icons/io5";
 import Modal from "../modal/Modal";
+import Loading from "../loading/Loading";
 import { useQuery } from "react-query";
 import axios from "axios";
 
@@ -10,7 +11,7 @@ const UserFeed = () => {
   const [currentShow, setCurrentShow] = useState(null);
   const [openModal, setOpenModal] = useState(false);
   const [currentItem, setCurrentItem] = useState(null);
-
+  const [loading, setLoading] = useState(true);
   const token = window.localStorage.getItem("token");
   const { url } = feedGET(token);
 
@@ -35,11 +36,14 @@ const UserFeed = () => {
     {
       retry: false,
       refetchOnWindowFocus: false,
+      onError: () => {
+        isLoading = true;
+      },
     }
   );
 
   if (isLoading) {
-    return <div>Carregando...</div>;
+    return <Loading />;
   }
 
   return (

@@ -1,0 +1,30 @@
+.boxLoading {
+  background-color: rgba(0, 0, 0, 0.4);
+  height: 100%;
+  width: 100%;
+  border-radius: 16px;
+}
+
+.carregando {
+  display: block;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 8px solid #1bfaad;
+  border-top: 12px solid transparent;
+  background-color: transparent;
+  animation: loading 1s linear infinite;
+  position: absolute;
+  top: 60%;
+  left: 50%;
+}
+
+@keyframes loading {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}

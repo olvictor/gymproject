@@ -83,7 +83,7 @@ const Modal = ({ feed, currentItem, setCurrentItem, setOpenModal }) => {
   ).toLocaleString("pt-BR", { timezone: "UTC" });
 
   return (
-    <div className={`${styles.modal} container`}>
+    <div className={`${styles.modal}`}>
       <div className={styles.modalContent}>
         <div className={styles.modalLeft}>
           <img
@@ -115,12 +115,14 @@ const Modal = ({ feed, currentItem, setCurrentItem, setOpenModal }) => {
             onClick={() => setOpenModal(null)}
           />
           <div className={styles.rightModalPostInfo}>
-            <h3>
-              <PiSubtitlesLight /> {feed[currentItem].conteudo}
-            </h3>
-            <h4>
-              <MdOutlineDateRange /> {dataCurrentItem}
-            </h4>
+            <div className={styles.postInfoTittleData}>
+              <h3>
+                <PiSubtitlesLight /> {feed[currentItem].conteudo}
+              </h3>
+              <h3>
+                <MdOutlineDateRange /> {dataCurrentItem}
+              </h3>
+            </div>
             <ul>
               {comentarios &&
                 comentarios.map((item) => {
