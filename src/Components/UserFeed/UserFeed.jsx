@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { feedGET } from "../CustomHooks/UseFetch";
+import { feedGET } from "../../CustomHooks/UseFetch";
 import styles from "./UserFeed.module.css";
 import { IoEyeSharp } from "react-icons/io5";
-import Modal from "./Modal";
+import Modal from "../modal/Modal";
 import { useQuery } from "react-query";
 import axios from "axios";
 

@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
 import styles from "./Header.module.css";
 import { Link } from "react-router-dom";
-import Dumbbell from "../Assets/dumbbell.svg";
-import { UserContext } from "../UserContext";
+import Dumbbell from "../../Assets/dumbbell.svg";
+import { UserContext } from "../../UserContext";
 import { FaUserCircle } from "react-icons/fa";
 
 const Header = () => {

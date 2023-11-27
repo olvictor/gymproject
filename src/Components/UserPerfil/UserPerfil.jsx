@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
-import { UserContext } from "../UserContext";
+import { UserContext } from "../../UserContext";
 import { BsFillGearFill } from "react-icons/bs";
-import { imc } from "../utlilitarios/imc";
-import { infoGET, infoPOST } from "../CustomHooks/UseFetch";
-import { calcularTMB } from "../utlilitarios/calcTMB";
+import { imc } from "../../utlilitarios/imc";
+import { infoGET, infoPOST } from "../../CustomHooks/UseFetch";
+import { calcularTMB } from "../../utlilitarios/calcTMB";
 import { LiaBirthdayCakeSolid } from "react-icons/lia";
 import { GiBodyHeight } from "react-icons/gi";
 import { FaScaleBalanced } from "react-icons/fa6";
@@ -13,8 +13,8 @@ import { HiOutlineAnnotation } from "react-icons/hi";
 import { IoIosCalculator } from "react-icons/io";
 import { MdDirectionsRun } from "react-icons/md";
 
-import Input from "./Input";
-import UseForm from "../CustomHooks/UseForm";
+import Input from "../input/Input";
+import UseForm from "../../CustomHooks/UseForm";
 import styles from "./UserPerfil.module.css";
 
 const UserPerfil = () => {

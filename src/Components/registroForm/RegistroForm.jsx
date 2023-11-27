@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import styles from "./RegistroForm.module.css";
-import Input from "./Input";
-import UseForm from "../CustomHooks/UseForm";
+import Input from "../input/Input";
+import UseForm from "../../CustomHooks/UseForm";
 import axios from "axios";
-import { userRegister } from "../CustomHooks/UseFetch";
+import { userRegister } from "../../CustomHooks/UseFetch";
 import { useNavigate } from "react-router-dom";
 import { useMutation } from "react-query";
 

@@ -1,5 +1,5 @@
 import React from "react";
-import TyperAnimation from "../Components/TyperAnimation";
+import TyperAnimation from "../Components/TyperAnimation/TyperAnimation";
 import alexander from "../Assets/alexander.jpg";
 import styles from "./Home.module.css";
 

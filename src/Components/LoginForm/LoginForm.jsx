@@ -1,9 +1,9 @@
 import React, { useContext, useEffect } from "react";
 import { Link, json } from "react-router-dom";
 import styles from "./LoginForm.module.css";
-import Input from "./Input";
-import UseForm from "../CustomHooks/UseForm";
-import { UserContext } from "../UserContext";
+import Input from "../input/Input";
+import UseForm from "../../CustomHooks/UseForm";
+import { UserContext } from "../../UserContext";
 
 const LoginForm = () => {
   const username = UseForm();

@@ -1,10 +1,10 @@
 import React from "react";
-import Input from "../Components/Input";
-import UseForm from "../CustomHooks/UseForm";
+import Input from "../input/Input";
+import UseForm from "../../CustomHooks/UseForm";
 import styles from "./UserPost.module.css";
 
 import { useState } from "react";
-import { userPOST } from "../CustomHooks/UseFetch";
+import { userPOST } from "../../CustomHooks/UseFetch";
 import { useNavigate } from "react-router-dom";
 
 const UserPost = () => {

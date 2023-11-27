@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import LoginForm from "../Components/LoginForm";
-import RegistroForm from "../Components/RegistroForm";
+import LoginForm from "../Components/LoginForm/LoginForm";
+import RegistroForm from "../Components/registroForm/RegistroForm";
 import Spencer from "../Assets/spencer.jpg";
 import styles from "./Login.module.css";
 
