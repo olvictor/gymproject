@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from "react";
 import styles from "./Modal.module.css";
+import UseForm from "../../CustomHooks/UseForm";
+import Input from "../input/Input";
 import { IoMdClose } from "react-icons/io";
 import { FaArrowLeft } from "react-icons/fa";
 import { FaArrowRight } from "react-icons/fa";
 import { PiSubtitlesLight } from "react-icons/pi";
 import { MdOutlineDateRange } from "react-icons/md";
-import { useQuery } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import axios from "axios";
 
 const Modal = ({ feed, currentItem, setCurrentItem, setOpenModal }) => {
   const [comentarios, setComentarios] = useState([]);
+  const comentario = UseForm();
   let post_id = feed[currentItem].id;
   const token = window.localStorage.getItem("token");
 
@@ -18,8 +21,6 @@ const Modal = ({ feed, currentItem, setCurrentItem, setOpenModal }) => {
       Authorization: `Bearer ${token}`,
     },
   };
-
-  console.log(post_id);
 
   const { data, isLoading, refetch } = useQuery(
     "getComentarios",
@@ -56,10 +57,27 @@ const Modal = ({ feed, currentItem, setCurrentItem, setOpenModal }) => {
     }
   };
 
+  const mutation = useMutation({
+    mutationFn: async () => {
+      return await axios
+        .post(
+          `http://localhost:3000/comentarios`,
+          {
+            post_id,
+            comentario: comentario.value,
+          },
+          axiosConfig
+        )
+        .then((response) => response.data);
+    },
+    onSuccess: () => {
+      refetch();
+    },
+  });
+
   if (isLoading) {
     return <div>Carregando...</div>;
   }
-  console.log(comentarios);
   const dataCurrentItem = new Date(
     feed[currentItem].data_publicacao
   ).toLocaleString("pt-BR", { timezone: "UTC" });
@@ -128,8 +146,12 @@ const Modal = ({ feed, currentItem, setCurrentItem, setOpenModal }) => {
             </ul>
           </div>
           <div className={styles.rightModalComentario}>
-            <input type="text" placeholder="Digite um comentário" />
-            <button>Comentar</button>
+            <Input type="text" placeholder="Comente..." {...comentario} />
+            {mutation.isLoading ? (
+              <button disabled>Comentando...</button>
+            ) : (
+              <button onClick={() => mutation.mutate()}>Comentar</button>
+            )}
           </div>
         </div>
       </div>
