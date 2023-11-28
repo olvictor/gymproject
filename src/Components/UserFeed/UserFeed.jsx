@@ -36,9 +36,6 @@ const UserFeed = () => {
     {
       retry: false,
       refetchOnWindowFocus: false,
-      onError: () => {
-        isLoading = true;
-      },
     }
   );
 
