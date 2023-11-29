@@ -9,10 +9,11 @@ import { useMutation } from "react-query";
 
 const RegistroForm = () => {
   const [error, setError] = useState(null);
-
+  const [senhaConfirmada, setSenhaConfirmada] = useState(false);
   const usuario = UseForm();
   const email = UseForm("email");
   const senha = UseForm();
+  const confirmarSenha = UseForm();
 
   const { url, options } = userRegister();
 
@@ -32,7 +33,14 @@ const RegistroForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (usuario.value && email.value && senha.value) {
+    if (confirmarSenha.value === senha.value) {
+      setSenhaConfirmada(true);
+      setError(null);
+    } else {
+      setError("As senhas precisam ser iguais");
+    }
+
+    if (usuario.value && email.value && senha.value && senhaConfirmada) {
       mutation.mutate({
         username: usuario.value,
         email: email.value,
@@ -48,9 +56,17 @@ const RegistroForm = () => {
         <Input label={"Email"} type={"email"} name={email} {...email} />
         <Input label={"Usuario"} type={"text"} name={usuario} {...usuario} />
         <Input label={"Senha"} type={"password"} name={senha} {...senha} />
+        <Input
+          label={"Confirmar senha"}
+          type={"password"}
+          name={senha}
+          {...confirmarSenha}
+        />
+
         {mutation.isError && (
           <p className="error">{mutation.error.response.data.mensagem}</p>
         )}
+        {error && <p>{error}</p>}
         {mutation.isLoading ? (
           <button className={styles.buttonForm} disabled={true}>
             Cadastrando...

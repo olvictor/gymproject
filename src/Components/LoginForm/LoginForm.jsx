@@ -4,6 +4,7 @@ import styles from "./LoginForm.module.css";
 import Input from "../input/Input";
 import UseForm from "../../CustomHooks/UseForm";
 import { UserContext } from "../../UserContext";
+import Loading from "../loading/Loading";
 
 const LoginForm = () => {
   const username = UseForm();
@@ -17,6 +18,7 @@ const LoginForm = () => {
       loginUser(username.value, senha.value);
     }
   };
+
   return (
     <div className={styles.loginForm}>
       <h1 className={styles.titulo}>LOGIN</h1>
