@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "./UserTreino.module.css";
+import { useQuery } from "react-query";
+import axios from "axios";
 
 const UserTreinoHeader = ({ setExercisesShow }) => {
   const [bodyparts, setBodyParts] = useState([]);
@@ -11,17 +13,23 @@ const UserTreinoHeader = ({ setExercisesShow }) => {
       "X-RapidAPI-Host": "exercisedb.p.rapidapi.com",
     },
   };
-  useEffect(() => {
-    const getBodyParts = async () => {
-      const response = await fetch(
-        "https://exercisedb.p.rapidapi.com/exercises/bodyPartList",
-        options
-      );
-      const json = await response.json();
-      setBodyParts([...json]);
-    };
-    getBodyParts();
-  }, []);
+
+  const { data, isLoading } = useQuery(
+    "buscarItemsMenu",
+    async () => {
+      return await axios
+        .get(
+          "https://exercisedb.p.rapidapi.com/exercises/bodyPartList",
+          options
+        )
+        .then((response) => response.data);
+    },
+    {
+      onSuccess: (data) => {
+        setBodyParts(data);
+      },
+    }
+  );
 
   const handleChange = ({ target }) => {
     setMusculoAlvo(target.value);
@@ -35,13 +43,22 @@ const UserTreinoHeader = ({ setExercisesShow }) => {
         "X-RapidAPI-Host": "exercisedb.p.rapidapi.com",
       },
     };
-
-    const response = await fetch(
-      `https://exercisedb.p.rapidapi.com/exercises/bodyPart/${musculoAlvo}`,
-      options
+    const { data, isLoading } = useQuery(
+      "buscarExerciciosPorGrupamento",
+      async () => {
+        return await axios
+          .get(
+            `https://exercisedb.p.rapidapi.com/exercises/bodyPart/${musculoAlvo}`,
+            options
+          )
+          .then((response) => response.data);
+      },
+      {
+        onSuccess: (data) => {
+          setExercisesShow(data);
+        },
+      }
     );
-    const json = await response.json();
-    setExercisesShow(json);
   };
   return (
     <header className={styles.headerUsertreino}>

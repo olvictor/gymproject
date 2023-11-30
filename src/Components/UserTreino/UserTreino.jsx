@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
 import styles from "./UserTreino.module.css";
-import { AiFillPlusCircle } from "react-icons/ai";
 import UserTreinoHeader from "./UserTreinoHeader";
+import Loading from "../loading/Loading";
+import { AiFillPlusCircle } from "react-icons/ai";
+import { useQuery } from "react-query";
+import axios from "axios";
 
 const UserTreino = () => {
   const [exercises, setExercises] = useState(null);
@@ -9,27 +12,28 @@ const UserTreino = () => {
   const [currentShow, setCurrentShow] = useState(null);
   const [exercisesShow, setExercisesShow] = useState(null);
 
-  useEffect(() => {
-    const options = {
-      method: "GET",
-      headers: {
-        "X-RapidAPI-Key": "f1c6fe8ad9msh54f8722877ef276p13b3bfjsn2b3b8d943027",
-        "X-RapidAPI-Host": "exercisedb.p.rapidapi.com",
+  const options = {
+    method: "GET",
+    headers: {
+      "X-RapidAPI-Key": "f1c6fe8ad9msh54f8722877ef276p13b3bfjsn2b3b8d943027",
+      "X-RapidAPI-Host": "exercisedb.p.rapidapi.com",
+    },
+  };
+
+  const { data, isLoading } = useQuery(
+    "buscarExercicios",
+    async () => {
+      return await axios
+        .get("https://exercisedb.p.rapidapi.com/exercises", options)
+        .then((response) => response.data);
+    },
+    {
+      onSuccess: (data) => {
+        setExercisesShow(data);
       },
-    };
+    }
+  );
 
-    const getExercises = async () => {
-      const response = await fetch(
-        "https://exercisedb.p.rapidapi.com/exercises",
-        options
-      );
-      const json = await response.json();
-      setExercises(json);
-    };
-
-    getExercises();
-  }, []);
-  console.log(exercisesShow);
   const mouseEnter = (i) => {
     setCurrentShow(i);
     setIsHovered(true);
@@ -38,6 +42,10 @@ const UserTreino = () => {
     setIsHovered(false);
     setCurrentShow(null);
   };
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <div>
@@ -65,7 +73,7 @@ const UserTreino = () => {
                 <h3> Name: {i.name}</h3>
                 <p> Muscle: {i.bodyPart}</p>
                 <p>Equipament: {i.equipment}</p>
-                <AiFillPlusCircle onClick={() => console.log("teste")} />
+                <AiFillPlusCircle onClick={() => console.log(i)} />
               </div>
             </div>
           ))}
