@@ -31,6 +31,7 @@ const UserTreino = () => {
       onSuccess: (data) => {
         setExercisesShow(data);
       },
+      refetchOnWindowFocus: false,
     }
   );
 

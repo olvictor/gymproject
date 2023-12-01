@@ -6,6 +6,7 @@ import axios from "axios";
 const UserTreinoHeader = ({ setExercisesShow }) => {
   const [bodyparts, setBodyParts] = useState([]);
   const [musculoAlvo, setMusculoAlvo] = useState(null);
+
   const options = {
     method: "GET",
     headers: {
@@ -28,6 +29,7 @@ const UserTreinoHeader = ({ setExercisesShow }) => {
       onSuccess: (data) => {
         setBodyParts(data);
       },
+      refetchOnWindowFocus: false,
     }
   );
 
@@ -43,7 +45,7 @@ const UserTreinoHeader = ({ setExercisesShow }) => {
         "X-RapidAPI-Host": "exercisedb.p.rapidapi.com",
       },
     };
-    const { data, isLoading } = useQuery(
+    const { data: response, isLoading } = useQuery(
       "buscarExerciciosPorGrupamento",
       async () => {
         return await axios
@@ -57,6 +59,7 @@ const UserTreinoHeader = ({ setExercisesShow }) => {
         onSuccess: (data) => {
           setExercisesShow(data);
         },
+        refetchOnWindowFocus: false,
       }
     );
   };
