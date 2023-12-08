@@ -13,6 +13,7 @@ import { HiOutlineAnnotation } from "react-icons/hi";
 import { IoIosCalculator } from "react-icons/io";
 import { MdDirectionsRun } from "react-icons/md";
 import { useMutation, useQuery } from "react-query";
+import Loading from '../loading/Loading'
 
 import Input from "../input/Input";
 import UseForm from "../../CustomHooks/UseForm";
@@ -55,10 +56,12 @@ const UserPerfil = () => {
       onSuccess: () => {
         setUserInfo(true);
       },
+      refetchOnWindowFocus:false,
+      retry:false
     }
   );
-
-  const imcINFO = imc(response?.peso, response?.altura);
+  const imcINFO = imc(userPeso?.value,userAltura?.value);
+  
   const tmb = calcularTMB(response?.peso, response?.sexo, "moderado");
 
   const mutation = useMutation({
@@ -69,38 +72,41 @@ const UserPerfil = () => {
         .post(
           url,
           {
-            peso: +userPeso.value,
+            peso: userPeso.value,
             nome: userNome.value,
-            altura: +userAltura.value,
-            idade: +userIdade.value,
+            altura: userAltura.value,
+            idade: userIdade.value,
             sexo: userSexo,
             nivel_de_atividade: userAtividade,
             objetivo: userObjetivo,
-            imc: response ? imcINFO.imc : "",
-            imc_classificacao: response
-              ? imcINFO.resultado[0].classificacao
-              : "",
+            imc:  imcINFO.imc ,
+            imc_classificacao: imcINFO.resultado[0].classificacao
           },
           axiosConfig
         )
         .then((response) => response.data);
     },
+    onSuccess: ()=>{
+      refetch()
+    }
   });
   const handleSubmit = async (e) => {
     e.preventDefault();
     mutation.mutate();
   };
-
+if(isLoading){
+  return <Loading />
+}
   return (
     <div className={styles.containerPerfil}>
       <BsFillGearFill className={styles.svgEditar} />
       {!userInfo ? (
         <div>
           <form onSubmit={handleSubmit} className={styles.formINFO}>
-            <Input type="text" label="Nome" {...userNome} />
-            <Input type="text" label="Altura" {...userAltura} />
-            <Input type="text" label="Peso" {...userPeso} />
-            <Input type="text" label="Idade" {...userIdade} />
+            <Input type="text" label="Nome" {...userNome}  name={'nome'}/>
+            <Input type="text" label="Altura" {...userAltura} name={'altura'}/>
+            <Input type="text" label="Peso" {...userPeso} name={'peso'}/>
+            <Input type="text" label="Idade" {...userIdade} name={'idade'}/>
             <select
               defaultValue={0}
               onChange={({ target }) => setUserSexo(target.value)}
@@ -163,7 +169,7 @@ const UserPerfil = () => {
               <div className={styles.infoUser}>
                 <IoIosCalculator />
                 <h4>IMC :</h4>
-                <p>${response.imc}</p>
+                <p>{response.imc}</p>
               </div>
             </div>
             <div className={styles.infoUser}>

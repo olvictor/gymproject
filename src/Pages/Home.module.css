@@ -4,7 +4,7 @@
   z-index: 3;
   display: grid;
   grid-template-columns: 0.75fr 1fr;
-  grid-template-rows: 50px 94vh;
+  grid-template-rows: 50px 94.8vh;
   position: relative;
 }
 
@@ -23,10 +23,10 @@
 .homeImg {
   grid-column: 2/3;
   grid-row: 1/3;
-  opacity: 0.6;
+  opacity: 1;
 }
 
 .homeImg img {
   width: 100%;
-  height: 1500px;
+  height: 100vh
 }

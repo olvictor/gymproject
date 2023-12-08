@@ -27,14 +27,14 @@ const LoginForm = () => {
           type="text"
           placeholder={"********"}
           label={"Usuario"}
-          name={username}
+          name={'username'}
           {...username}
         />
         <Input
           type="password"
           placeholder={"****"}
           label={"Senha"}
-          name={senha}
+          name={'senha'}
           {...senha}
         />
         {error ? <p className="error">{error}</p> : ""}

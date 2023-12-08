@@ -15,7 +15,7 @@ const TyperAnimation = ({texto}) => {
       ]}
         wrapper="p"
         speed={50}
-        style={{ fontSize: '2.6em', display: 'inline-block', fontWeight:'bolder'}}
+        style={{ fontSize: '3.4em', display: 'inline-block', fontWeight:'bolder'}}
         repeat={0}
     />
   )
