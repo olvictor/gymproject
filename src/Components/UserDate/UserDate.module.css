@@ -1,0 +1,49 @@
+.formUserDate{
+    position: relative;
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    min-height: 200px;
+    height: auto;
+}
+.formBoxInput{
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+
+}
+
+.formUserDate input {
+    background-color: #fff;
+    color: black;
+    border: none;
+}
+
+.formUserDate input:focus{
+    outline: 2px solid #1bfaad;
+}
+
+.formUserDate svg{
+    font-size: 2rem;
+    cursor: pointer;
+}
+
+.formUserDate svg:hover{
+    color: #1bfaad;;
+    font-weight: bolder;
+}
+
+.formUserDate button{
+    padding: 10px;
+    height: 40px;
+    text-align: center;
+    width: 100px;
+    border-radius: 8px;
+    font-weight: bolder;    
+    cursor: pointer;
+    text-transform: uppercase;
+    border: none;
+    background-color: #1bfaad;
+    color: #fff;
+    border: 1px  solid #fff;
+}

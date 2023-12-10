@@ -81,7 +81,8 @@ const Modal = ({ feed, currentItem, setCurrentItem, setOpenModal }) => {
   const dataCurrentItem = new Date(
     feed[currentItem].data_publicacao
   ).toLocaleString("pt-BR", { timezone: "UTC" });
-
+   const data2 = (new Date(feed[currentItem].data_publicacao).getTime())
+   console.log(data2/(1000*60*20*7))
   return (
     <div className={`${styles.modal}`}>
       <div className={styles.modalContent}>
