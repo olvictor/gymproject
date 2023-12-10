@@ -81,8 +81,13 @@ const Modal = ({ feed, currentItem, setCurrentItem, setOpenModal }) => {
   const dataCurrentItem = new Date(
     feed[currentItem].data_publicacao
   ).toLocaleString("pt-BR", { timezone: "UTC" });
-   const data2 = (new Date(feed[currentItem].data_publicacao).getTime())
-   console.log(data2/(1000*60*20*7))
+   const dataEmMs = new Date(feed[currentItem].data_publicacao).getTime()
+   const dataAtual = new Date().getTime()
+   const diferencaEmMs = dataAtual - dataEmMs;
+   const semanas = diferencaEmMs/(1000*60*60*24*7)
+   const quantidadeDeDias = diferencaEmMs/(1000*60*60*24)
+   console.log(semanas)
+   console.log(quantidadeDeDias)
   return (
     <div className={`${styles.modal}`}>
       <div className={styles.modalContent}>
@@ -141,7 +146,7 @@ const Modal = ({ feed, currentItem, setCurrentItem, setOpenModal }) => {
                           </h5>
                           <p>{item.comentario}</p>
                         </div>
-                        <p className={styles.itemComentarioInfoData}>{data}</p>
+                        <p className={styles.itemComentarioInfoData}>{semanas >= 7 ? `${semanas} Semanas` : `${quantidadeDeDias.toFixed()} Dias`}</p>
                       </div>
                     </li>
                   );

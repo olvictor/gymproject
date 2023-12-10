@@ -4,9 +4,38 @@ import { BsFillNodePlusFill } from "react-icons/bs";
 import { CiCircleRemove } from "react-icons/ci";
 import styles from './UserDate.module.css'
 import { useMutation } from 'react-query';
+import axios from 'axios';
 
 const UserDate = () => {
     const [countInput,setCountInput] = useState([' '])
+
+    const token = window.localStorage.getItem('token')
+
+    const axiosConfig = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    
+    const handleSubmit = (e) =>{
+      e.preventDefault()
+      const mutation = useMutation({
+        mutationFn: async () => {
+          return await axios
+            .post(
+              `http://localhost:3000/user/treinos`,
+              {
+                musculo: 'teste'
+              },
+              axiosConfig
+            )
+            .then((response) => response.data);
+        },
+        onSuccess: () => {
+          refetch();
+        },
+      });
+    }
 
     const removeInput = (indice) =>{
       const novoArrayInputs = [...countInput]
@@ -22,13 +51,6 @@ const UserDate = () => {
 
     }
 
-    const handleSubmit = async(e)=>{
-      e.preventDefault()
-      console.log(...countInput)
-
-      const mutation = useMutation('')
-
-    }
     return (
     <div style={{marginTop:'50px'}}>
         <form onSubmit={handleSubmit} className={styles.formUserDate}>
