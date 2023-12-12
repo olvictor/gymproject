@@ -28,7 +28,7 @@ const Header = () => {
               <FaUserCircle /> {data.username}{" "}
             </Link>
           ) : (
-            <Link to="/login">Login/criar</Link>
+            <Link to="/login" className={styles.headerLogin}>Login/criar</Link>
           )}
         </div>
       </nav>
