@@ -86,8 +86,8 @@ const Modal = ({ feed, currentItem, setCurrentItem, setOpenModal }) => {
    const diferencaEmMs = dataAtual - dataEmMs;
    const semanas = diferencaEmMs/(1000*60*60*24*7)
    const quantidadeDeDias = diferencaEmMs/(1000*60*60*24)
-   console.log(semanas)
-   console.log(quantidadeDeDias)
+
+   
   return (
     <div className={`${styles.modal}`}>
       <div className={styles.modalContent}>

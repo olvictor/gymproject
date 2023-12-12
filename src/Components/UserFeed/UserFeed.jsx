@@ -59,7 +59,7 @@ const UserFeed = () => {
               display: index === currentShow ? "block" : "none",
               position: "absolute",
               fontSize: "4rem",
-              top: "33%",
+              top: "38%",
             }}
           />
         </div>

@@ -1,0 +1,50 @@
+.cardTreino{
+    background-color: #fff;
+    min-height: 150px;
+    width: 20%;
+    border-radius: 8px;
+    text-align: center;
+    position: relative;
+    filter: drop-shadow(0px 0px 5px #1bfaad);
+    color: #1bfaad;
+    cursor: pointer;
+}
+.cardTreino::after{
+    content: " ";
+    width: 6px;
+    height: 20px;
+    position: absolute;
+    top: -10px;
+    left: 60%;
+    background-color: black;
+    border-radius: 16px;
+}
+
+.cardTreino::before{
+    content: " ";
+    width: 6px;
+    height: 20px;
+    position: absolute;
+    top: -10px;
+    left: 40%;
+    background-color: black;
+    border-radius: 16px;
+}
+
+
+.cardHeader{
+    height: 20px;
+    background-color: green;
+    border-top-right-radius: 8px;
+    border-top-left-radius: 8px;
+}
+
+.cardTreinoData{
+    color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 55%;
+    gap: 5px;
+    font-size: 2rem;
+}

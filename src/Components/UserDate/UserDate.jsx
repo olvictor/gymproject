@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
-import Input from '../input/Input'
 import { BsFillNodePlusFill } from "react-icons/bs";
 import { CiCircleRemove } from "react-icons/ci";
 import styles from './UserDate.module.css'
-import { useMutation } from 'react-query';
+import { useMutation, useQuery } from 'react-query';
 import axios from 'axios';
+import UserTreinos from '../UserTreinos/UserTreinos';
 
 const UserDate = () => {
     const [countInput,setCountInput] = useState([' '])
@@ -17,24 +17,33 @@ const UserDate = () => {
       },
     };
     
+    const mutation = useMutation({
+      mutationFn: async (treino) => {
+        return await axios
+          .post(
+            `http://localhost:3000/user/treinos`,{
+              musculos: treino
+            },
+            axiosConfig
+          )
+          .then((response) => response.data);
+      },onSuccess :()=>{
+        refetch()
+      }
+    });
+
+    const {data ,refetch} = useQuery('buscarTreinos', async () =>{
+      return await axios.get('http://localhost:3000/user/treinos',axiosConfig).then((response) => response.data)
+    },{
+      refetchOnWindowFocus:false,
+
+    }
+  
+    )
+
     const handleSubmit = (e) =>{
       e.preventDefault()
-      const mutation = useMutation({
-        mutationFn: async () => {
-          return await axios
-            .post(
-              `http://localhost:3000/user/treinos`,
-              {
-                musculo: 'teste'
-              },
-              axiosConfig
-            )
-            .then((response) => response.data);
-        },
-        onSuccess: () => {
-          refetch();
-        },
-      });
+      mutation.mutate(countInput)
     }
 
     const removeInput = (indice) =>{
@@ -52,23 +61,26 @@ const UserDate = () => {
     }
 
     return (
-    <div style={{marginTop:'50px'}}>
-        <form onSubmit={handleSubmit} className={styles.formUserDate}>
-          <h2>Registre seu treino Diário :</h2>
-     
-          <div className={styles.formBoxInput}>
-            {countInput.map((input, index)=>{
-            return <div key={index}>
-              <CiCircleRemove className={styles.inputRemove} onClick={()=>removeInput(index)}/>
-              <input placeholder='Digite o músculo' type='text' onChange={({target})=> handleChange(index, target)}/>
-            </div>
-            })}
-          </div>
-          <BsFillNodePlusFill  onClick={()=>{
-            setCountInput([...countInput,' '])
-          }}/>
-          <button type='submit'>Registrar</button>
-        </form>
+      <div > 
+        <div style={{marginTop:'50px'}}>
+            <form onSubmit={handleSubmit} className={styles.formUserDate}>
+              <h2>Registre seu treino Diário :</h2>
+        
+              <div className={styles.formBoxInput}>
+                {countInput.map((input, index)=>{
+                return <div key={index}>
+                  <CiCircleRemove className={styles.inputRemove} onClick={()=>removeInput(index)}/>
+                  <input placeholder='Digite o músculo' type='text' onChange={({target})=> handleChange(index, target)}/>
+                </div>
+                })}
+              </div>
+              <BsFillNodePlusFill  onClick={()=>{
+                setCountInput([...countInput,' '])
+              }}/>
+              <button type='submit'>Registrar</button>
+            </form>
+      </div>
+      {data && <UserTreinos treinos={data} />}
     </div>
   )
 }
