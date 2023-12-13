@@ -16,8 +16,9 @@ const UserTreinos = ({treinos}) => {
         diasDoMesDez.splice(DiaNumerico,1,treino);
 
         const diaDaSemana = DiasDaSemana[dataDoTreino.getDay()]
+        const arrayMusculos = treino.musculos.split(",")
 
-         return <div className={styles.cardTreino}>
+        return <div className={styles.cardTreino}>
                 <div className={styles.cardHeader}>
                 </div>
                 <div className={styles.cardTreinoData}>
@@ -26,8 +27,11 @@ const UserTreinos = ({treinos}) => {
                     /
                     {<h4>{MesDoAno}</h4>}
                 </div>
-                
-                <h3>{treino.musculos}</h3>
+                <div className={styles.cardTreinoMusculos}> 
+                  {arrayMusculos.map((item,index)=>{
+                    return <h3 key={index}>{item}</h3>
+                  })}
+                </div>
             </div>
         })}
     </div>

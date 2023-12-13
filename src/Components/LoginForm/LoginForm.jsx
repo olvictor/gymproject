@@ -18,7 +18,7 @@ const LoginForm = () => {
       loginUser(username.value, senha.value);
     }
   };
-
+  console.log(loading)
   return (
     <div className={styles.loginForm}>
       <h1 className={styles.titulo}>LOGIN</h1>
@@ -38,9 +38,13 @@ const LoginForm = () => {
           {...senha}
         />
         {error ? <p className="error">{error}</p> : ""}
-        <button disabled={loading ? true : false} className={styles.buttonForm}>
+        {!loading ? 
+        <button className={styles.buttonForm}>
           Entrar
-        </button>
+        </button>:
+        <button disabled='true'  className={styles.buttonForm}>
+            Carregando...
+        </button>}
       </form>
       <div className={styles.link}>
         <span>Não possui uma conta ?</span>

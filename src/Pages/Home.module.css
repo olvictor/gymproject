@@ -1,8 +1,11 @@
 .homeSection {
   position: relative;
   width:100vw;
-  max-height: 400px;
-  background-color: red;
+  grid-row: 2/3;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-row: 1fr;
 }
 
 .homeText {
@@ -14,9 +17,13 @@
   z-index: 999;
   width: 40%;
 }
-
+.homeImg{
+  grid-column: 1/3;
+  height: 94.7vh;
+  overflow: hidden;
+}
 .homeImg img{
+  width: 100vw;
   object-fit: contain;
-  width: 100%;
-  height: 100%;
+  opacity: .6;
 }
