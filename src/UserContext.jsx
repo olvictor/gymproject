@@ -18,6 +18,7 @@ export const UserStorage = ({ children }) => {
     const json = await response.json();
     setData(json);
     setLogado(true);
+    navigate("/user");
   };
 
   const loginUser = async (username, senha) => {
@@ -37,7 +38,6 @@ export const UserStorage = ({ children }) => {
       setError(null);
       window.localStorage.setItem("token", json.token);
       getUser(json.token);
-      navigate("/user");
     }
   };
 

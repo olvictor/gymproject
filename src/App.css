@@ -1,7 +1,7 @@
 /* @import url('https://fonts.googleapis.com/css2?family=Young+Serif&display=swap'); */
 /* @import url('https://fonts.googleapis.com/css2?family=Spectral&display=swap'); */
 /* @import url("https://fonts.googleapis.com/css2?family=Anton&display=swap"); */
-
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 * {
   padding: 0;
@@ -12,7 +12,6 @@
 
 body {
   --cor-primaria: #1a2037;
-  --cor-secundaria: #3a97d4;
   background-color: var(--cor-primaria);
   color: #fff;
 }

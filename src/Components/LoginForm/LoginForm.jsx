@@ -18,7 +18,7 @@ const LoginForm = () => {
       loginUser(username.value, senha.value);
     }
   };
-  console.log(loading)
+
   return (
     <div className={styles.loginForm}>
       <h1 className={styles.titulo}>LOGIN</h1>

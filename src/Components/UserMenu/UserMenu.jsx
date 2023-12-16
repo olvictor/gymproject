@@ -5,6 +5,7 @@ import Treino from "../../Assets/treino.svg";
 import Date from "../../Assets/date.svg";
 import Photo from "../../Assets/photo.svg";
 import Feed from "../../Assets/feed.svg";
+import Clock from "../../Assets/clock.svg";
 
 import styles from "./UserMenu.module.css";
 
@@ -25,6 +26,9 @@ const UserMenu = () => {
       </NavLink>
       <NavLink to="/user/feed">
         <img src={Feed} />
+      </NavLink>
+      <NavLink to="/user/metas">
+        <img src={Clock} />
       </NavLink>
     </ul>
   );
