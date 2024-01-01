@@ -1,6 +1,6 @@
 import React from "react";
 import TyperAnimation from "../Components/TyperAnimation/TyperAnimation";
-import alexander from "../Assets/alexander.jpg";
+import girlHome from "../Assets/girlHome.png";
 import styles from "./Home.module.css";
 
 const Home = () => {
@@ -12,9 +12,10 @@ const Home = () => {
             "Se for para sofrer que seja na academia. Lá a dor traz resultados."
           }
         />
+        <button>Comece-já</button>
       </div>
       <div className={styles.homeImg}>
-        <img src={alexander} alt="" />
+        <img src={girlHome} alt="" />
       </div>
     </section>
   );

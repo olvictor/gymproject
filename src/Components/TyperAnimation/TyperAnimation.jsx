@@ -3,18 +3,15 @@ import { TypeAnimation } from 'react-type-animation'
 
 const TyperAnimation = ({texto}) => {
 
-  const element = <p>tesads</p>
-
   return (
         <TypeAnimation
-        sequence={[
-        // Same substring at the start will only be typed out once, initially
+        sequence={[ 
         '',
-        1000, // wait 1s before replacing "Mice" with "Hamsters"
-        texto,
+        1000,
+        texto
       ]}
         wrapper="p"
-        speed={50}
+        speed={60}
         style={{ fontSize: '3.4em', display: 'inline-block', fontWeight:'bolder'}}
         repeat={0}
     />

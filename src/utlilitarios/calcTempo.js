@@ -5,15 +5,14 @@ const calcTempo = (tempoInicio,tempoFinal) =>{
     const [horas,setHoras] = useState()
     const [minutos,setMinutos] = useState()
     const [segundos,setSegundos] = useState(" ")
-
-
+    let tempoRestanteEmMs
 
     const atualizarTempo = () => {
     
         const tempoInicioEmMs = tempoInicio.getTime()
         const tempoFinalEmMs = tempoFinal.getTime()
-        const tempoRestanteEmMs = tempoFinalEmMs - tempoInicioEmMs
-
+        tempoRestanteEmMs = tempoFinalEmMs - tempoInicioEmMs
+       
         const segundos = 1000;
         const minutos = segundos * 60;
         const horas = minutos * 60;
@@ -35,7 +34,8 @@ const calcTempo = (tempoInicio,tempoFinal) =>{
        dias,
        horas,
        minutos,
-       segundos
+       segundos,
+       tempoRestanteEmMs
     ]
 }
 

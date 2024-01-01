@@ -4,19 +4,21 @@ import { useMutation, useQuery } from 'react-query';
 import axios from 'axios';
 import Loading from '../loading/Loading';
 import styles from './UserMetas.module.css';
-import Input from '../../Components/input/Input'
-import UseForm  from '../../CustomHooks/UseForm'
+import Input from '../../Components/input/Input';
+
+
+import UseForm  from '../../CustomHooks/UseForm';
 const UserMetas = () => {
   const token = window.localStorage.getItem("token");
   const [dataFinalMeta, setDataFinalMeta] = useState('')
   const [dataInput,setDataInput] = useState('')
   const [monstrarItemBoolean,setMostrarItemBoolean] = useState(false)
   const [monstrarItem, setMonstrarItem] = useState(null)    
-  const [dias,horas,minutos,segundos] =  calcTempo(new Date(), new Date(dataFinalMeta));
+  const [dias,horas,minutos,segundos, tempoRestanteEmMs] =  calcTempo(new Date(), new Date(dataFinalMeta));
 
   const titulo = UseForm()
   const descricao = UseForm()
-  console.log(titulo.value,descricao.value,dataInput)
+
   const axiosConfig = {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -36,7 +38,6 @@ const UserMetas = () => {
       setMostrarItemBoolean(!monstrarItemBoolean)
       setMonstrarItem(item)
       setDataFinalMeta(item.data_fim)
-      console.log(item)
   }
 
   const mutation =  useMutation({
@@ -74,12 +75,11 @@ const UserMetas = () => {
         <div> 
           <h3>{monstrarItem.descricao}</h3>
           <h4>Tempo Restante:</h4>
-          <div style={{display:'flex' , alignItems:'center',gap:'10px'}}> 
+          <div style={{display:'flex' , alignItems:'center',gap:'10px'}}>
             <span className={styles.span}>{dias}<span> dias</span></span>
-             
             <span className={styles.span}> {horas }<span> hrs</span> </span>
             <span className={styles.span}> {minutos }<span> mins</span> </span>
-            <span className={styles.span}> {segundos } <span> segs</span></span> 
+            <span className={styles.span}> {segundos} <span> segs</span></span> 
           </div>
         </div>
         }

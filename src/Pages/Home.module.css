@@ -9,21 +9,48 @@
 }
 
 .homeText {
-  text-align: right;
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  position: absolute;
-  right: 50%;
-  top: 35%;
+  justify-content: center;
+  text-align: right;
   z-index: 999;
-  width: 40%;
+  width: 100%;
+  grid-column: 1/2;
+  gap: 30px;
 }
+
+.homeText p{
+  color: #fff;
+  width: 80%;
+  align-self:flex-end;
+  font-weight: bolder;
+  font-size: 2rem;
+}
+
+.homeText button{
+  cursor: pointer;
+  width: 200px;
+  height: 70px;
+  background-color: #1bfaad;
+  color: #fff;
+  border-radius: 8px;
+  font-size: 2rem;
+  font-weight: bolder;
+  text-align: center;
+  align-self:flex-end;
+
+}
+
 .homeImg{
-  grid-column: 1/3;
+  grid-column: 2/3;
   height: 94.7vh;
   overflow: hidden;
+  width: 100%;
+  height: 100%;
 }
 .homeImg img{
-  width: 100vw;
+  height: 100%;
   object-fit: contain;
-  opacity: .6;
+  filter: drop-shadow(0px 0px 5px #1bfaad);
 }
