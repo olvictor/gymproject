@@ -7,12 +7,13 @@ const Home = () => {
   return (
     <section className={`${styles.homeSection} home`}>
       <div className={styles.homeText}>
-        <TyperAnimation
+        {/* <TyperAnimation
           texto={
             "Se for para sofrer que seja na academia. Lá a dor traz resultados."
           }
-        />
-        <button>Comece-já</button>
+        /> */}
+        <h1>Se for para sofrer que seja na academia. Lá a dor traz <span>resultados.</span></h1>
+        <button className={styles.butttonHome}>Comece-já</button>
       </div>
       <div className={styles.homeImg}>
         <img src={girlHome} alt="" />

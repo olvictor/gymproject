@@ -8,7 +8,7 @@
 .logo {
   grid-column: 1/2;
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
 }
 .links {
   display: flex;
@@ -17,7 +17,7 @@
   grid-column: 3/4;
   width: 100%;
   padding-left: 10px;
-  justify-content: center;
+  font-size: 1.3rem;
 }
 
 .linkUser {
@@ -26,12 +26,16 @@
   gap: 10px;
   font-weight: bolder;
 }
+.links a{
+  padding: 8px 16px;
+}
+
 .headerLogin{
 background-color: #1bfaad;
-width: 100px;
+width: auto;
 text-align: center;
 border-radius: 10px;
-padding: 1px;
+/* padding: 6px 12px; */
 }
 .linkUser:hover {
   filter: drop-shadow(0px 0px 5px #1bfaad);

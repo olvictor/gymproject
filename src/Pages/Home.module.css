@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Sen:wght@400;700&display=swap');
+
+
 .homeSection {
   position: relative;
   width:100vw;
@@ -18,16 +21,21 @@
   width: 100%;
   grid-column: 1/2;
   gap: 30px;
+  font-family: 'Sen', sans-serif;
 }
 
-.homeText p{
+.homeText p,h1{
   color: #fff;
   width: 80%;
   align-self:flex-end;
   font-weight: bolder;
-  font-size: 2rem;
+  font-size: 4rem;
 }
-
+.homeText span{
+  color: #1bfaad;
+  font-weight: bolder;
+  font-size: 5rem;
+}
 .homeText button{
   cursor: pointer;
   width: 200px;
@@ -48,9 +56,20 @@
   overflow: hidden;
   width: 100%;
   height: 100%;
+  display: flex;
+  align-items: center;
 }
 .homeImg img{
-  height: 100%;
+  height: 80%;
   object-fit: contain;
   filter: drop-shadow(0px 0px 5px #1bfaad);
+}
+.butttonHome{
+  transition: .2s ease-in-out;
+  text-transform: uppercase;
+  width: auto;
+}
+.butttonHome:hover{
+  border: none;
+  filter: drop-shadow(0px 0px 5px #fff);
 }
