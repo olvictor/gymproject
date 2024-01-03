@@ -166,18 +166,15 @@ if(isLoading){
               <p>{response.sexo}</p>
             </div>
             <div className={styles.infoUser}>
-              <div className={styles.infoUser}>
+
                 <IoIosCalculator />
                 <h4>IMC :</h4>
-                <p>{response.imc}</p>
-              </div>
+                <p>{response.imc}</p>            
             </div>
             <div className={styles.infoUser}>
-              <div className={styles.infoUser}>
                 <HiOutlineAnnotation />
                 <h4>Classificacao :</h4>
                 <p>{response.imc_classificacao}</p>
-              </div>
             </div>
             <div className={styles.infoUser}>
               <MdDirectionsRun />
@@ -207,9 +204,14 @@ if(isLoading){
                 <circle cx="150" cy="100" r="75" fill="#1a2037"></circle>
               </svg>
               <div className={styles.infoCircleNumber}>
-                {<h3>{tmb} kcal</h3>}
+                {<h3>{tmb} <span>KCAL</span></h3>}
               </div>
             </div>
+            <div className={styles.infoMacroNutrientes}>
+                  <h4>Proteina: <span>150g</span></h4>
+                  <h4>Carboidrato: <span>150g</span></h4>
+                  <h4>Gordura: <span>150g</span></h4>
+              </div>
           </div>
         </div>
       )}
