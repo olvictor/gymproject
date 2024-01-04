@@ -1,17 +1,54 @@
-.span{
+.userMetas{
+display: grid;
+grid-template-columns: 1fr 1fr;
+}
+
+.boxMetas{
+    display: flex;
+    flex-direction: column;
+    margin-top: 50px;
+
+}
+
+.boxMetas h4{
+    font-size: 2.5rem;
+}
+
+
+.boxMetaInfo{
+    grid-column: 2/5;
+    font-weight: 200;
+}
+.boxMetaInfoItems{
+    margin-top: 50px;
+}
+.buttonNovaMeta{
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    color: #3277EE;
+    font-size: 1.4rem;
+}
+.boxMetaInfoItems{
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+}
+.timer{
     background-color: #1bfaad;
     display: block;
-    height: 5rem;
-    width: 5rem;
+    height: 10rem;
+    width: 10rem;
     display: flex;
     align-items: center;
     justify-content: center ;
-    font-size: 2.4rem;
+    font-size: 4.5rem;
     font-weight: bold;
     border-radius: 6px;
     flex-direction: column;
     font-family: 'Bebas Neue', sans-serif;
+    color: #1A2037;
 }
 span{
-    font-size: 1rem;
+    font-size: 2rem;
 }

@@ -11,6 +11,7 @@ const calcTempo = (tempoInicio,tempoFinal) =>{
     
         const tempoInicioEmMs = tempoInicio.getTime()
         const tempoFinalEmMs = tempoFinal.getTime()
+
         tempoRestanteEmMs = tempoFinalEmMs - tempoInicioEmMs
        
         const segundos = 1000;
@@ -23,20 +24,21 @@ const calcTempo = (tempoInicio,tempoFinal) =>{
         const quantidadeDeMinutosRestantes = Math.floor((tempoRestanteEmMs % horas) / minutos)
         const quantidadeDeSegundosRestantes = Math.floor((tempoRestanteEmMs % minutos) / segundos)
 
+        
         setDias(quantidadeDeDiasRestantes)
         setHoras(quantidadeDeHorasRestantes)
         setMinutos(quantidadeDeMinutosRestantes)
         setSegundos(quantidadeDeSegundosRestantes)
     }
 
-    setTimeout(atualizarTempo,1000)
-    return  [
+    setTimeout(atualizarTempo,1000);
+    return{  
        dias,
        horas,
        minutos,
        segundos,
        tempoRestanteEmMs
-    ]
+    }
 }
 
 export default calcTempo;

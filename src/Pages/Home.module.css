@@ -41,13 +41,12 @@
   width: 200px;
   height: 70px;
   background-color: #1bfaad;
-  color: #fff;
+  color: black;
   border-radius: 8px;
   font-size: 2rem;
   font-weight: bolder;
   text-align: center;
   align-self:flex-end;
-
 }
 
 .homeImg{
