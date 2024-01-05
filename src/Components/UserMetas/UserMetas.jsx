@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import calcTempo  from '../../utlilitarios/calcTempo'
-import { useMutation, useQuery } from 'react-query';
+import { useQuery } from 'react-query';
 import axios from 'axios';
 import Loading from '../loading/Loading';
 import styles from './UserMetas.module.css';
@@ -12,14 +12,11 @@ const UserMetas = () => {
   const token = window.localStorage.getItem("token");
 
   const [dataFinalMeta, setDataFinalMeta] = useState('')
-  const [dataInput,setDataInput] = useState('')
+
   const [monstrarItemBoolean,setMostrarItemBoolean] = useState(false)
   const [openModalForm, setOpenModalForm] = useState(false)
   const [monstrarItem, setMonstrarItem] = useState(null)    
   const {dias ,horas ,minutos ,segundos} =  calcTempo(new Date(), new Date(dataFinalMeta));
-
-  const titulo = UseForm()
-  const descricao = UseForm()
 
   const axiosConfig = {
     headers: {
@@ -27,33 +24,16 @@ const UserMetas = () => {
     },
   };
 
-  const {data ,isLoading} = useQuery('buscarMetas', async()=>{
+  const {data ,isLoading,refetch} = useQuery('buscarMetas', async()=>{
    return  await axios.get('http://localhost:3000/user/metas', axiosConfig).then((response)=> response.data)},{
     refetchOnWindowFocus:false,
     retry:false
   })
   
   const handleClick = (item) =>{
-      console.log(item,monstrarItem)
       setMostrarItemBoolean(true)
       setMonstrarItem(item)
       setDataFinalMeta(item.data_fim)
-  }
-
-  const mutation =  useMutation({
-    mutationFn: async (dados)=>{
-      return await axios.post('http://localhost:3000/user/metas',dados,axiosConfig).then((response)=> response.data)
-    }
-  })
-
-
-  const handleSubmit = async(e)=>{
-    e.preventDefault();
-    mutation.mutate({
-     titulo:titulo.value,
-     descricao:descricao.value,
-     data_fim:dataInput
-    })
   }
 
   if(isLoading){
@@ -64,13 +44,9 @@ const UserMetas = () => {
 
   return (
     <div className={styles.userMetas}>
-        {/* <form onSubmit={handleSubmit}>
-          <Input placeholder={'Titulo'} {...titulo} />
-          <Input placeholder={'Descricao'}{...descricao}/>
-          <input type="date"  onChange={({target})=> setDataInput(target.value)}/>
-          <button>Enviar</button>
-        </form> */}
-        
+        <div className={styles.linkModalForm}>
+          <button className={styles.buttonNovaMeta} onClick={()=> setOpenModalForm(true)}>Adicionar nova meta .</button>
+        </div>
         <div className={styles.boxMetas}>
           <h4>Minhas metas :</h4>
             <div style={{marginTop:'50px'}}>
@@ -97,7 +73,7 @@ const UserMetas = () => {
           </div>
         </div>
         }
-        {openModalForm && <FormMetas setOpenModalForm={setOpenModalForm} />}
+        {openModalForm && <FormMetas setOpenModalForm={setOpenModalForm} refetch={refetch}/>}
    </div>
   )
 }

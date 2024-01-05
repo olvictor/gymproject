@@ -1,15 +1,54 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styles from './FormMetas.module.css'
 import close from '../../Assets/close.svg'
+import UseForm from '../../CustomHooks/UseForm'
+import Input from "../input/Input";
+import { useMutation } from 'react-query';
+import axios from 'axios';
 
-const FormMetas = ({setOpenModalForm}) => {
+const FormMetas = ({setOpenModalForm,refetch}) => {
+  const titulo = UseForm()
+  const descricao = UseForm()
+  const [dataFinal,setDataFinal] = useState('')
+  const token = window.localStorage.getItem('token')
+
+  const axiosConfig = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  const mutation =  useMutation({
+    mutationFn: async (dados)=>{
+      return await axios.post('http://localhost:3000/user/metas',dados,axiosConfig).then((response)=> response.data)
+    },onSuccess: ()=>{
+        setOpenModalForm(false)
+        refetch()
+    }
+  })
+
+  const handleSubmit = async(e)=>{
+    e.preventDefault();
+    mutation.mutate({
+     titulo:titulo.value,
+     descricao:descricao.value,
+     data_fim:dataFinal
+    })
+  }
+
+
   return (
     <div className={styles.modalFormMetas}> 
-    <img src={close} alt="close"/>
-        <form>
-            <input type='text' />
-            <input type='text'/>
-            <input type="date" />
+    <img className={styles.closeModalFormMetas} src={close} alt="close" onClick={()=>setOpenModalForm(false)}/>
+        <form onSubmit={handleSubmit}>
+            <label>Titulo</label>
+            <Input type='text'{...titulo}/>
+
+            <label> Descrição </label>
+            <Input type='text' {...descricao}/>
+           
+            <label>Data final da meta .</label>
+            <input type="date" onChange={({target})=> setDataFinal(target.value)}/>
+
             <button>Enviar</button>
         </form> 
     </div>

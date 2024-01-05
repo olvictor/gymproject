@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { BsFillNodePlusFill } from "react-icons/bs";
 import { CiCircleRemove } from "react-icons/ci";
-import styles from './UserDate.module.css'
 import { useMutation, useQuery } from 'react-query';
+import styles from './UserDate.module.css'
 import axios from 'axios';
 import UserTreinos from '../UserTreinos/UserTreinos';
 
