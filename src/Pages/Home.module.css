@@ -47,6 +47,7 @@
   font-weight: bolder;
   text-align: center;
   align-self:flex-end;
+  border: none;
 }
 
 .homeImg{
