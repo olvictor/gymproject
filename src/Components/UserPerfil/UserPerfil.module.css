@@ -154,13 +154,22 @@
   border-radius: 16px;
 }
 .formINFO {
-  background-color: #ff5733;
   border-radius: 16px;
   display: flex;
   flex-direction: column;
   text-align: left;
-  padding: 30px;
   width: 100%;
+}
+
+.formINFO input{
+  background-color: #fff;
+  outline: none;
+  width: 40%;
+  color: black;
+}
+.formINFO input:focus{
+  filter: drop-shadow(0px 0px 5px #1bfaad);
+  font-weight: bolder;
 }
 
 select {
@@ -172,13 +181,14 @@ select {
   padding: 5px;
   border: none;
   color: white;
-  background-color: #1a2037;
+  background-color: #1bfaad;
   width: 120px;
   margin-top: 20px;
   border-radius: 4px;
   font-weight: bolder;
   font-size: 1rem;
   cursor: pointer;
+  text-transform: uppercase;
 }
 
 svg:hover {

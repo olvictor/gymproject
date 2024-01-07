@@ -99,14 +99,14 @@ if(isLoading){
 }
   return (
     <div className={styles.containerPerfil}>
-      <BsFillGearFill className={styles.svgEditar} />
+      {/* <BsFillGearFill className={styles.svgEditar} /> */}
       {!userInfo ? (
         <div>
           <form onSubmit={handleSubmit} className={styles.formINFO}>
-            <Input type="text" label="Nome" {...userNome}  name={'nome'}/>
-            <Input type="text" label="Altura" {...userAltura} name={'altura'}/>
-            <Input type="text" label="Peso" {...userPeso} name={'peso'}/>
-            <Input type="text" label="Idade" {...userIdade} name={'idade'}/>
+            <Input type="text" label="Nome"  {...userNome}  name={'nome'}/>
+            <Input type="number" label="Altura" placeholder={"Ex: 1.73"}{...userAltura} name={'altura'}/>
+            <Input type="number" label="Peso" {...userPeso} name={'peso'}/>
+            <Input type="number" label="Idade" {...userIdade} name={'idade'}/>
             <select
               defaultValue={0}
               onChange={({ target }) => setUserSexo(target.value)}
