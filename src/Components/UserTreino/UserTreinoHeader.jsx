@@ -3,7 +3,8 @@ import styles from "./UserTreino.module.css";
 import { useQuery } from "react-query";
 import axios from "axios";
 
-const UserTreinoHeader = ({ setExercisesShow }) => {
+
+const UserTreinoHeader = ({ setExercisesShow, treino, setOpenModalTreino }) => {
   const [bodyparts, setBodyParts] = useState([]);
   const [musculoAlvo, setMusculoAlvo] = useState(null);
 
@@ -45,6 +46,7 @@ const UserTreinoHeader = ({ setExercisesShow }) => {
         "X-RapidAPI-Host": "exercisedb.p.rapidapi.com",
       },
     };
+
     const { data: response, isLoading } = useQuery(
       "buscarExerciciosPorGrupamento",
       async () => {
@@ -65,18 +67,23 @@ const UserTreinoHeader = ({ setExercisesShow }) => {
   };
   return (
     <header className={styles.headerUsertreino}>
-      <span>Selecione o grupamento muscular : </span>
-      <select defaultValue={0} onChange={handleChange}>
-        <option value={0}>Selecione o músculo</option>
-        {bodyparts &&
-          bodyparts.map((i) => (
-            <option key={i} value={i}>
-              {i}
-            </option>
-          ))}
-      </select>
-
-      <button onClick={handleClick}>Pesquisar</button>
+      <div style={{width:'80%',display:'flex',alignItems:'center',gap:'15px',textAlign:'center'}}>
+        <span>Selecione o grupamento muscular : </span>
+        <select defaultValue={0} onChange={handleChange}>
+          <option value={0}>Selecione o músculo</option>
+          {bodyparts &&
+            bodyparts.map((i) => (
+              <option key={i} value={i}>
+                {i}
+              </option>
+            ))}
+        </select>
+        <button onClick={handleClick}>Pesquisar</button>
+      </div>
+      <div className={styles.headerUsertreinoBoxMeuTreino} style={{cursor:'pointer'}} onClick={()=>setOpenModalTreino(true)}>
+        <h3>Meu treino</h3>
+        <div style={{width:'20px',height:'20px',borderRadius:'50%',display:'flex',justifyContent:'center',alignItems:'center', backgroundColor:'#1bfaad', color:'#1a2037'}}>{treino.length }</div>
+      </div>
     </header>
   );
 };

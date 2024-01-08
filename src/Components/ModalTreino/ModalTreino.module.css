@@ -1,0 +1,9 @@
+.modalTreino{
+    top: -10px;
+    left: -10px;
+    position: absolute;
+    background-color: #1a2037;
+    width: 100%;
+    height: 50%;
+    border-radius: 6px;
+}

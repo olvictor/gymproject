@@ -5,18 +5,21 @@ import Loading from "../loading/Loading";
 import { AiFillPlusCircle } from "react-icons/ai";
 import { useQuery } from "react-query";
 import axios from "axios";
+import ModalTreino from "../ModalTreino/ModalTreino";
 
 const UserTreino = () => {
   const [exercises, setExercises] = useState(null);
   const [isHovered, setIsHovered] = useState(false);
   const [currentShow, setCurrentShow] = useState(null);
   const [exercisesShow, setExercisesShow] = useState(null);
+  const [treino,setTreino] = useState([])
+  const [openModalTreino,setOpenModalTreino] = useState(false)
 
   const options = {
     method: "GET",
     headers: {
-      "X-RapidAPI-Key": "f1c6fe8ad9msh54f8722877ef276p13b3bfjsn2b3b8d943027",
-      "X-RapidAPI-Host": "exercisedb.p.rapidapi.com",
+      'X-RapidAPI-Key': '52b2bef0b1msh7a3c3d95569cc0bp16bb3bjsnb4948159ced3',
+      'X-RapidAPI-Host': 'exercisedb.p.rapidapi.com'
     },
   };
 
@@ -34,7 +37,7 @@ const UserTreino = () => {
       refetchOnWindowFocus: false,
     }
   );
-
+console.log(data)
   const mouseEnter = (i) => {
     setCurrentShow(i);
     setIsHovered(true);
@@ -50,7 +53,7 @@ const UserTreino = () => {
 
   return (
     <div>
-      <UserTreinoHeader setExercisesShow={setExercisesShow} />
+      <UserTreinoHeader setExercisesShow={setExercisesShow}  treino={treino} setOpenModalTreino={setOpenModalTreino}/>
       <div className={styles.containerExercises}>
         {exercisesShow &&
           exercisesShow.map((i, index) => (
@@ -74,10 +77,11 @@ const UserTreino = () => {
                 <h3> Name: {i.name}</h3>
                 <p> Muscle: {i.bodyPart}</p>
                 <p>Equipament: {i.equipment}</p>
-                <AiFillPlusCircle onClick={() => console.log(i)} />
+                <AiFillPlusCircle className={styles.cardExerciseInfoButton} onClick={() => treino.push(i)} />
               </div>
             </div>
           ))}
+          {openModalTreino && <ModalTreino treino={treino} setOpenModalTreino={setOpenModalTreino} />}
       </div>
     </div>
   );

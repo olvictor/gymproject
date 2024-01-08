@@ -3,6 +3,7 @@
   flex-wrap: wrap;
   gap: 20px;
   margin-top: 30px;
+  position: relative;
 }
 
 .cardExercise {
@@ -34,9 +35,12 @@
   height: 100%;
   border-radius: 16px;
   padding: 15px;
-  text-align: center;
+  text-align: left;
+  font-size: 2rem;
 }
-
+.cardExerciseInfoButton{
+  font-size: 3rem;
+}
 .headerUsertreino {
   width: 100%;
   height: 40px;
@@ -44,6 +48,7 @@
   align-items: center;
   gap: 5px;
   margin-top: 40px;
+  justify-content: space-between;
 }
 
 .headerUsertreino button {
@@ -64,4 +69,19 @@
 .headerUsertreino button:hover {
   background-color: #fff;
   color: #1bfaad;
+}
+
+.headerUsertreinoBoxMeuTreino{
+  position: relative;
+  display: flex;
+}
+
+.modalTreino{
+top: -10px;
+left: -10px;
+position: absolute;
+background-color: #1a2037;
+width: 100%;
+height: 50%;
+border-radius: 6px;
 }
