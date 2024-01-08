@@ -26,7 +26,9 @@
 .cardExerciseInfo {
   position: absolute;
   display: none;
-  background-color: red;
+  background-color: #1bfaad;
+  color: #1a2037;
+  font-weight: bolder;
   top: 0;
   width: 100%;
   height: 100%;

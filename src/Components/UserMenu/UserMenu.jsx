@@ -1,11 +1,11 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import User from "../../Assets/user.svg";
-import Treino from "../../Assets/treino.svg";
 import Date from "../../Assets/date.svg";
 import Photo from "../../Assets/photo.svg";
 import Feed from "../../Assets/feed.svg";
 import Clock from "../../Assets/clock.svg";
+import Treino from "../../Assets/treino.svg";
 
 import styles from "./UserMenu.module.css";
 

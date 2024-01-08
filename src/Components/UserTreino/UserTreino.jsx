@@ -56,7 +56,7 @@ const UserTreino = () => {
           exercisesShow.map((i, index) => (
             <div
               key={index}
-              className={`${styles.cardExercise} ${isHovered ? "hovered" : ""}`}
+              className={styles.cardExercise}
               onMouseEnter={() => {
                 mouseEnter(index);
               }}
@@ -68,7 +68,7 @@ const UserTreino = () => {
               <div
                 className={styles.cardExerciseInfo}
                 style={{
-                  display: isHovered && currentShow === index ? "block" : "",
+                  display:  currentShow === index ? "block" : "",
                 }}
               >
                 <h3> Name: {i.name}</h3>
