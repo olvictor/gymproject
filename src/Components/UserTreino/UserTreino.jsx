@@ -37,7 +37,6 @@ const UserTreino = () => {
       refetchOnWindowFocus: false,
     }
   );
-console.log(data)
   const mouseEnter = (i) => {
     setCurrentShow(i);
     setIsHovered(true);
