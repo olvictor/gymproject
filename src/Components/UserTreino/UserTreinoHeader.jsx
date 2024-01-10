@@ -11,9 +11,9 @@ const UserTreinoHeader = ({ setExercisesShow, treino, setOpenModalTreino }) => {
   const options = {
     method: "GET",
     headers: {
-      "X-RapidAPI-Key": "f1c6fe8ad9msh54f8722877ef276p13b3bfjsn2b3b8d943027",
-      "X-RapidAPI-Host": "exercisedb.p.rapidapi.com",
-    },
+      'X-RapidAPI-Key': '52b2bef0b1msh7a3c3d95569cc0bp16bb3bjsnb4948159ced3',
+      'X-RapidAPI-Host': 'exercisedb.p.rapidapi.com'
+    }
   };
 
   const { data, isLoading } = useQuery(
@@ -32,38 +32,44 @@ const UserTreinoHeader = ({ setExercisesShow, treino, setOpenModalTreino }) => {
       },
       refetchOnWindowFocus: false,
     }
-  );
-
+    );
+    
   const handleChange = ({ target }) => {
     setMusculoAlvo(target.value);
   };
+  console.log(musculoAlvo)
 
   const handleClick = async () => {
-    const options = {
-      method: "GET",
-      headers: {
-        "X-RapidAPI-Key": "f1c6fe8ad9msh54f8722877ef276p13b3bfjsn2b3b8d943027",
-        "X-RapidAPI-Host": "exercisedb.p.rapidapi.com",
-      },
-    };
+    // const options = {
+    //   method: 'GET',
+    //   headers: {
+    //     'X-RapidAPI-Key': '52b2bef0b1msh7a3c3d95569cc0bp16bb3bjsnb4948159ced3',
+    //     'X-RapidAPI-Host': 'exercisedb.p.rapidapi.com'
+    //   }
+    // };
 
-    const { data: response, isLoading } = useQuery(
-      "buscarExerciciosPorGrupamento",
-      async () => {
-        return await axios
-          .get(
-            `https://exercisedb.p.rapidapi.com/exercises/bodyPart/${musculoAlvo}`,
-            options
-          )
-          .then((response) => response.data);
-      },
-      {
-        onSuccess: (data) => {
-          setExercisesShow(data);
-        },
-        refetchOnWindowFocus: false,
-      }
-    );
+    // const { data, isLoading } = useQuery(
+    //   "buscarExerciciosPorGrupamento",
+    //   async () => {
+    //     return await axios
+    //       .get(
+    //         `https://exercisedb.p.rapidapi.com/exercises/bodyPart/${musculoAlvo}`,
+    //         options
+    //       )
+    //       .then((response) => response.data);
+    //   },
+    //   {
+    //     onSuccess: (data) => {
+    //       setExercisesShow(data);
+    //     },
+    //     refetchOnWindowFocus: false,
+    //   }
+    //);
+    const result = await fetch(`https://exercisedb.p.rapidapi.com/exercises/bodyPart/${musculoAlvo}`,options)
+    const json = await result.json()
+    console.log(json)
+    setExercisesShow(json)
+    
   };
   return (
     <header className={styles.headerUsertreino}>
