@@ -37,7 +37,6 @@ const UserTreinoHeader = ({ setExercisesShow, treino, setOpenModalTreino }) => {
   const handleChange = ({ target }) => {
     setMusculoAlvo(target.value);
   };
-  console.log(musculoAlvo)
 
   const handleClick = async () => {
     // const options = {

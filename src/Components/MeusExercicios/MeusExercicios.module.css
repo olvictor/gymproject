@@ -1,0 +1,26 @@
+.MeusExercicios{
+    display: flex;
+    margin-top: 50px;
+    flex-wrap: wrap;
+    gap: 5%;
+}
+
+.boxMeusExercicios{
+    width: 30%;
+    height: auto;
+}
+
+.boxMeusExercicios img{
+    border-radius: 6px;
+}
+
+.boxMeusExercicios p{
+    border-bottom: 1px solid;
+}
+
+.boxMeusExercicios span{
+    font-size: 1rem;
+    font-weight:normal;
+    text-transform: capitalize;
+    color: #1bfaad;
+}

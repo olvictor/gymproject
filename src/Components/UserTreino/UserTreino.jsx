@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styles from "./UserTreino.module.css";
 import UserTreinoHeader from "./UserTreinoHeader";
 import Loading from "../loading/Loading";
@@ -9,7 +9,6 @@ import ModalTreino from "../ModalTreino/ModalTreino";
 
 const UserTreino = () => {
   const [exercises, setExercises] = useState(null);
-  const [isHovered, setIsHovered] = useState(false);
   const [currentShow, setCurrentShow] = useState(null);
   const [exercisesShow, setExercisesShow] = useState(null);
   const [treino,setTreino] = useState([])
@@ -39,10 +38,8 @@ const UserTreino = () => {
   );
   const mouseEnter = (i) => {
     setCurrentShow(i);
-    setIsHovered(true);
   };
   const mouseLeave = (i) => {
-    setIsHovered(false);
     setCurrentShow(null);
   };
 
@@ -76,7 +73,7 @@ const UserTreino = () => {
                 <h3> Name: {i.name}</h3>
                 <p> Muscle: {i.bodyPart}</p>
                 <p>Equipament: {i.equipment}</p>
-                <AiFillPlusCircle className={styles.cardExerciseInfoButton} onClick={() => treino.push(i)} />
+                <AiFillPlusCircle className={styles.cardExerciseInfoButton} onClick={() => {treino.push(i) ;setCurrentShow(null)}} />
               </div>
             </div>
           ))}

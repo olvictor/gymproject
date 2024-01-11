@@ -14,8 +14,8 @@ const ModalTreino = ({treino,setOpenModalTreino}) => {
             <IoMdClose  style={{position:'absolute',right:'0px',fontSize:'30px'}} onClick={()=> setOpenModalTreino(false)}/>
             <HeaderModal />
             <Routes>
-                <Route path="meusExercicios" element={<MeusExercicios />}></Route>
-                <Route path="meuTreino" element={<MeuTreino treino={treino} />}></Route>
+                <Route path="meusExercicios" element={<MeusExercicios treino={treino} />}></Route>
+                <Route path="meuTreino" element={<MeuTreino />}></Route>
             </Routes>
     </div>
   )

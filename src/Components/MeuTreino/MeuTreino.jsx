@@ -1,7 +1,6 @@
 import React from 'react'
 
-const MeuTreino = ({treino}) => {
-  console.log(treino)
+const MeuTreino = () => {
   return (
     <div>MeuTreino</div>
   )
