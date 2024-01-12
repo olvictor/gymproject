@@ -2,7 +2,7 @@
     display: flex;
     margin-top: 50px;
     flex-wrap: wrap;
-    gap: 5%;
+    gap: 50px 35px;
 }
 
 .boxMeusExercicios{
@@ -16,6 +16,7 @@
 
 .boxMeusExercicios p{
     border-bottom: 1px solid;
+    padding: 5px;
 }
 
 .boxMeusExercicios span{
