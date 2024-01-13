@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useState } from 'react'
 import { BsFillNodePlusFill } from "react-icons/bs";
 import { CiCircleRemove } from "react-icons/ci";
-import { useMutation } from 'react-query';
+import { useMutation, useQuery } from 'react-query';
 
 const MeuTreino = () => {
   const token = window.localStorage.getItem("token");
@@ -34,8 +34,14 @@ const MeuTreino = () => {
     },
   ]
 
-  const aaa = teste.filter((item)=> item.dia === 'segunda');
-  const {musculos: treinoSegunda} = aaa[0]
+  const {data, isLoading} = useQuery('buscarTreino',
+  async () =>{
+    return await axios.get('http://localhost:3000/user/treino_semanal',axiosConfig).then((response)=> response.data)
+  }
+  )
+  console.log(data)
+  const aaa = data.filter((item)=> item.dia_da_semana === 'segunda-feira');
+  console.log(aaa)
   const diasDaSemana = ['domingo','segunda-feira','terça-feira','quarta-feira','quinta-feira','sexta-feira','sabado']
   const opcoesDeTreino =['biceps','triceps','peito','ombro','costas','cardio','abdmomen','perna']
   const [dia, setDia] = useState(null)
@@ -97,13 +103,13 @@ const MeuTreino = () => {
         </select>
         <button>REGISTRAR</button>
       </form>
-      <div style={{backgroundColor:'red',width:'100%',marginTop:'50px'}}>
+      {/* <div style={{backgroundColor:'red',width:'100%',marginTop:'50px'}}>
           <div>
               {treinoSegunda.map((item)=>{
                 return <p>{item}</p>
               })}
           </div>
-      </div>
+      </div> */}
     </div>
   )
 }
