@@ -2,12 +2,14 @@ import axios from 'axios';
 import React, { useState } from 'react'
 import { BsFillNodePlusFill } from "react-icons/bs";
 import { CiCircleRemove } from "react-icons/ci";
+import { MdOutlineSettings } from "react-icons/md";
 import { useMutation, useQuery } from 'react-query';
 import styles from './MeuTreino.module.css';
 import Loading from "../loading/Loading";
 
 const MeuTreino = () => {
   const token = window.localStorage.getItem("token");
+  const [abrirFormulario,setAbrirFormulario] = useState(false)
   const [treinoSegunda,setTreinoSegunda] = useState([]);
   const [treinoTerça,setTreinoTerça] = useState([]);
   const [treinoQuarta,setTreinoQuarta] = useState([]);
@@ -15,11 +17,14 @@ const MeuTreino = () => {
   const [treinoSexta,setTreinoSexta] = useState([]);
   const [treinoSabado,setTreinoSabado] = useState([]);
   const [treinoDomingo,setTreinoDomingo] = useState([]);
-
-
-
-
-
+  
+  const diasDaSemana = ['domingo','segunda-feira','terça-feira','quarta-feira','quinta-feira','sexta-feira','sabado']
+  const opcoesDeTreino =['biceps','triceps','peito','ombro','costas','cardio','abdmomen','perna']
+  const [dia, setDia] = useState(null)
+  const [treinoAdicionado,setTreinoAdicionado] = useState([])
+  const [numeroDeOpcoes,setNumeroDeOpcoes] = useState([" "])
+  
+  const diaDeHoje =  new Date().getDay()
 
   const axiosConfig = {
     headers: {
@@ -56,11 +61,6 @@ const MeuTreino = () => {
   }
   )
 
-  const diasDaSemana = ['domingo','segunda-feira','terça-feira','quarta-feira','quinta-feira','sexta-feira','sabado']
-  const opcoesDeTreino =['biceps','triceps','peito','ombro','costas','cardio','abdmomen','perna']
-  const [dia, setDia] = useState(null)
-  const [treinoAdicionado,setTreinoAdicionado] = useState([])
-  const [numeroDeOpcoes,setNumeroDeOpcoes] = useState([" "])
  
   const removeropcao = (indice) =>{
     const novoArray = numeroDeOpcoes.splice(1,indice)
@@ -92,7 +92,6 @@ const MeuTreino = () => {
     mutation.mutate(dados)
   }
 
-  const diaDeHoje =  new Date().getDay()
 
   if(isLoading){
     return <Loading />
@@ -100,7 +99,8 @@ const MeuTreino = () => {
 
   return (
     <div style={{width:'100%'}}>
-      <form onSubmit={handleSubmit}>
+      <button className={styles.buttonConfigTreino} onClick={()=>setAbrirFormulario(!abrirFormulario)}>Configurar Treino <MdOutlineSettings /></button>
+      {abrirFormulario && <form className={styles.formMeuTreino} onSubmit={handleSubmit}>
         <h4>Selecione o treino :</h4>
         {numeroDeOpcoes.map((item,indice)=>{
           return <div>
@@ -123,7 +123,7 @@ const MeuTreino = () => {
           })}
         </select>
         <button>REGISTRAR</button>
-      </form>
+      </form>}
       <div className={styles.colunasDeTreino}>
               {treinoSegunda.map((item)=>{
                 const treino = item.treino.split(',')
