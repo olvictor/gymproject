@@ -1,0 +1,31 @@
+.colunasDeTreino{
+    width: 100%;
+    margin-top: 50px;
+    display: flex;
+    gap: 3px;
+}
+
+.colunaDeTreino{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    padding: 10px;
+    border-radius: 4px;
+    font-weight: bolder;
+    text-transform: capitalize;
+}
+
+.colunaDeTreinoAtiva{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    padding: 10px;
+    border-radius: 4px;
+    font-weight: bolder;
+    background-color: #1bfaad;
+    color: #1a2037;
+    text-transform: capitalize;
+}
+

@@ -3,45 +3,59 @@ import React, { useState } from 'react'
 import { BsFillNodePlusFill } from "react-icons/bs";
 import { CiCircleRemove } from "react-icons/ci";
 import { useMutation, useQuery } from 'react-query';
+import styles from './MeuTreino.module.css';
+import Loading from "../loading/Loading";
 
 const MeuTreino = () => {
   const token = window.localStorage.getItem("token");
+  const [treinoSegunda,setTreinoSegunda] = useState([]);
+  const [treinoTerça,setTreinoTerça] = useState([]);
+  const [treinoQuarta,setTreinoQuarta] = useState([]);
+  const [treinoQuinta,setTreinoQuinta] = useState([]);
+  const [treinoSexta,setTreinoSexta] = useState([]);
+  const [treinoSabado,setTreinoSabado] = useState([]);
+  const [treinoDomingo,setTreinoDomingo] = useState([]);
+
+
+
+
+
+
   const axiosConfig = {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   };
-  const teste = [
-    {
-      musculos: ['Peito,Triceps'],
-      dia: 'segunda'
-    },
-    {
-      musculos: ['Ombro,Biceps'],
-      dia: 'terca'
-    },
-    {
-      musculos: ['Abdomen,Cardio'],
-      dia: 'quarta'
-    },
-    {
-      musculos: ['Ombro,Perna'],
-      dia: 'quinta'
-    },
-    {
-      musculos: ['Cardio'],
-      dia: 'sexta'
-    },
-  ]
-
-  const {data, isLoading} = useQuery('buscarTreino',
+ 
+  const {data, isLoading,refetch} = useQuery('buscarTreino',
   async () =>{
     return await axios.get('http://localhost:3000/user/treino_semanal',axiosConfig).then((response)=> response.data)
+  },{
+    onSuccess: (data) => {
+      const treinoSegunda = data.filter((item)=> item.dia_da_semana === 'segunda-feira');
+      setTreinoSegunda(treinoSegunda)
+      
+      const treinoTerça = data.filter((item)=> item.dia_da_semana === 'terça-feira');
+      setTreinoTerça(treinoTerça)
+
+      const treinoQuarta = data.filter((item)=> item.dia_da_semana === 'quarta-feira');
+      setTreinoQuarta(treinoQuarta)
+
+      const treinoQuinta = data.filter((item)=> item.dia_da_semana === 'quinta-feira');
+      setTreinoQuinta(treinoQuinta)
+
+      const treinoSexta = data.filter((item)=> item.dia_da_semana === 'sexta-feira');
+      setTreinoSexta(treinoSexta)
+
+      const treinoSabado = data.filter((item)=> item.dia_da_semana === 'sabado');
+      setTreinoSabado(treinoSabado)
+
+      const treinoDomingo = data.filter((item)=> item.dia_da_semana === 'domingo');
+      setTreinoDomingo(treinoDomingo)
+    }
   }
   )
-  console.log(data)
-  const aaa = data.filter((item)=> item.dia_da_semana === 'segunda-feira');
-  console.log(aaa)
+
   const diasDaSemana = ['domingo','segunda-feira','terça-feira','quarta-feira','quinta-feira','sexta-feira','sabado']
   const opcoesDeTreino =['biceps','triceps','peito','ombro','costas','cardio','abdmomen','perna']
   const [dia, setDia] = useState(null)
@@ -64,8 +78,8 @@ const MeuTreino = () => {
   const mutation = useMutation({
     mutationFn : async (dados)=>{
       return await  axios.post('http://localhost:3000/user/treino_semanal',dados,axiosConfig).then((response) => response.data)
-    },onSuccess(data){
-      console.log(data)
+    },onSuccess(){
+      refetch()
     }
   })
 
@@ -77,6 +91,13 @@ const MeuTreino = () => {
     }
     mutation.mutate(dados)
   }
+
+  const diaDeHoje =  new Date().getDay()
+
+  if(isLoading){
+    return <Loading />
+  }
+
   return (
     <div style={{width:'100%'}}>
       <form onSubmit={handleSubmit}>
@@ -103,13 +124,75 @@ const MeuTreino = () => {
         </select>
         <button>REGISTRAR</button>
       </form>
-      {/* <div style={{backgroundColor:'red',width:'100%',marginTop:'50px'}}>
-          <div>
+      <div className={styles.colunasDeTreino}>
               {treinoSegunda.map((item)=>{
-                return <p>{item}</p>
+                const treino = item.treino.split(',')
+                return <div className={diasDaSemana[diaDeHoje] === item.dia_da_semana ? `${styles.colunaDeTreinoAtiva}`  : `${styles.colunaDeTreino}`}  >
+                  <h2>{item.dia_da_semana}</h2>
+                  {treino.map((i)=>{
+                    return <p>{i}</p>
+                  })}
+                </div>
+              })}  
+              {treinoTerça.map((item)=>{
+                const treino = item.treino.split(',')
+                return <div className={styles.colunaDeTreino}>
+                  <h2>{item.dia_da_semana}</h2>
+                  {treino.map((i)=>{
+                    return <p>{i}</p>
+                  })}
+                </div>
               })}
-          </div>
-      </div> */}
+     
+     
+              {treinoQuarta.map((item)=>{
+                const treino = item.treino.split(',')
+                return <div className={styles.colunaDeTreino}>
+                  <h2>{item.dia_da_semana}</h2>
+                  {treino.map((i)=>{
+                    return <p>{i}</p>
+                  })}
+                </div>
+              })}
+
+              {treinoQuinta.map((item)=>{
+                const treino = item.treino.split(',')
+                return <div className={styles.colunaDeTreino}>
+                  <h2>{item.dia_da_semana}</h2>
+                  {treino.map((i)=>{
+                    return <p>{i}</p>
+                  })}
+                </div>
+              })}
+    
+              {treinoSexta.map((item)=>{
+                const treino = item.treino.split(',')
+                return <div className={styles.colunaDeTreino}>
+                  <h2>{item.dia_da_semana}</h2>
+                  {treino.map((i)=>{
+                    return <p>{i}</p>
+                  })}
+                </div>
+              })}
+              {treinoSabado.map((item)=>{
+                const treino = item.treino.split(',')
+                return <div className={styles.colunaDeTreino}>
+                  <h2>{item.dia_da_semana}</h2>
+                  {treino.map((i)=>{
+                    return <p>{i}</p>
+                  })}
+                </div>
+              })}
+              {treinoDomingo.map((item)=>{
+                const treino = item.treino.split(',')
+                return <div className={styles.colunaDeTreino}>
+                  <h2>{item.dia_da_semana}</h2>
+                  {treino.map((i)=>{
+                    return <p>{i}</p>
+                  })}
+                </div>
+              })}
+      </div>
     </div>
   )
 }
