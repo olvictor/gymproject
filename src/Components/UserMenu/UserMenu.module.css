@@ -3,7 +3,6 @@ margin-top:100px;
 display: flex;
 gap:10px;
 width: 100%;
-align-items: center;
 }
 ul a:hover{
     filter: drop-shadow(0px 0px 5px #1bfaad);
@@ -11,8 +10,4 @@ ul a:hover{
 }
 ul a:global(.active){
     filter: drop-shadow(0px 0px 5px #1bfaad);
-}
-
-.headerProfile svg{
-    height: 24px;
 }

@@ -114,13 +114,15 @@
 
 .infoCircleNumber {
   position: absolute;
-  right: 26%;
+  right: 27%;
   top: 40%;
   color: #fff;
-  font-size: 1.3rem;
+  font-size: 1.2rem;
 }
 .infoCircleNumber span{
   color: #1BFAAD;
+  font-size: 1.2rem;
+
 }
 
 .barraDeProgresso {
