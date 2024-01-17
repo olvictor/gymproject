@@ -10,8 +10,10 @@ import { FaScaleBalanced } from "react-icons/fa6";
 import { PiGenderIntersexDuotone } from "react-icons/pi";
 import { GoGoal } from "react-icons/go";
 import { HiOutlineAnnotation } from "react-icons/hi";
+import { FaHourglassHalf } from "react-icons/fa";
 import { IoIosCalculator } from "react-icons/io";
 import { MdDirectionsRun } from "react-icons/md";
+import { MdDriveFileRenameOutline } from "react-icons/md";
 import { useMutation, useQuery } from "react-query";
 import Loading from '../loading/Loading'
 
@@ -103,10 +105,10 @@ if(isLoading){
       {!userInfo ? (
         <div>
           <form onSubmit={handleSubmit} className={styles.formINFO}>
-            <Input type="text" label="Nome"  {...userNome}  name={'nome'}/>
-            <Input type="number" label="Altura" placeholder={"Ex: 1.73"}{...userAltura} name={'altura'}/>
-            <Input type="number" label="Peso" {...userPeso} name={'peso'}/>
-            <Input type="number" label="Idade" {...userIdade} name={'idade'}/>
+            <Input type="text" label="Nome"  {...userNome}  name={'nome'} icon={<MdDriveFileRenameOutline  />}/>
+            <Input type="text" label="Altura" placeholder={"Ex: 1.73"}{...userAltura} name={'altura'} icon={<GiBodyHeight />}/>
+            <Input type="number" label="Peso" {...userPeso} name={'peso'} icon={<FaScaleBalanced />}/>
+            <Input type="number" label="Idade" {...userIdade} name={'idade'} icon={<FaHourglassHalf />}/>
             <select
               defaultValue={0}
               onChange={({ target }) => setUserSexo(target.value)}
