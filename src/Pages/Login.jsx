@@ -8,9 +8,6 @@ import styles from "./Login.module.css";
 const Login = () => {
   return (
     <div className={`${styles.loginPage} container`}>
-      <div className={styles.loginBoxImg}>
-        <img src={Spencer} />
-      </div>
       <Routes>
         <Route path="/" element={<LoginForm />}></Route>
         <Route path="registrar" element={<RegistroForm />}></Route>

@@ -24,7 +24,6 @@ input {
   border-radius: 8px;
   height: 30px;
   padding: 10px;
-  background-color: #ff5733;
   filter: saturate(70%);
   color: white;
   margin: 10px 0px;
@@ -89,4 +88,19 @@ header select {
 img{
   max-width: 100%;
   max-height: 100%;
+}
+
+.boxInput{
+  display: flex;
+  position: relative;
+  align-items: center;
+}
+
+.boxInput svg{
+  position: absolute;
+  right: 15px;
+  fill: #1a2037;
+  font-weight: bolder;
+  font-size: 1.5rem;
+  cursor:default;
 }

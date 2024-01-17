@@ -2,6 +2,10 @@ import React, { useState } from "react";
 import styles from "./RegistroForm.module.css";
 import Input from "../input/Input";
 import UseForm from "../../CustomHooks/UseForm";
+import { IoExitOutline } from "react-icons/io5";
+import { MdOutlineMailOutline } from "react-icons/md";
+import { RiUser3Line } from "react-icons/ri";
+import { RiLockPasswordLine } from "react-icons/ri";
 import axios from "axios";
 import { userRegister } from "../../CustomHooks/UseFetch";
 import { useNavigate } from "react-router-dom";
@@ -53,20 +57,17 @@ const RegistroForm = () => {
     <div className={styles.registroForm}>
       <h1 className={styles.titulo}>Registrar</h1>
       <form onSubmit={handleSubmit}>
-        <Input label={"Email"} type={"email"} name={email} {...email} />
-        <Input label={"Usuario"} type={"text"} name={usuario} {...usuario} />
-        <Input label={"Senha"} type={"password"} name={senha} {...senha} />
-        <Input
-          label={"Confirmar senha"}
-          type={"password"}
-          name={senha}
-          {...confirmarSenha}
+        <IoExitOutline  className={styles.irParaLogin} onClick={()=> navigate("/login")}/>
+        <Input label={"Email"} type={"email"} name={email} {...email} icon={<MdOutlineMailOutline />} />
+        <Input label={"Usuário"} type={"text"} name={usuario} {...usuario} icon={<RiUser3Line />} />
+        <Input label={"Senha"} type={"password"} name={senha} {...senha} icon={<RiLockPasswordLine />} />
+        <Input label={"Confirmar senha"} type={"password"} name={senha} {...confirmarSenha} icon={<RiLockPasswordLine />}
         />
 
         {mutation.isError && (
           <p className="error">{mutation.error.response.data.mensagem}</p>
         )}
-        {error && <p>{error}</p>}
+        {error && <p className="error">{error}</p>}
         {mutation.isLoading ? (
           <button className={styles.buttonForm} disabled={true}>
             Cadastrando...

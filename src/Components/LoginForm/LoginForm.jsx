@@ -1,8 +1,11 @@
 import React, { useContext, useEffect } from "react";
-import { Link, json } from "react-router-dom";
+import { Link } from "react-router-dom";
 import styles from "./LoginForm.module.css";
 import Input from "../input/Input";
 import UseForm from "../../CustomHooks/UseForm";
+import { RiUser3Line } from "react-icons/ri";
+import { RiLockPasswordLine } from "react-icons/ri";
+
 import { UserContext } from "../../UserContext";
 import Loading from "../loading/Loading";
 
@@ -19,39 +22,43 @@ const LoginForm = () => {
     }
   };
 
+  if(loading){
+    return <Loading />
+  }
+
   return (
     <div className={styles.loginForm}>
       <h1 className={styles.titulo}>LOGIN</h1>
       <form onSubmit={handleSubmit}>
         <Input
           type="text"
-          placeholder={"********"}
-          label={"Usuario"}
+          label={"Usuário"}
           name={'username'}
           {...username}
+          icon={<RiUser3Line />}
         />
         <Input
           type="password"
-          placeholder={"****"}
           label={"Senha"}
           name={'senha'}
           {...senha}
+          icon={<RiLockPasswordLine />}
         />
         {error ? <p className="error">{error}</p> : ""}
         {!loading ? 
         <button className={styles.buttonForm}>
-          Entrar
+          ENTRAR
         </button>:
         <button disabled='true'  className={styles.buttonForm}>
-            Carregando...
+            CARREGANDO...
         </button>}
-      </form>
       <div className={styles.link}>
         <span>Não possui uma conta ?</span>
         <Link className={styles.linkRegistrar} to="/login/registrar">
           Registrar
         </Link>
       </div>
+      </form>
     </div>
   );
 };
