@@ -96,7 +96,7 @@ const MeuTreino = () => {
   if(isLoading){
     return <Loading />
   }
-
+  console.log(diasDaSemana[diaDeHoje])
   return (
     <div style={{width:'100%'}}>
       <button className={styles.buttonConfigTreino} onClick={()=>setAbrirFormulario(!abrirFormulario)}>Configurar Treino <MdOutlineSettings /></button>
@@ -136,7 +136,7 @@ const MeuTreino = () => {
               })}  
               {treinoTerça.map((item)=>{
                 const treino = item.treino.split(',')
-                return <div className={styles.colunaDeTreino}>
+                return <div className={diasDaSemana[diaDeHoje] === item.dia_da_semana ? `${styles.colunaDeTreinoAtiva}`  : `${styles.colunaDeTreino}`} >
                   <h2>{item.dia_da_semana}</h2>
                   {treino.map((i)=>{
                     return <p>{i}</p>
@@ -147,7 +147,7 @@ const MeuTreino = () => {
      
               {treinoQuarta.map((item)=>{
                 const treino = item.treino.split(',')
-                return <div className={styles.colunaDeTreino}>
+                return <div className={diasDaSemana[diaDeHoje] === item.dia_da_semana ? `${styles.colunaDeTreinoAtiva}`  : `${styles.colunaDeTreino}`} >
                   <h2>{item.dia_da_semana}</h2>
                   {treino.map((i)=>{
                     return <p>{i}</p>
@@ -157,7 +157,7 @@ const MeuTreino = () => {
 
               {treinoQuinta.map((item)=>{
                 const treino = item.treino.split(',')
-                return <div className={styles.colunaDeTreino}>
+                return <div className={diasDaSemana[diaDeHoje] === item.dia_da_semana ? `${styles.colunaDeTreinoAtiva}`  : `${styles.colunaDeTreino}`} >
                   <h2>{item.dia_da_semana}</h2>
                   {treino.map((i)=>{
                     return <p>{i}</p>
@@ -167,7 +167,7 @@ const MeuTreino = () => {
     
               {treinoSexta.map((item)=>{
                 const treino = item.treino.split(',')
-                return <div className={styles.colunaDeTreino}>
+                return <div className={diasDaSemana[diaDeHoje] === item.dia_da_semana ? `${styles.colunaDeTreinoAtiva}`  : `${styles.colunaDeTreino}`} >
                   <h2>{item.dia_da_semana}</h2>
                   {treino.map((i)=>{
                     return <p>{i}</p>
@@ -176,7 +176,7 @@ const MeuTreino = () => {
               })}
               {treinoSabado.map((item)=>{
                 const treino = item.treino.split(',')
-                return <div className={styles.colunaDeTreino}>
+                return <div className={diasDaSemana[diaDeHoje] === item.dia_da_semana ? `${styles.colunaDeTreinoAtiva}`  : `${styles.colunaDeTreino}`} >
                   <h2>{item.dia_da_semana}</h2>
                   {treino.map((i)=>{
                     return <p>{i}</p>
@@ -185,7 +185,7 @@ const MeuTreino = () => {
               })}
               {treinoDomingo.map((item)=>{
                 const treino = item.treino.split(',')
-                return <div className={styles.colunaDeTreino}>
+                return <div className={diasDaSemana[diaDeHoje] === item.dia_da_semana ? `${styles.colunaDeTreinoAtiva}`  : `${styles.colunaDeTreino}`} >
                   <h2>{item.dia_da_semana}</h2>
                   {treino.map((i)=>{
                     return <p>{i}</p>
