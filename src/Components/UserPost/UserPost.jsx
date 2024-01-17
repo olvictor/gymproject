@@ -39,16 +39,21 @@ const UserPost = () => {
       <form onSubmit={handleSubmit}>
         <Input
           type={"text"}
-          placeholder={"Título"}
+          placeholder={"Descrição da imagem..."}
           name={"conteudo"}
           {...conteudo}
         />
+     <div className={styles.containerCustomInput}>
+        <label for="imagem" className={styles.customInput}>Escolher Arquivo</label>
         <input
-          type="file"
-          name="imagem"
-          id="imagem"
-          onChange={handleImgChange}
-        />
+            type="file"
+            name="imagem"
+            id="imagem"
+            onChange={handleImgChange}
+          />
+     </div>
+
+
         <button type="submit">Enviar</button>
       </form>
       <div className={styles.boxImagem}>
