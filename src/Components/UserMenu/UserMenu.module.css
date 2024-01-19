@@ -5,8 +5,7 @@ gap:10px;
 width: 100%;
 }
 ul a:hover{
-    filter: drop-shadow(0px 0px 5px #1bfaad);
-    
+    animation: filterChange .3s forwards;
 }
 ul a:global(.active){
     filter: drop-shadow(0px 0px 5px #1bfaad);
@@ -14,4 +13,16 @@ ul a:global(.active){
 
 .headerProfile svg{
     font-size: 2.4rem;
+}
+
+
+
+@keyframes filterChange {
+    from {
+        filter: drop-shadow(0px 0px 5px #fff);
+    }
+    to {
+        filter: drop-shadow(0px 0px 5px #1bfaad);
+    }
+    
 }

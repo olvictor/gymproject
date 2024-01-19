@@ -66,7 +66,6 @@ const UserTreinoHeader = ({ setExercisesShow, treino, setOpenModalTreino }) => {
     //);
     const result = await fetch(`https://exercisedb.p.rapidapi.com/exercises/bodyPart/${musculoAlvo}`,options)
     const json = await result.json()
-    console.log(json)
     setExercisesShow(json)
     
   };

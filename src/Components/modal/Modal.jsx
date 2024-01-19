@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styles from "./Modal.module.css";
 import UseForm from "../../CustomHooks/UseForm";
 import Input from "../input/Input";
@@ -8,7 +8,10 @@ import { FaArrowRight } from "react-icons/fa";
 import { PiSubtitlesLight } from "react-icons/pi";
 import { MdOutlineDateRange } from "react-icons/md";
 import { useMutation, useQuery } from "react-query";
+import { CSSTransition } from 'react-transition-group';
 import axios from "axios";
+
+
 
 const Modal = ({ feed, currentItem, setCurrentItem, setOpenModal }) => {
   const [comentarios, setComentarios] = useState([]);
@@ -87,81 +90,86 @@ const Modal = ({ feed, currentItem, setCurrentItem, setOpenModal }) => {
    const semanas = diferencaEmMs/(1000*60*60*24*7)
    const quantidadeDeDias = diferencaEmMs/(1000*60*60*24)
 
-   
+  
+   console.log(feed[currentItem].id -1 , currentItem)
   return (
     <div className={`${styles.modal}`}>
       <div className={styles.modalContent}>
-        <div className={styles.modalLeft}>
-          <img
-            src={feed[currentItem].imagem_url}
-            alt={feed[currentItem].conteudo}
-          />
-          <button disabled={currentItem === 0 ? true : false}>
-            <FaArrowLeft
-              className={styles.left}
-              fill="white"
-              style={{ fontSize: "3rem" }}
-              onClick={leftClick}
+        <CSSTransition  key={feed[currentItem].id} className={styles.modalLeft} in={feed[currentItem].id -1  === currentItem} unmountOnExit>
+          <div className={styles.modalLeft}>
+            <img
+              src={feed[currentItem].imagem_url}
+              alt={feed[currentItem].conteudo}
             />
-          </button>
-          <button disabled={currentItem < feed.length - 1 ? false : true}>
-            <FaArrowRight
-              className={styles.right}
-              fill="white"
+            <button disabled={currentItem === 0 ? true : false}>
+              <FaArrowLeft
+                className={styles.left}
+                fill="white"
+                style={{ fontSize: "3rem" }}
+                onClick={leftClick}
+              />
+            </button>
+            <button disabled={currentItem < feed.length - 1 ? false : true}>
+              <FaArrowRight
+                className={styles.right}
+                fill="white"
+                style={{ fontSize: "3rem" }}
+                onClick={rightClick}
+              />
+            </button>
+          </div>
+        </CSSTransition>
+          <div className={styles.rightModal}>
+            
+            <IoMdClose
+              className={styles.close}
+              fill="black"
               style={{ fontSize: "3rem" }}
-              onClick={rightClick}
+              onClick={() => setOpenModal(null)}
             />
-          </button>
-        </div>
-        <div className={styles.rightModal}>
-          <IoMdClose
-            className={styles.close}
-            fill="black"
-            style={{ fontSize: "3rem" }}
-            onClick={() => setOpenModal(null)}
-          />
-          <div className={styles.rightModalPostInfo}>
-            <div className={styles.postInfoTittleData}>
-              <h3>
-                <PiSubtitlesLight /> {feed[currentItem].conteudo}
-              </h3>
-              <h3>
-                <MdOutlineDateRange /> {dataCurrentItem}
-              </h3>
-            </div>
-            <ul>
-              {comentarios &&
-                comentarios.map((item) => {
-                  const data = new Date(item.data_comentario).toLocaleString(
-                    "pt-BR",
-                    { timezone: "UTC" }
-                  );
-                  return (
-                    <li className={styles.itemComentario} key={item.id}>
-                      <img src={item.usuario_photo} alt="Foto perfil" />
-                      <div className={styles.itemComentarioInfo}>
-                        <div className={styles.itemComentarioBox}>
-                          <h5 className={styles.itemComentarioInfoUsuario}>
-                            {item.usuario_username}
-                          </h5>
-                          <p>{item.comentario}</p>
+            <div className={styles.rightModalPostInfo}>
+              <div className={styles.postInfoTittleData}>
+                <h3>
+                  <PiSubtitlesLight /> {feed[currentItem].conteudo}
+                </h3>
+                <h3>
+                  <MdOutlineDateRange /> {dataCurrentItem}
+                </h3>
+              </div>
+              <ul>
+                {comentarios &&
+                  comentarios.map((item) => {
+                    const data = new Date(item.data_comentario).toLocaleString(
+                      "pt-BR",
+                      { timezone: "UTC" }
+                    );
+                    return (
+                      <li className={styles.itemComentario} key={item.id}>
+                        <img src={item.usuario_photo} alt="Foto perfil" />
+                        <div className={styles.itemComentarioInfo}>
+                          <div className={styles.itemComentarioBox}>
+                            <h5 className={styles.itemComentarioInfoUsuario}>
+                              {item.usuario_username}
+                            </h5>
+                            <p>{item.comentario}</p>
+                          </div>
+                          <p className={styles.itemComentarioInfoData}>{semanas >= 7 ? `${semanas} Semanas` : `${quantidadeDeDias.toFixed()} Dias`}</p>
                         </div>
-                        <p className={styles.itemComentarioInfoData}>{semanas >= 7 ? `${semanas} Semanas` : `${quantidadeDeDias.toFixed()} Dias`}</p>
-                      </div>
-                    </li>
-                  );
-                })}
-            </ul>
+                      </li>
+                    );
+                  })}
+              </ul>
+            </div>
+            <div className={styles.rightModalComentario}>
+              <Input type="text" placeholder="Comente..." {...comentario} />
+              {mutation.isLoading ? (
+                <button disabled>Comentando...</button>
+              ) : (
+                <button onClick={() => mutation.mutate()}>Comentar</button>
+                )}
+            </div>
           </div>
-          <div className={styles.rightModalComentario}>
-            <Input type="text" placeholder="Comente..." {...comentario} />
-            {mutation.isLoading ? (
-              <button disabled>Comentando...</button>
-            ) : (
-              <button onClick={() => mutation.mutate()}>Comentar</button>
-            )}
-          </div>
-        </div>
+
       </div>
     </div>
   );

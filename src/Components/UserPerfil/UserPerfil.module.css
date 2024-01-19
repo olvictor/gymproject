@@ -207,7 +207,6 @@ select:focus {
 }
 
 svg:hover {
-  color: #ff5733;
   cursor: pointer;
 }
 .svgEditar {

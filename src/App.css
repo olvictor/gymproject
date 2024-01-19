@@ -95,11 +95,6 @@ header select {
   grid-column: 2/3;
 }
 
-img{
-  max-width: 100%;
-  max-height: 100%;
-}
-
 .boxInput{
   display: flex;
   position: relative;
