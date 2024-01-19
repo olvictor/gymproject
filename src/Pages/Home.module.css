@@ -47,9 +47,24 @@
   font-size: 4rem;
 }
 .homeText span{
-  color: #1bfaad;
+  color: #fff;
   font-weight: bolder;
   font-size: 5rem;
+  position: relative;
+  overflow: hidden;
+  animation: colorChange 2s 4s forwards;
+}
+
+.homeText span:after{
+  animation: afterReveal 2s 4s forwards;
+  content: " ";
+  width: 0%;
+  height: 3px;
+  position: absolute;
+  background-color: #1bfaad;
+  bottom: 0px;
+  left: 0px;
+  opacity: 0;
 }
 .homeText button{
   cursor: pointer;
@@ -97,9 +112,6 @@
   0%{
     opacity: 0;
   }
-  50%{
-    opacity: .5;
-  }
   100%{
     opacity: 1;
   }
@@ -110,4 +122,27 @@
     to {
       transform: translateX(101%);
     }
+}
+
+
+@keyframes afterReveal {
+  from {
+    transform: scaleX(0%);
+  }
+  to {
+    transform: scaleX(100%);
+    width: 100%;
+    opacity: 1;
+  }
+}
+
+
+@keyframes colorChange {
+  from {
+    color: #fff;
+  }
+  to {
+    color: #1bfaad;
+  }
+  
 }
