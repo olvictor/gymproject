@@ -86,7 +86,7 @@ const UserTreinoHeader = ({ setExercisesShow, treino, setOpenModalTreino }) => {
       </div>
       <div className={styles.headerUsertreinoBoxMeuTreino} style={{cursor:'pointer'}} onClick={()=>setOpenModalTreino(true)}>
         <h3>Meu treino</h3>
-        <div style={{width:'20px',height:'20px',borderRadius:'50%',display:'flex',justifyContent:'center',alignItems:'center', backgroundColor:'#1bfaad', color:'#1a2037'}}>{treino.length }</div>
+        <div style={{width:'20px',height:'20px',borderRadius:'50%',display:'flex',justifyContent:'center',alignItems:'center', backgroundColor:'#1bfaad', color:'#1a2037',fontWeight:'bolder'}}>{treino.length }</div>
       </div>
     </header>
   );

@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { BsFillNodePlusFill } from "react-icons/bs";
 import { CiCircleRemove } from "react-icons/ci";
 import { useMutation, useQuery } from 'react-query';
 import styles from './UserDate.module.css'
@@ -29,6 +28,7 @@ const UserDate = () => {
           .then((response) => response.data);
       },onSuccess :()=>{
         refetch()
+        setCountInput([" "])
       }
     });
 
@@ -60,24 +60,25 @@ const UserDate = () => {
 
     }
 
-
     return (
       <div > 
         <div style={{marginTop:'50px'}}>
             <form onSubmit={handleSubmit} className={styles.formUserDate}>
-              <h2>Registre seu treino Diário :</h2>
+              <h2>Oque você treinou hoje ?</h2>
         
               <div className={styles.formBoxInput}>
-                {countInput.map((input, index)=>{
-                return <div key={index}>
-                  <CiCircleRemove className={styles.inputRemove} onClick={()=>removeInput(index)}/>
-                  <input placeholder='Digite o músculo' type='text' onChange={({target})=> handleChange(index, target)}/>
-                </div>
-                })}
-              </div>
-              <BsFillNodePlusFill  onClick={()=>{
+                <div>
+                  {countInput.map((input, index)=>{
+                  return <div key={index}>
+                    <CiCircleRemove className={styles.inputRemove} onClick={()=>removeInput(index)}/>
+                    <input placeholder='Digite o músculo' type='text' onChange={({target})=> handleChange(index, target)}/>
+                  </div>
+                  })}
+                  </div>
+              <span style={{fontSize:'1rem',cursor:'pointer',color:'#1bfaad'}} onClick={()=>{
                 setCountInput([...countInput,' '])
-              }}/>
+              }}>Mais opções .</span>
+              </div>
               <button type='submit'>Registrar</button>
             </form>
       </div>

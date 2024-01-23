@@ -77,7 +77,7 @@ const UserTreino = () => {
               </div>
             </div>
           ))}
-          {openModalTreino && <ModalTreino treino={treino} setOpenModalTreino={setOpenModalTreino} />}
+          {openModalTreino && <ModalTreino treino={treino} setOpenModalTreino={setOpenModalTreino} setTreino={setTreino} />}
       </div>
     </div>
   );

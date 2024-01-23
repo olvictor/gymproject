@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import styles from './MeusExercicios.module.css'
+import { IoIosCloseCircleOutline } from "react-icons/io";
 
-const MeusExercicios = ({treino}) => {
+const MeusExercicios = ({treino,setTreino}) => {
   const filtroDosMusculos = treino.map((item) => item.target)
   const musculosExistentesNalista = []
   const [exerciseShow,setExerciseShow] = useState();
@@ -28,6 +29,11 @@ const MeusExercicios = ({treino}) => {
     setExerciseShow(filtrarExerciciosPorMusculo)
   }
 
+  const removeTreino = (id) =>{
+      const novoArrayDeTreinos = treino.filter((i)=> i.id !== id)
+      setTreino(novoArrayDeTreinos)
+      setExerciseShow(novoArrayDeTreinos)
+  }
   return (
     <div>
       <div>
@@ -35,7 +41,6 @@ const MeusExercicios = ({treino}) => {
           {musculosExistentesNalista.map((item,index)=>{
             return <li style={{textTransform:'capitalize', cursor:'pointer', filter: itemAtivo === index ? 'drop-shadow(0px 0px 5px #1bfaad)' : ''}} onClick={()=>handleClick(item,index)}>{item}</li>
           })}
-          <li style={{textTransform:'capitalize', cursor:'pointer', filter: itemAtivo === 999 ? 'drop-shadow(0px 0px 5px #1bfaad)' : ''}} onClick={()=>{setExerciseShow(treino); setItemAtivo(999)}}>Mostrar Todos</li>
         </ul>
       </div>  
       <div className={styles.MeusExercicios}>
@@ -44,6 +49,7 @@ const MeusExercicios = ({treino}) => {
             <img src={item.gifUrl}></img>
             <p>Nome: <span>{item.name}</span></p>
             <p>Musculo Alvo: <span>{item.target}</span></p>
+            <IoIosCloseCircleOutline className={styles.iconClose} onClick={()=> removeTreino(item.id)}/>
           </div>
         })}
         {exerciseShow && exerciseShow.map((item,index)=>{
@@ -51,6 +57,7 @@ const MeusExercicios = ({treino}) => {
             <img src={item.gifUrl}></img>
             <p>Nome: <span>{item.name}</span></p>
             <p>Musculo Alvo: <span>{item.target}</span></p>
+            <IoIosCloseCircleOutline className={styles.iconClose} onClick={()=> removeTreino(item.id)}/>
           </div>
         })}
       </div>

@@ -8,10 +8,12 @@
 .boxMeusExercicios{
     width: 30%;
     height: auto;
+    position: relative;
 }
 
 .boxMeusExercicios img{
     border-radius: 6px;
+    max-width: 100%;
 }
 
 .boxMeusExercicios p{
@@ -24,4 +26,17 @@
     font-weight:normal;
     text-transform: capitalize;
     color: #1bfaad;
+}
+
+.iconClose{
+    position: absolute;
+    fill: #1bfaad;
+    top: 0;
+    right: 0;
+    font-size: 2rem;
+}
+
+.iconClose:hover{
+    fill: red;
+    transform: scale(1.2);
 }

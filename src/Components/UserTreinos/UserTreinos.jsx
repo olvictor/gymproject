@@ -7,7 +7,7 @@ const UserTreinos = ({treinos}) => {
    const diasDoMesDez =[" "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "] 
 
   return (
-    <div style={{display:'flex',gap:'10px'}}>
+    <div className={styles.containerCalendario}>
         {treinos.map((treino,indice)=>{
         const dataDoTreino = new Date(treino.data_publicacao);
         const DiaNumerico = dataDoTreino.getDate();
@@ -29,7 +29,7 @@ const UserTreinos = ({treinos}) => {
                 </div>
                 <div className={styles.cardTreinoMusculos}> 
                   {arrayMusculos.map((item,index)=>{
-                    return <h3 key={index}>{item}</h3>
+                    return <h3 style={{textTransform:'capitalize'}} key={index}>{item}</h3>
                   })}
                 </div>
             </div>

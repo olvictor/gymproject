@@ -5,6 +5,7 @@
   align-items: center;
   justify-content: center;
   margin-top: 50px;
+  animation: slide-in-fwd-center 1s ease-in-out;
 }
 
 .feedItem {
@@ -52,4 +53,17 @@
   height: 100%;
   border-radius: 12px;
   object-fit: cover;
+}
+
+@keyframes slide-in-fwd-center {
+  0% {
+    -webkit-transform: translateZ(-1400px);
+            transform: translateZ(-1400px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateZ(0);
+            transform: translateZ(0);
+    opacity: 1;
+  }
 }

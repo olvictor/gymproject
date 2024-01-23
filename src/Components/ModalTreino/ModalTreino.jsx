@@ -8,13 +8,13 @@ import MeuTreino from '../MeuTreino/MeuTreino';
 import HeaderModal from '../HeaderModal/HeaderModal';
 
 
-const ModalTreino = ({treino,setOpenModalTreino}) => {
+const ModalTreino = ({treino,setOpenModalTreino,setTreino}) => {
   return (
     <div className={styles.modalTreino}>
             <IoMdClose  style={{position:'absolute',right:'0px',fontSize:'30px'}} onClick={()=> setOpenModalTreino(false)}/>
             <HeaderModal />
             <Routes>
-                <Route path="meusExercicios" element={<MeusExercicios treino={treino} />}></Route>
+                <Route path="meusExercicios" element={<MeusExercicios treino={treino} setTreino={setTreino}/>}></Route>
                 <Route path="meuTreino" element={<MeuTreino />}></Route>
             </Routes>
     </div>

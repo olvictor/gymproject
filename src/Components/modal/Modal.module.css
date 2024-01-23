@@ -27,7 +27,7 @@
   width: 1000px;
   height: 80vh;
   position: relative;
-  animation: fade-in 2s ease-in-out;
+  animation: fade-in 1s ease-in-out;
 }
 
 .modalLeft img {
