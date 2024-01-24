@@ -6,6 +6,7 @@
   justify-content: center;
   margin-top: 50px;
   animation: slide-in-fwd-center 1s ease-in-out;
+  position: relative;
 }
 
 .feedItem {
@@ -48,11 +49,13 @@
 .feedItem:hover {
   opacity: 0.7;
 }
+
 .feedItem img {
+  min-width: 50px;
   width: 100%;
-  height: 100%;
+  min-height: 100%;
+  max-height: 100%;
   border-radius: 12px;
-  object-fit: cover;
 }
 
 @keyframes slide-in-fwd-center {

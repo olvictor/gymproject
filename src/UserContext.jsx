@@ -1,4 +1,4 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import { getToken, userLogin } from "./CustomHooks/UseFetch";
 import { useNavigate } from "react-router-dom";
 
@@ -9,8 +9,8 @@ export const UserStorage = ({ children }) => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-
   const navigate = useNavigate();
+  const token = window.localStorage.getItem("token");
 
   const getUser = async (token) => {
     const { url, options } = getToken(token);
@@ -21,6 +21,11 @@ export const UserStorage = ({ children }) => {
     navigate("/user");
   };
 
+  useEffect(()=>{
+      if(token){
+        getUser(token)
+      }
+  },[])
   const loginUser = async (username, senha) => {
     const { options, url } = userLogin({
       username,

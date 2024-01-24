@@ -62,12 +62,12 @@ const UserDate = () => {
       setCountInput(newInputFields)
 
     }
-    const validarAdiçãoTreino = data.filter((item) => new Date(item.data_publicacao).getDate() === diaAtual && new Date(item.data_publicacao).getMonth() === mesAtual && new Date(item.data_publicacao).getFullYear() === anoAtual+1)
-    console.log(validarAdiçãoTreino)
+    const validarAdiçãoTreino = data && data.filter((item) => new Date(item.data_publicacao).getDate() === diaAtual && new Date(item.data_publicacao).getMonth() === mesAtual && new Date(item.data_publicacao).getFullYear() === anoAtual+1)
+  
     return (
       <div > 
         <div style={{marginTop:'50px'}}>
-           {validarAdiçãoTreino.length >= 1 && 
+           {data && validarAdiçãoTreino.length >= 1 && 
             <form onSubmit={handleSubmit} className={styles.formUserDate}>
               <h2>Oque você treinou hoje ?</h2>
         
