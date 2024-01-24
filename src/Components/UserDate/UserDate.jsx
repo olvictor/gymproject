@@ -9,7 +9,10 @@ const UserDate = () => {
     const [countInput,setCountInput] = useState([' '])
 
     const token = window.localStorage.getItem('token')
-
+    const diaAtual = new Date().getDate();
+    const mesAtual = new Date().getMonth();
+    const anoAtual = new Date().getFullYear();
+  
     const axiosConfig = {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -59,10 +62,12 @@ const UserDate = () => {
       setCountInput(newInputFields)
 
     }
-
+    const validarAdiçãoTreino = data.filter((item) => new Date(item.data_publicacao).getDate() === diaAtual && new Date(item.data_publicacao).getMonth() === mesAtual && new Date(item.data_publicacao).getFullYear() === anoAtual+1)
+    console.log(validarAdiçãoTreino)
     return (
       <div > 
         <div style={{marginTop:'50px'}}>
+           {validarAdiçãoTreino.length >= 1 && 
             <form onSubmit={handleSubmit} className={styles.formUserDate}>
               <h2>Oque você treinou hoje ?</h2>
         
@@ -81,6 +86,7 @@ const UserDate = () => {
               </div>
               <button type='submit'>Registrar</button>
             </form>
+          }
       </div>
       {data && <UserTreinos treinos={data} />}
     </div>
