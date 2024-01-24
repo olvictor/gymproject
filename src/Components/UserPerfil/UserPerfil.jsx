@@ -65,7 +65,7 @@ const UserPerfil = () => {
   const imcINFO = imc(userPeso?.value,userAltura?.value);
   
   const tmb = calcularTMB(response?.peso, response?.sexo, "moderado");
-
+  console.log(tmb)
   const mutation = useMutation({
     mutationFn: async () => {
       const { url, options } = infoPOST(token);
@@ -206,13 +206,13 @@ if(isLoading){
                 <circle cx="150" cy="100" r="75" fill="#1a2037"></circle>
               </svg>
               <div className={styles.infoCircleNumber}>
-                {<h3>{tmb} <span>KCAL</span></h3>}
+                {<h3>{tmb.TMB} <span>KCAL</span></h3>}
               </div>
             </div>
             <div className={styles.infoMacroNutrientes}>
-                  <h4>Proteina: <span>150g</span></h4>
-                  <h4>Carboidrato: <span>150g</span></h4>
-                  <h4>Gordura: <span>150g</span></h4>
+                  <h4>Proteina: <span>{tmb.gramasDeProteina}g</span></h4>
+                  <h4>Carboidrato: <span>{tmb.gramasDeCarbo}g</span></h4>
+                  <h4>Gordura: <span>{tmb.gramasDeGordura}g</span></h4>
               </div>
           </div>
         </div>
