@@ -94,3 +94,15 @@ export const dataGet = (token) => {
     },
   };
 };
+
+
+export const userTreinoSemanal = (token) => {
+  return {
+    url: API_URL + "/user/treino_semanal",
+    options: {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    },
+  };
+};

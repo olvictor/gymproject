@@ -6,9 +6,11 @@ import { MdOutlineSettings } from "react-icons/md";
 import { useMutation, useQuery } from 'react-query';
 import styles from './MeuTreino.module.css';
 import Loading from "../loading/Loading";
+import { userTreinoSemanal } from '../../CustomHooks/UseFetch';
 
 const MeuTreino = () => {
   const token = window.localStorage.getItem("token");
+
   const [abrirFormulario,setAbrirFormulario] = useState(false)
   const [treinoSegunda,setTreinoSegunda] = useState([]);
   const [treinoTerça,setTreinoTerça] = useState([]);
@@ -26,15 +28,11 @@ const MeuTreino = () => {
   
   const diaDeHoje =  new Date().getDay()
 
-  const axiosConfig = {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  };
+  const {url,options}= userTreinoSemanal(token)
  
-  const {data, isLoading,refetch} = useQuery('buscarTreino',
+  const {data, isLoading, refetch} = useQuery('buscarTreino',
   async () =>{
-    return await axios.get('http://localhost:3000/user/treino_semanal',axiosConfig).then((response)=> response.data)
+    return await axios.get(url,options).then((response)=> response.data)
   },{
     onSuccess: (data) => {
       const treinoSegunda = data.filter((item)=> item.dia_da_semana === 'segunda-feira');
@@ -77,7 +75,7 @@ const MeuTreino = () => {
 
   const mutation = useMutation({
     mutationFn : async (dados)=>{
-      return await  axios.post('http://localhost:3000/user/treino_semanal',dados,axiosConfig).then((response) => response.data)
+      return await  axios.post(url,dados,options).then((response) => response.data)
     },onSuccess(){
       refetch()
     }
@@ -96,7 +94,7 @@ const MeuTreino = () => {
   if(isLoading){
     return <Loading />
   }
-  console.log(diasDaSemana[diaDeHoje])
+
   return (
     <div style={{width:'100%'}}>
       <button className={styles.buttonConfigTreino} onClick={()=>setAbrirFormulario(!abrirFormulario)}>Configurar Treino <MdOutlineSettings /></button>
