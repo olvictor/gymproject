@@ -9,6 +9,7 @@ export const UserStorage = ({ children }) => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+
   const navigate = useNavigate();
   const token = window.localStorage.getItem("token");
 
@@ -26,6 +27,7 @@ export const UserStorage = ({ children }) => {
         getUser(token)
       }
   },[])
+  
   const loginUser = async (username, senha) => {
     const { options, url } = userLogin({
       username,

@@ -38,20 +38,10 @@ const UserPerfil = () => {
 
   const { url, options } = infoGET(token);
 
-  const axiosConfig = {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  };
-  const {
-    data: response,
-    isLoading,
-    refetch,
-  } = useQuery(
-    "getUserInfo",
+  const { data: response, isLoading, refetch} = useQuery("getUserInfo",
     async () => {
       return await axios
-        .get(url, axiosConfig)
+        .get(url, options)
         .then((response) => response.data);
     },
     {
@@ -65,7 +55,7 @@ const UserPerfil = () => {
   const imcINFO = imc(userPeso?.value,userAltura?.value);
   
   const tmb = calcularTMB(response?.peso, response?.sexo, "moderado");
-  console.log(tmb)
+
   const mutation = useMutation({
     mutationFn: async () => {
       const { url, options } = infoPOST(token);
@@ -84,7 +74,7 @@ const UserPerfil = () => {
             imc:  imcINFO.imc ,
             imc_classificacao: imcINFO.resultado[0].classificacao
           },
-          axiosConfig
+          options
         )
         .then((response) => response.data);
     },

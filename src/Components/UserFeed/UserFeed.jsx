@@ -11,26 +11,19 @@ const UserFeed = () => {
   const [currentShow, setCurrentShow] = useState(null);
   const [openModal, setOpenModal] = useState(false);
   const [currentItem, setCurrentItem] = useState(null);
-  const [loading, setLoading] = useState(true);
+  
   const token = window.localStorage.getItem("token");
-  const { url } = feedGET(token);
+  const { url, options } = feedGET(token);
 
   const handleClick = (index) => {
     setCurrentItem(index);
     setOpenModal(true);
   };
 
-  const axiosConfig = {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  };
-
-  const { data, isLoading } = useQuery(
-    "getFeed",
+  const { data, isLoading } = useQuery("getFeed",
     async () => {
       return await axios
-        .get(url, axiosConfig)
+        .get(url, options)
         .then((response) => response.data);
     },
     {

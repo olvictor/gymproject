@@ -19,7 +19,7 @@ const RegistroForm = () => {
   const senha = UseForm();
   const confirmarSenha = UseForm();
 
-  const { url, options } = userRegister();
+  const { url } = userRegister();
 
   const navigate = useNavigate();
 

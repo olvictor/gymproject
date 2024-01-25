@@ -6,12 +6,23 @@ import styles from "./UserPost.module.css";
 import { useState } from "react";
 import { userPOST } from "../../CustomHooks/UseFetch";
 import { useNavigate } from "react-router-dom";
+import { useMutation } from "react-query";
+import axios from "axios";
 
 const UserPost = () => {
   const conteudo = UseForm();
   const [img, setImg] = useState({});
   const navigate = useNavigate();
   const token = window.localStorage.getItem("token");
+  
+  const mutation = useMutation({
+    mutationFn: async (dados) =>{
+    const { url, options } = userPOST(dados, token);
+     return  await axios.post(url,dados,options).then((response)=> response.data)
+    },onSuccess(){
+      navigate("/user/feed");
+    }
+  })
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -20,12 +31,8 @@ const UserPost = () => {
     formData.append("imagem", img.raw);
     formData.append("conteudo", conteudo.value);
 
-    const { url, options } = userPOST(formData, token);
-
-    const response = await fetch(url, options);
-    if (response.ok) {
-      navigate("/user/feed");
-    }
+    mutation.mutate(formData)
+  
   };
 
   const handleImgChange = ({ target }) => {
@@ -34,6 +41,7 @@ const UserPost = () => {
       raw: target.files[0],
     });
   };
+  
   return (
     <div className={styles.userPost}>
       <form onSubmit={handleSubmit}>

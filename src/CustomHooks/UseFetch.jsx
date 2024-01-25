@@ -1,5 +1,3 @@
-import { json } from "react-router-dom";
-
 export const API_URL = "http://localhost:3000";
 
 export const userLogin = (body) => {
@@ -57,7 +55,6 @@ export const feedGET = (token) => {
   return {
     url: API_URL + "/user/feed",
     options: {
-      method: "get",
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -69,7 +66,6 @@ export const infoGET = (token) => {
   return {
     url: API_URL + "/user/info",
     options: {
-      method: "get",
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -77,16 +73,13 @@ export const infoGET = (token) => {
   };
 };
 
-export const infoPOST = (token, body) => {
+export const infoPOST = (token) => {
   return {
     url: API_URL + "/user/info",
     options: {
-      method: "POST",
       headers: {
-        "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify(body),
     },
   };
 };
