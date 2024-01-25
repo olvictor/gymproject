@@ -5,21 +5,19 @@ import UseForm from '../../CustomHooks/UseForm'
 import Input from "../input/Input";
 import { useMutation } from 'react-query';
 import axios from 'axios';
+import { userMetas } from '../../CustomHooks/UseFetch';
 
 const FormMetas = ({setOpenModalForm,refetch}) => {
   const titulo = UseForm()
   const descricao = UseForm()
   const [dataFinal,setDataFinal] = useState('')
   const token = window.localStorage.getItem('token')
+  
+  const {url,options} = userMetas(token);
 
-  const axiosConfig = {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  };
   const mutation =  useMutation({
     mutationFn: async (dados)=>{
-      return await axios.post('http://localhost:3000/user/metas',dados,axiosConfig).then((response)=> response.data)
+      return await axios.post(url,dados,options).then((response)=> response.data)
     },onSuccess: ()=>{
         setOpenModalForm(false)
         refetch()

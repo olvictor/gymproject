@@ -5,8 +5,8 @@ import axios from 'axios';
 import Loading from '../loading/Loading';
 import styles from './UserMetas.module.css';
 import vector from '../../Assets/Vector.svg';
-import UseForm  from '../../CustomHooks/UseForm';
 import FormMetas from '../formMetas/FormMetas';
+import { userMetas } from '../../CustomHooks/UseFetch';
 
 const UserMetas = () => {
   const token = window.localStorage.getItem("token");
@@ -18,14 +18,10 @@ const UserMetas = () => {
   const [monstrarItem, setMonstrarItem] = useState(null)    
   const {dias ,horas ,minutos ,segundos} =  calcTempo(new Date(), new Date(dataFinalMeta));
 
-  const axiosConfig = {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  };
+  const { url,options} = userMetas(token)
 
   const {data ,isLoading,refetch} = useQuery('buscarMetas', async()=>{
-   return  await axios.get('http://localhost:3000/user/metas', axiosConfig).then((response)=> response.data)},{
+   return  await axios.get(url, options).then((response)=> response.data)},{
     refetchOnWindowFocus:false,
     retry:false
   })

@@ -118,3 +118,15 @@ export const userComentarios = (token) => {
     },
   };
 };
+
+
+export const userMetas = (token) => {
+  return {
+    url: API_URL + "/user/metas",
+    options: {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    },
+  };
+};
