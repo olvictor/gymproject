@@ -106,3 +106,15 @@ export const userTreinoSemanal = (token) => {
     },
   };
 };
+
+
+export const userComentarios = (token) => {
+  return {
+    url: API_URL + "/comentarios",
+    options: {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    },
+  };
+};

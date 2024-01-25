@@ -10,6 +10,7 @@ import { MdOutlineDateRange } from "react-icons/md";
 import { useMutation, useQuery } from "react-query";
 import { CSSTransition } from 'react-transition-group';
 import axios from "axios";
+import { userComentarios } from "../../CustomHooks/UseFetch";
 
 
 
@@ -19,17 +20,14 @@ const Modal = ({ feed, currentItem, setCurrentItem, setOpenModal }) => {
   let post_id = feed[currentItem].id;
   const token = window.localStorage.getItem("token");
 
-  const axiosConfig = {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  };
+  const {url,options} = userComentarios(token)
+
 
   const { data, isLoading, refetch } = useQuery(
     "getComentarios",
     async () => {
       return await axios
-        .get(`http://localhost:3000/comentarios/${post_id}`, axiosConfig)
+        .get(`${url}/${post_id}`, options)
         .then((response) => response.data);
     },
     {
@@ -62,14 +60,11 @@ const Modal = ({ feed, currentItem, setCurrentItem, setOpenModal }) => {
 
   const mutation = useMutation({
     mutationFn: async () => {
-      return await axios
-        .post(
-          `http://localhost:3000/comentarios`,
-          {
+      return await axios.post(url,{
             post_id,
             comentario: comentario.value,
           },
-          axiosConfig
+          options
         )
         .then((response) => response.data);
     },
@@ -90,9 +85,7 @@ const Modal = ({ feed, currentItem, setCurrentItem, setOpenModal }) => {
    const semanas = diferencaEmMs/(1000*60*60*24*7)
    const quantidadeDeDias = diferencaEmMs/(1000*60*60*24)
 
-  
-   console.log(feed[currentItem].id -1 , currentItem)
-  return (
+   return (
     <div className={`${styles.modal}`}>
       <div className={styles.modalContent}>
         <CSSTransition  key={feed[currentItem].id} className={styles.modalLeft} in={feed[currentItem].id -1  === currentItem} unmountOnExit>
