@@ -83,3 +83,14 @@ export const infoPOST = (token) => {
     },
   };
 };
+
+export const dataGet = (token) => {
+  return {
+    url: API_URL + "/user/treinos",
+    options: {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    },
+  };
+};

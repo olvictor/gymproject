@@ -4,6 +4,7 @@ import { useMutation, useQuery } from 'react-query';
 import styles from './UserDate.module.css'
 import axios from 'axios';
 import UserTreinos from '../UserTreinos/UserTreinos';
+import { dataGet } from '../../CustomHooks/UseFetch';
 
 const UserDate = () => {
     const [countInput,setCountInput] = useState([' '])
@@ -13,20 +14,16 @@ const UserDate = () => {
     const mesAtual = new Date().getMonth();
     const anoAtual = new Date().getFullYear();
   
-    const axiosConfig = {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    };
-    
+    const {url,options} = dataGet(token);
+
     const mutation = useMutation({
       mutationFn: async (treino) => {
         return await axios
-          .post(
-            `http://localhost:3000/user/treinos`,{
+          .post(url,
+            {
               musculos: treino
             },
-            axiosConfig
+            options
           )
           .then((response) => response.data);
       },onSuccess :()=>{
@@ -36,13 +33,10 @@ const UserDate = () => {
     });
 
     const {data ,refetch} = useQuery('buscarTreinos', async () =>{
-      return await axios.get('http://localhost:3000/user/treinos',axiosConfig).then((response) => response.data)
+      return await axios.get(url,options).then((response) => response.data)
     },{
       refetchOnWindowFocus:false,
-
-    }
-  
-    )
+    })
 
     const handleSubmit = (e) =>{
       e.preventDefault()
@@ -62,12 +56,13 @@ const UserDate = () => {
       setCountInput(newInputFields)
 
     }
-    const validarAdiçãoTreino = data && data.filter((item) => new Date(item.data_publicacao).getDate() === diaAtual && new Date(item.data_publicacao).getMonth() === mesAtual && new Date(item.data_publicacao).getFullYear() === anoAtual+1)
-  
+    
+    const validarAdiçãoTreino = data && data.filter((item) => new Date(item.data_publicacao).getDate() === diaAtual && new Date(item.data_publicacao).getMonth() === mesAtual && new Date(item.data_publicacao).getFullYear() === anoAtual)
+
     return (
       <div > 
         <div style={{marginTop:'50px'}}>
-           {data && validarAdiçãoTreino.length >= 1 && 
+           {data && validarAdiçãoTreino.length < 1 && 
             <form onSubmit={handleSubmit} className={styles.formUserDate}>
               <h2>Oque você treinou hoje ?</h2>
         
