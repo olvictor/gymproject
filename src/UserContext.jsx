@@ -17,9 +17,15 @@ export const UserStorage = ({ children }) => {
     const { url, options } = getToken(token);
     const response = await fetch(url, options);
     const json = await response.json();
-    setData(json);
-    setLogado(true);
-    navigate("/user");
+
+    if(!response.ok){
+      navigate("/");
+      setLogado(false)
+    }else{
+      setData(json);
+      setLogado(true);
+      navigate("/user");
+    }
   };
 
   useEffect(()=>{
