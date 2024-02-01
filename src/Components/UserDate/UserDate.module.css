@@ -3,9 +3,9 @@
     display: flex;
     gap: 20px;
     justify-content: center;
-    min-height: 200px;
-    height: auto;
+    min-height: 100px;
     animation: slide-in-fwd-center  1s ease-in-out;
+    background-color: red;
 }
 .formBoxInput{
     display: flex;
@@ -48,6 +48,26 @@
     border: 1px  solid #fff;
 }
 
+.headerMeses{
+    display: flex;
+    align-items: center;
+    margin: 50px 0px;
+    gap: 10px;
+}
+
+.headerMeses Ul{
+    display: flex;
+    cursor: pointer;
+    gap: 10px;
+}
+
+.headerMeses li:hover{
+    filter: drop-shadow(0px 0px 5px #1bfaad);
+}
+
+.activeHeader{
+    filter: drop-shadow(0px 0px 5px #1bfaad);
+}
 @keyframes slide-in-fwd-center {
     0% {
       -webkit-transform: translateZ(-1400px);

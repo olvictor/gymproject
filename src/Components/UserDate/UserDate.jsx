@@ -13,8 +13,11 @@ const UserDate = () => {
     const diaAtual = new Date().getDate();
     const mesAtual = new Date().getMonth();
     const anoAtual = new Date().getFullYear();
-  
+    const mesesDoAno = ["Jan","Fev","Mar","Abr","Mai","Jun","Jul","Ago","Set","Out","Nov","Dez"];
+    const [treinos,setTreinos] = useState([]);
     const {url,options} = dataGet(token);
+    const [headerActive,setHeaderActive] = useState(999);
+
 
     const mutation = useMutation({
       mutationFn: async (treino) => {
@@ -36,6 +39,10 @@ const UserDate = () => {
       return await axios.get(url,options).then((response) => response.data)
     },{
       refetchOnWindowFocus:false,
+      initialData : [],
+      onSuccess: (data) =>{
+        setTreinos(data)
+      }
     })
 
     const handleSubmit = (e) =>{
@@ -58,10 +65,41 @@ const UserDate = () => {
     }
     
     const validarAdiçãoTreino = data && data.filter((item) => new Date(item.data_publicacao).getDate() === diaAtual && new Date(item.data_publicacao).getMonth() === mesAtual && new Date(item.data_publicacao).getFullYear() === anoAtual)
+    const arrayMesesOfData = []
+    const meses = new Map()
+    const mesesMapeados = [];
+    const mesesHeader = [];
 
+    for (let i of data && data){
+      arrayMesesOfData.push(new Date(i.data_publicacao).getMonth())
+    }
+
+    for (let i of arrayMesesOfData){
+          if(!meses.has(mesesDoAno[i])){
+             meses.set(mesesDoAno[i], 1)
+          }else{
+            meses.set(mesesDoAno[i], meses.get(mesesDoAno[i]) + 1)
+          }
+    }
+
+    for (let [key,value]of meses){
+        mesesHeader.push(key);
+    }
+    const handleClick = (index,item) =>{
+      const buscarIndexDoMes = mesesDoAno.indexOf(item)
+      console.log(index)
+      if(index === 999){
+       return  setTreinos(data)
+      }
+      const novoArray  = data.filter((item) => new Date(item.data_publicacao).getMonth() === buscarIndexDoMes) ;
+      console.log(novoArray)
+      setHeaderActive(index)
+      setTreinos(novoArray)
+    }
+    console.log(treinos)
     return (
-      <div > 
-        <div style={{marginTop:'50px'}}>
+    <div > 
+      <div style={{marginTop:'50px'}}>
            {data && validarAdiçãoTreino.length < 1 && 
             <form onSubmit={handleSubmit} className={styles.formUserDate}>
               <h2>Oque você treinou hoje ?</h2>
@@ -83,7 +121,19 @@ const UserDate = () => {
             </form>
           }
       </div>
-      {data && <UserTreinos treinos={data} />}
+      <div className={styles.headerMeses}>    
+        <h4>Filtrar Por Mês: </h4>
+        <ul>
+          {mesesHeader.map((item,index)=>{
+          return <li key={index} onClick={()=> handleClick(index,item)} className={headerActive === index ? `${styles.activeHeader}` : " "} >
+                {item}
+            </li> 
+          })}
+          <li onClick={()=> handleClick(999)} className={headerActive === 999 ? `${styles.activeHeader}` : " "}>Mostrar Todos</li>
+        </ul>
+      </div>
+
+      {data && <UserTreinos treinos={treinos} />}
     </div>
   )
 }
