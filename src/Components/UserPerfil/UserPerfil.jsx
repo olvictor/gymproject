@@ -37,12 +37,6 @@ const UserPerfil = () => {
 
   const token = window.localStorage.getItem("token");
 
-  const queryClient = useQueryClient()
-  const queryKey =  'buscarTreinos2'
-  const teste = queryClient.getQueryData(queryKey);
-  
-  console.log(teste)
-
   const { url, options } = infoGET(token);
 
   const { data: response, isLoading, refetch} = useQuery("getUserInfo",
