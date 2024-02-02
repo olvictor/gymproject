@@ -14,13 +14,14 @@ import { FaHourglassHalf } from "react-icons/fa";
 import { IoIosCalculator } from "react-icons/io";
 import { MdDirectionsRun } from "react-icons/md";
 import { MdDriveFileRenameOutline } from "react-icons/md";
-import { useMutation, useQuery } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import Loading from '../loading/Loading'
 
 import Input from "../input/Input";
 import UseForm from "../../CustomHooks/UseForm";
 import styles from "./UserPerfil.module.css";
 import axios from "axios";
+import Grafico from "../Grafico/Grafico";
 
 const UserPerfil = () => {
   const [userInfo, setUserInfo] = useState(false);
@@ -35,6 +36,12 @@ const UserPerfil = () => {
   const userIdade = UseForm();
 
   const token = window.localStorage.getItem("token");
+
+  const queryClient = useQueryClient()
+  const queryKey =  'buscarTreinos2'
+  const teste = queryClient.getQueryData(queryKey);
+  
+  console.log(teste)
 
   const { url, options } = infoGET(token);
 
@@ -207,6 +214,7 @@ if(isLoading){
           </div>
         </div>
       )}
+      <Grafico />
     </div>
   );
 };

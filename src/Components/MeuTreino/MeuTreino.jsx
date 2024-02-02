@@ -55,7 +55,8 @@ const MeuTreino = () => {
 
       const treinoDomingo = data.filter((item)=> item.dia_da_semana === 'domingo');
       setTreinoDomingo(treinoDomingo)
-    }
+    },
+    staleTime : 0,
   }
   )
 
