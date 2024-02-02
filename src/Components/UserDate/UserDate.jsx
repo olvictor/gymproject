@@ -4,7 +4,7 @@ import { useMutation, useQuery } from 'react-query';
 import styles from './UserDate.module.css'
 import axios from 'axios';
 import UserTreinos from '../UserTreinos/UserTreinos';
-import { dataGet } from '../../CustomHooks/UseFetch';
+import { buscarTipoDeTreino, dataGet } from '../../CustomHooks/UseFetch';
 
 const UserDate = () => {
     const [countInput,setCountInput] = useState([' '])
@@ -43,6 +43,11 @@ const UserDate = () => {
       onSuccess: (data) =>{
         setTreinos(data)
       }
+    })
+
+    const {data: dataTipoDeTreino} = useQuery('buscarTipoDeTreino',async () =>{
+      const {url,options} = buscarTipoDeTreino(token);
+        return await axios.get(url,options).then((response)=> response.data)
     })
 
     const handleSubmit = (e) =>{
@@ -87,16 +92,17 @@ const UserDate = () => {
     }
     const handleClick = (index,item) =>{
       const buscarIndexDoMes = mesesDoAno.indexOf(item)
-      console.log(index)
+
       if(index === 999){
        return  setTreinos(data)
       }
+
       const novoArray  = data.filter((item) => new Date(item.data_publicacao).getMonth() === buscarIndexDoMes) ;
-      console.log(novoArray)
       setHeaderActive(index)
       setTreinos(novoArray)
     }
-    console.log(treinos)
+
+    console.log(validarAdiçãoTreino)
     return (
     <div > 
       <div style={{marginTop:'50px'}}>
@@ -109,7 +115,12 @@ const UserDate = () => {
                   {countInput.map((input, index)=>{
                   return <div key={index}>
                     <CiCircleRemove className={styles.inputRemove} onClick={()=>removeInput(index)}/>
-                    <input placeholder='Digite o músculo' type='text' onChange={({target})=> handleChange(index, target)}/>
+                    <select defaultValue={0} onChange={(e)=> handleChange(index, e.target)}>
+                      <option value="0">Selecionar...</option>
+                      {dataTipoDeTreino && dataTipoDeTreino.map((treino)=>{
+                       return  <option style={{textTransform:'capitalize'}} value={treino.tipo}>{treino.tipo}</option>
+                      })}
+                    </select>
                   </div>
                   })}
                   </div>

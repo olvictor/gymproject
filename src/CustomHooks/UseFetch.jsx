@@ -130,3 +130,14 @@ export const userMetas = (token) => {
     },
   };
 };
+
+export const  buscarTipoDeTreino = (token) => {
+  return {
+    url: API_URL + "/tipo_de_treino",
+    options: {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    },
+  };
+};
