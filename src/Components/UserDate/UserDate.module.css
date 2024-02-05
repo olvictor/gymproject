@@ -5,7 +5,6 @@
     justify-content: center;
     min-height: 100px;
     animation: slide-in-fwd-center  1s ease-in-out;
-    background-color: red;
 }
 .formBoxInput{
     display: flex;

@@ -4,7 +4,6 @@ import { dataGet } from "../CustomHooks/UseFetch"
 
 
 export const buscarTreino = async (token) => {
-    console.log(token)
     const {url,options} = dataGet(token)
 
     const {data ,refetch} = useQuery('buscarTreinos2', async () =>{
@@ -15,6 +14,5 @@ export const buscarTreino = async (token) => {
     return {
         data,refetch
     }
-  
 
 }

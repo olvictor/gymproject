@@ -10,7 +10,7 @@ const Grafico = () => {
   const queryKey =  'buscarTreinos2'
 
   const treinos =  queryClient.getQueryData(queryKey);
-
+  console.log(treinos)
   const musculosTreinados = new Map();
 
   const data = [
@@ -41,7 +41,7 @@ const Grafico = () => {
 
   return (
     <div className={styles.myChartContainer}>
-        {treinos !== undefined && 
+        {treinos.length > 0 && 
           <Chart
             chartType="PieChart"
             data={data}

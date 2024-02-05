@@ -1,12 +1,12 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { CiCircleRemove } from "react-icons/ci";
-import { useMutation, useQuery } from 'react-query';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
 import styles from './UserDate.module.css'
 import axios from 'axios';
 import UserTreinos from '../UserTreinos/UserTreinos';
 import { buscarTipoDeTreino, dataGet } from '../../CustomHooks/UseFetch';
 
-const UserDate = () => {
+const UserDate =  () => {
     const [countInput,setCountInput] = useState([' '])
 
     const token = window.localStorage.getItem('token')
@@ -18,6 +18,14 @@ const UserDate = () => {
     const {url,options} = dataGet(token);
     const [headerActive,setHeaderActive] = useState(999);
 
+    const queryClient = useQueryClient()
+    const queryKey =  'buscarTreinos2'
+    const treinosData =  queryClient.getQueryData(queryKey);
+
+    useEffect(()=>{
+      setTreinos(treinosData)
+    },[])
+    console.log(treinos)
 
     const mutation = useMutation({
       mutationFn: async (treino) => {
@@ -34,16 +42,6 @@ const UserDate = () => {
         setCountInput([" "])
       }
     });
-
-    const {data ,refetch} = useQuery('buscarTreinos', async () =>{
-      return await axios.get(url,options).then((response) => response.data)
-    },{
-      refetchOnWindowFocus:false,
-      initialData : [],
-      onSuccess: (data) =>{
-        setTreinos(data)
-      }
-    })
 
     const {data: dataTipoDeTreino} = useQuery('buscarTipoDeTreino',async () =>{
       const {url,options} = buscarTipoDeTreino(token);
@@ -69,13 +67,13 @@ const UserDate = () => {
 
     }
     
-    const validarAdiçãoTreino = data && data.filter((item) => new Date(item.data_publicacao).getDate() === diaAtual && new Date(item.data_publicacao).getMonth() === mesAtual && new Date(item.data_publicacao).getFullYear() === anoAtual)
+    const validarAdiçãoTreino = treinosData && treinosData.filter((item) => new Date(item.data_publicacao).getDate() === diaAtual && new Date(item.data_publicacao).getMonth() === mesAtual && new Date(item.data_publicacao).getFullYear() === anoAtual)
     const arrayMesesOfData = []
     const meses = new Map()
     const mesesMapeados = [];
     const mesesHeader = [];
 
-    for (let i of data && data){
+    for (let i of treinosData && treinosData){
       arrayMesesOfData.push(new Date(i.data_publicacao).getMonth())
     }
 
@@ -92,20 +90,21 @@ const UserDate = () => {
     }
     const handleClick = (index,item) =>{
       const buscarIndexDoMes = mesesDoAno.indexOf(item)
-
       if(index === 999){
-       return  setTreinos(data)
+        setHeaderActive(index)
+       return setTreinos(treinosData)
       }
 
-      const novoArray  = data.filter((item) => new Date(item.data_publicacao).getMonth() === buscarIndexDoMes) ;
-      setHeaderActive(index)
-      setTreinos(novoArray)
+        const novoArray  = treinosData.filter((item) => new Date(item.data_publicacao).getMonth() === buscarIndexDoMes) ;
+        setHeaderActive(index)
+        setTreinos(novoArray)
     }
 
+  
     return (
     <div > 
       <div style={{marginTop:'50px'}}>
-           {data && validarAdiçãoTreino.length < 1 && 
+           {treinos && validarAdiçãoTreino.length < 1 && 
             <form onSubmit={handleSubmit} className={styles.formUserDate}>
               <h2>Oque você treinou hoje ?</h2>
         
@@ -143,7 +142,7 @@ const UserDate = () => {
         </ul>
       </div>
 
-      {data && <UserTreinos treinos={treinos} />}
+      {treinos && <UserTreinos treinos={treinos} />}
     </div>
   )
 }
