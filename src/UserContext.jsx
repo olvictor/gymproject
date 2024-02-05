@@ -1,7 +1,6 @@
 import React, { createContext, useEffect, useState } from "react";
 import { getToken, userLogin } from "./CustomHooks/UseFetch";
 import { useNavigate } from "react-router-dom";
-import { buscarTreino } from "./utlilitarios/fetchData";
 
 export const UserContext = createContext();
 
@@ -54,7 +53,7 @@ export const UserStorage = ({ children }) => {
       getUser(json.token);
     }
   };
-  buscarTreino();
+
   return (
     <UserContext.Provider
       value={{

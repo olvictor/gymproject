@@ -14,7 +14,7 @@ import { FaHourglassHalf } from "react-icons/fa";
 import { IoIosCalculator } from "react-icons/io";
 import { MdDirectionsRun } from "react-icons/md";
 import { MdDriveFileRenameOutline } from "react-icons/md";
-import { useMutation, useQuery, useQueryClient } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import Loading from '../loading/Loading'
 
 import Input from "../input/Input";
@@ -22,6 +22,7 @@ import UseForm from "../../CustomHooks/UseForm";
 import styles from "./UserPerfil.module.css";
 import axios from "axios";
 import Grafico from "../Grafico/Grafico";
+import { buscarTreino } from "../../utlilitarios/fetchData";
 
 const UserPerfil = () => {
   const [userInfo, setUserInfo] = useState(false);
@@ -87,7 +88,8 @@ const UserPerfil = () => {
     e.preventDefault();
     mutation.mutate();
   };
-if(isLoading){
+  buscarTreino(token)
+  if(isLoading){
   return <Loading />
 }
   return (

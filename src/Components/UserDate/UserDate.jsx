@@ -102,7 +102,6 @@ const UserDate = () => {
       setTreinos(novoArray)
     }
 
-    console.log(validarAdiçãoTreino)
     return (
     <div > 
       <div style={{marginTop:'50px'}}>

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Chart } from "react-google-charts";
 import styles from './Grafico.module.css';
 import { useQueryClient } from 'react-query';
@@ -6,22 +6,21 @@ import { useQueryClient } from 'react-query';
 
 
 const Grafico = () => {
-  const data = [
-    ["Task", "Hours per Day"]
-  ];
-  
- const options = {
-    title: "Meus Treinos",
-    backgroundColor: 'transparent',
-  };
-
-
   const queryClient = useQueryClient()
   const queryKey =  'buscarTreinos2'
 
-  const treinos = queryClient.getQueryData(queryKey);
-  
+  const treinos =  queryClient.getQueryData(queryKey);
+
   const musculosTreinados = new Map();
+
+  const data = [
+      ["Task", "Hours per Day"]
+  ];
+  const options = {
+      title: "Meus Treinos",
+      backgroundColor: 'transparent',
+    };
+
 
   let array = []
   const buscarMusculos = treinos && treinos.forEach((treino) => array.push(treino.musculos.toString()))
@@ -42,13 +41,15 @@ const Grafico = () => {
 
   return (
     <div className={styles.myChartContainer}>
-         <Chart
-          chartType="PieChart"
-          data={data}
-          options={options}
-          width={"1000px"}
-          height={"500px"}
+        {treinos !== undefined && 
+          <Chart
+            chartType="PieChart"
+            data={data}
+            options={options}
+            width={"1000px"}
+            height={"500px"}
         />
+        }
     </div>
   )
 }
