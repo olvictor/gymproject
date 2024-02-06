@@ -1,6 +1,6 @@
 import React, { createContext, useEffect, useState } from "react";
 import { getToken, userLogin } from "./CustomHooks/UseFetch";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 export const UserContext = createContext();
 
@@ -13,18 +13,24 @@ export const UserStorage = ({ children }) => {
   const navigate = useNavigate();
   const token = window.localStorage.getItem("token");
 
+  
+  const location = useLocation();
+
   const getUser = async (token) => {
     const { url, options } = getToken(token);
     const response = await fetch(url, options);
     const json = await response.json();
-
     if(!response.ok){
       navigate("/");
       setLogado(false)
     }else{
       setData(json);
       setLogado(true);
-      navigate("/user");
+      if(location.pathname === '/login'){
+        navigate('/user')
+      }else{
+        navigate(location.pathname)
+      }
     }
   };
 
