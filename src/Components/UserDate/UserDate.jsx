@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { CiCircleRemove } from "react-icons/ci";
-import { useMutation, useQuery, useQueryClient } from 'react-query';
+import { useMutation, useQuery} from 'react-query';
 import styles from './UserDate.module.css'
 import axios from 'axios';
 import UserTreinos from '../UserTreinos/UserTreinos';
@@ -18,14 +18,17 @@ const UserDate =  () => {
     const {url,options} = dataGet(token);
     const [headerActive,setHeaderActive] = useState(999);
 
-    const queryClient = useQueryClient()
-    const queryKey =  'buscarTreinos2'
-    const treinosData =  queryClient.getQueryData(queryKey);
-
-    useEffect(()=>{
-      setTreinos(treinosData)
-    },[])
-    console.log(treinos)
+    const {data,refetch} = useQuery('buscarTreinos',async()=>{
+        const { url, options} = dataGet(token);
+        return await axios.get(url,options).then((response)=> response.data)
+    },{
+      refetchOnWindowFocus: false,
+      initialData: [],
+      onSuccess: (data) =>{
+        setTreinos(data)
+      }
+    }
+    )   
 
     const mutation = useMutation({
       mutationFn: async (treino) => {
@@ -66,14 +69,14 @@ const UserDate =  () => {
       setCountInput(newInputFields)
 
     }
-    
-    const validarAdiçãoTreino = treinosData && treinosData.filter((item) => new Date(item.data_publicacao).getDate() === diaAtual && new Date(item.data_publicacao).getMonth() === mesAtual && new Date(item.data_publicacao).getFullYear() === anoAtual)
+
+    const validarAdiçãoTreino = data && data.filter((item) => new Date(item.data_publicacao).getDate() === diaAtual && new Date(item.data_publicacao).getMonth() === mesAtual && new Date(item.data_publicacao).getFullYear() === anoAtual)
     const arrayMesesOfData = []
     const meses = new Map()
     const mesesMapeados = [];
     const mesesHeader = [];
 
-    for (let i of treinosData && treinosData){
+    for (let i of data  && data){
       arrayMesesOfData.push(new Date(i.data_publicacao).getMonth())
     }
 
@@ -92,19 +95,18 @@ const UserDate =  () => {
       const buscarIndexDoMes = mesesDoAno.indexOf(item)
       if(index === 999){
         setHeaderActive(index)
-       return setTreinos(treinosData)
+       return setTreinos(data)
       }
 
-        const novoArray  = treinosData.filter((item) => new Date(item.data_publicacao).getMonth() === buscarIndexDoMes) ;
+        const novoArray  = data.filter((item) => new Date(item.data_publicacao).getMonth() === buscarIndexDoMes) ;
         setHeaderActive(index)
         setTreinos(novoArray)
     }
 
-  
     return (
     <div > 
       <div style={{marginTop:'50px'}}>
-           {treinos && validarAdiçãoTreino.length < 1 && 
+           {data && validarAdiçãoTreino.length < 1 && 
             <form onSubmit={handleSubmit} className={styles.formUserDate}>
               <h2>Oque você treinou hoje ?</h2>
         
