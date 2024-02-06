@@ -41,7 +41,7 @@ const Grafico = () => {
 
   return (
     <div className={styles.myChartContainer}>
-        {treinos.length > 0 && 
+        {treinos && treinos.length > 0 && 
           <Chart
             chartType="PieChart"
             data={data}
