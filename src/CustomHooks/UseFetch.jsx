@@ -1,4 +1,5 @@
-export const API_URL = "https://appgymbackend.vercel.app";
+// export const API_URL = "https://appgymbackend.vercel.app";
+export const API_URL = "http://localhost:3000";
 
 export const userLogin = (body) => {
   return {
@@ -134,6 +135,18 @@ export const userMetas = (token) => {
 export const  buscarTipoDeTreino = (token) => {
   return {
     url: API_URL + "/tipo_de_treino",
+    options: {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    },
+  };
+};
+
+
+export const  mudarFotoPerfil = (token) => {
+  return {
+    url: API_URL + "/user/photo",
     options: {
       headers: {
         Authorization: `Bearer ${token}`,

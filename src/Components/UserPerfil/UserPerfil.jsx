@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { UserContext } from "../../UserContext";
 import { BsFillGearFill } from "react-icons/bs";
 import { imc } from "../../utlilitarios/imc";
-import { infoGET, infoPOST } from "../../CustomHooks/UseFetch";
+import { infoGET, infoPOST, mudarFotoPerfil } from "../../CustomHooks/UseFetch";
 import { calcularTMB } from "../../utlilitarios/calcTMB";
 import { LiaBirthdayCakeSolid } from "react-icons/lia";
 import { GiBodyHeight } from "react-icons/gi";
@@ -14,6 +14,8 @@ import { FaHourglassHalf } from "react-icons/fa";
 import { IoIosCalculator } from "react-icons/io";
 import { MdDirectionsRun } from "react-icons/md";
 import { MdDriveFileRenameOutline } from "react-icons/md";
+import { MdOutlineAddAPhoto } from "react-icons/md";
+
 import { useMutation, useQuery } from "react-query";
 import Loading from '../loading/Loading'
 
@@ -29,6 +31,8 @@ const UserPerfil = () => {
   const [userObjetivo, setUserObjetivo] = useState(null);
   const [userAtividade, setUserAtividade] = useState(null);
   const [userSexo, setUserSexo] = useState(null);
+  const [hoverImg, setHoverImg] = useState(false);
+  const [img,setImg] = useState({})
   const { data } = useContext(UserContext);
 
   const userNome = UseForm();
@@ -84,14 +88,42 @@ const UserPerfil = () => {
       refetch()
     }
   });
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     mutation.mutate();
   };
+
+  const handleImgChange =  ({ target }) => {
+    setImg({
+      preview: URL.createObjectURL(target.files[0]),
+      raw: target.files[0],
+    });
+  };
+
+  const mutationImg = useMutation({
+    mutationFn: async (img)=>{
+      const {url,options} = mudarFotoPerfil(token)
+      return await axios.post(url,img,options).then((response)=> response.data)
+    }
+  })
+
+  const handleImgSubmit = async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData();
+    formData.append("imagem", img.raw);
+    mutationImg.mutate(formData)
+    setHoverImg(false)
+  };
+
   buscarTreino(token)
+
   if(isLoading){
-  return <Loading />
-}
+    return <Loading />
+  }
+  console.log(img)
+
   return (
     <div className={styles.containerPerfil}>
       {/* <BsFillGearFill className={styles.svgEditar} /> */}
@@ -136,7 +168,26 @@ const UserPerfil = () => {
       ) : (
         <div className={styles.containerUserInfo}>
           <div className={styles.boxUsuario}>
-            <img src={data && data.user_photo} alt="" />
+            <div className={styles.boxImgUsuario} onMouseEnter={()=> setHoverImg(true)} onMouseLeave={()=> setHoverImg(false)}>
+            <div className={styles.containerCustomInputImg} style={{display: hoverImg ? 'block' : 'none'}}>
+              <form onSubmit={handleImgSubmit}>
+                <label for="imagem" className={styles.customInput}>  
+                  <MdOutlineAddAPhoto/>
+                </label>
+                <input
+                    type="file"
+                    name="imagem"
+                    id="imagem"
+                    onChange={handleImgChange}
+                  />
+                <div style={{display:'flex',gap:'10px'}}>
+                   <button>Alterar</button>
+                   <button type="button" onClick={()=> setImg({})}>Cancelar</button>
+                </div>
+              </form>
+            </div>    
+              <img src={img.preview || data && data.user_photo} alt="Foto do usuário" />
+            </div>
             <h3 className={styles.userNome}>{response.nome}</h3>
           </div>
           <div className={styles.boxUsuarioInformacoes}>
