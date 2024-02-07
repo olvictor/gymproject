@@ -25,6 +25,7 @@ import styles from "./UserPerfil.module.css";
 import axios from "axios";
 import Grafico from "../Grafico/Grafico";
 import { buscarTreino } from "../../utlilitarios/fetchData";
+import FormEdit from "../FormEdit/FormEdit";
 
 const UserPerfil = () => {
   const [userInfo, setUserInfo] = useState(false);
@@ -32,7 +33,8 @@ const UserPerfil = () => {
   const [userAtividade, setUserAtividade] = useState(null);
   const [userSexo, setUserSexo] = useState(null);
   const [hoverImg, setHoverImg] = useState(false);
-  const [img,setImg] = useState({})
+  const [openModalEdit,setOpenModalEdit] = useState(false);
+  const [img,setImg] = useState({}) 
   const { data } = useContext(UserContext);
 
   const userNome = UseForm();
@@ -122,11 +124,11 @@ const UserPerfil = () => {
   if(isLoading){
     return <Loading />
   }
-  console.log(img)
 
   return (
     <div className={styles.containerPerfil}>
-      {/* <BsFillGearFill className={styles.svgEditar} /> */}
+      <BsFillGearFill className={styles.svgEditar} onClick={()=>setOpenModalEdit(true)} />
+      {openModalEdit && <FormEdit info={response} close={()=>setOpenModalEdit(false)} />}
       {!userInfo ? (
         <div>
           <form onSubmit={handleSubmit} className={styles.formINFO}>

@@ -1,0 +1,64 @@
+.modalEdit{
+    position: absolute;
+    top: 0;
+    z-index: 9999;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    border-radius: 4px;
+    height: 75vh;
+    display: flex;
+    flex-direction: column;
+    animation: slide-in-fwd-center 1s ease-in-out;
+}
+.modalEdit form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.modalEdit form input{
+    outline: none;
+    color: black;
+
+}
+.modalEdit form input:focus{ 
+  filter: drop-shadow(0px 0px 5px #1bfaad);
+  font-weight: bolder;  
+}
+
+
+.modalEdit button{
+    width: 15%;
+    height: 50px;
+    border-radius: 8px;
+    cursor: pointer;
+    border: none;
+    font-weight: bolder;
+    background-color:#1bfaad;
+    color: #fff;
+}
+
+.modalEdit select{
+    width: 30%;
+}
+.modalClose{
+    align-self: self-end;
+    font-size: 3rem;
+}
+
+.modalClose:hover{
+    fill: red;
+}
+
+
+@keyframes slide-in-fwd-center {
+    0% {
+      -webkit-transform: translateZ(-1400px);
+              transform: translateZ(-1400px);
+      opacity: 0;
+    }
+    100% {
+      -webkit-transform: translateZ(0);
+              transform: translateZ(0);
+      opacity: 1;
+    }
+}

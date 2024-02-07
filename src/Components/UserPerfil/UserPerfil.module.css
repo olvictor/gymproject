@@ -212,6 +212,7 @@
   height: 35px;
   border-radius: 6px;
 }
+
 .formINFO input:focus{
   filter: drop-shadow(0px 0px 5px #1bfaad);
   font-weight: bolder;
@@ -250,10 +251,15 @@ select:focus {
 svg:hover {
   cursor: pointer;
 }
+
 .svgEditar {
  align-content: end;
+ font-size: 2rem;
 }
 
+.svgEditar:hover{
+  fill: #1BFAAD;
+}
 
 .boxMudarImg{
   position: absolute;
