@@ -2,3 +2,21 @@
     fill: #fff;
     font-size: 1.3rem;
 }
+
+.myChartContainer{
+    animation: slide-in-fwd-center 1.5s ease-in-out;
+}
+
+
+@keyframes slide-in-fwd-center {
+    0% {
+      -webkit-transform: translateZ(-1400px);
+              transform: translateZ(-1400px);
+      opacity: 0;
+    }
+    100% {
+      -webkit-transform: translateZ(0);
+              transform: translateZ(0);
+      opacity: 1;
+    }
+  }

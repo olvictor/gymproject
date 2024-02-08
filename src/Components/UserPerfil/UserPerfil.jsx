@@ -26,6 +26,7 @@ import axios from "axios";
 import Grafico from "../Grafico/Grafico";
 import { buscarTreino } from "../../utlilitarios/fetchData";
 import FormEdit from "../FormEdit/FormEdit";
+import { useInView } from "react-intersection-observer";
 
 const UserPerfil = () => {
   const [userInfo, setUserInfo] = useState(false);
@@ -44,6 +45,10 @@ const UserPerfil = () => {
 
   const token = window.localStorage.getItem("token");
 
+  const {ref, inView, entry} = useInView({
+    threshold: 0,
+  })
+
   const { url, options } = infoGET(token);
 
   const { data: response, isLoading, refetch} = useQuery("getUserInfo",
@@ -60,6 +65,7 @@ const UserPerfil = () => {
       retry:false
     }
   );
+  
   const imcINFO = imc(userPeso?.value,userAltura?.value);
   
   const tmb = calcularTMB(response?.peso, response?.sexo, "moderado");
@@ -265,7 +271,10 @@ const UserPerfil = () => {
      </div>
    </div>
      }
-      <Grafico />
+    <div ref={ref}>
+     {inView && <Grafico />}
+    </div>
+      
     </div>
   );
 };

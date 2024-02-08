@@ -1,6 +1,7 @@
 import React, { createContext, useEffect, useState } from "react";
 import { getToken, userLogin } from "./CustomHooks/UseFetch";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
+import Loading from "./Components/loading/Loading";
 
 export const UserContext = createContext();
 
@@ -59,6 +60,10 @@ export const UserStorage = ({ children }) => {
       getUser(json.token);
     }
   };
+
+  if(loading){
+    return <Loading />
+  }
 
   return (
     <UserContext.Provider

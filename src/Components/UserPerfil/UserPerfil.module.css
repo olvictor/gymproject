@@ -22,6 +22,7 @@
   justify-content: center;
   gap: 20px;
   height: auto;
+  text-transform: capitalize;
 }
 
 .boxUsuario {
