@@ -128,8 +128,8 @@ const UserPerfil = () => {
   return (
     <div className={styles.containerPerfil}>
       <BsFillGearFill className={styles.svgEditar} onClick={()=>setOpenModalEdit(true)} />
-      {openModalEdit && <FormEdit info={response} close={()=>setOpenModalEdit(false)} />}
-      {!userInfo ? (
+      {openModalEdit && <FormEdit info={response} close={()=>setOpenModalEdit(false)} refetch={refetch} />}
+      {!userInfo && 
         <div>
           <form onSubmit={handleSubmit} className={styles.formINFO}>
             <Input type="text" label="Nome"  {...userNome}  name={'nome'} icon={<MdDriveFileRenameOutline  />}/>
@@ -167,102 +167,104 @@ const UserPerfil = () => {
             <button className={styles.buttonForm}>Enviar</button>
           </form>
         </div>
-      ) : (
-        <div className={styles.containerUserInfo}>
-          <div className={styles.boxUsuario}>
-            <div className={styles.boxImgUsuario} onMouseEnter={()=> setHoverImg(true)} onMouseLeave={()=> setHoverImg(false)}>
-            <div className={styles.containerCustomInputImg} style={{display: hoverImg ? 'block' : 'none'}}>
-              <form onSubmit={handleImgSubmit}>
-                <label for="imagem" className={styles.customInput}>  
-                  <MdOutlineAddAPhoto/>
-                </label>
-                <input
-                    type="file"
-                    name="imagem"
-                    id="imagem"
-                    onChange={handleImgChange}
-                  />
-                <div style={{display:'flex',gap:'10px'}}>
-                   <button>Alterar</button>
-                   <button type="button" onClick={()=> setImg({})}>Cancelar</button>
-                </div>
-              </form>
-            </div>    
-              <img src={img.preview || data && data.user_photo} alt="Foto do usuário" />
-            </div>
-            <h3 className={styles.userNome}>{response.nome}</h3>
-          </div>
-          <div className={styles.boxUsuarioInformacoes}>
-            <div className={styles.infoUser}>
-              <LiaBirthdayCakeSolid />
-              <h4>Idade :</h4>
-              <p>{`${response.idade} anos`}</p>
-            </div>
-            <div className={styles.infoUser}>
-              <GiBodyHeight />
-              <h4>Altura :</h4>
-              <p>{`${response.altura} m`}</p>
-            </div>
-            <div className={styles.infoUser}>
-              <FaScaleBalanced />
-              <h4>Peso :</h4>
-              <p>{`${response.peso} KG`}</p>
-            </div>
-            <div className={styles.infoUser}>
-              <PiGenderIntersexDuotone />
-              <h4>Sexo :</h4>
-              <p>{response.sexo}</p>
-            </div>
-            <div className={styles.infoUser}>
+     }
+     {userInfo &&
+     
+     <div className={styles.containerUserInfo}>
+     <div className={styles.boxUsuario}>
+       <div className={styles.boxImgUsuario} onMouseEnter={()=> setHoverImg(true)} onMouseLeave={()=> setHoverImg(false)}>
+       <div className={styles.containerCustomInputImg} style={{display: hoverImg ? 'block' : 'none'}}>
+         <form onSubmit={handleImgSubmit}>
+           <label for="imagem" className={styles.customInput}>  
+             <MdOutlineAddAPhoto/>
+           </label>
+           <input
+               type="file"
+               name="imagem"
+               id="imagem"
+               onChange={handleImgChange}
+             />
+           <div style={{display:'flex',gap:'10px'}}>
+              <button>Alterar</button>
+              <button type="button" onClick={()=> setImg({})}>Cancelar</button>
+           </div>
+         </form>
+       </div>    
+         <img src={img.preview || data && data.user_photo} alt="Foto do usuário" />
+       </div>
+       <h3 className={styles.userNome}>{response.nome}</h3>
+     </div>
+     <div className={styles.boxUsuarioInformacoes}>
+       <div className={styles.infoUser}>
+         <LiaBirthdayCakeSolid />
+         <h4>Idade :</h4>
+         <p>{`${response.idade} anos`}</p>
+       </div>
+       <div className={styles.infoUser}>
+         <GiBodyHeight />
+         <h4>Altura :</h4>
+         <p>{`${response.altura} m`}</p>
+       </div>
+       <div className={styles.infoUser}>
+         <FaScaleBalanced />
+         <h4>Peso :</h4>
+         <p>{`${response.peso} KG`}</p>
+       </div>
+       <div className={styles.infoUser}>
+         <PiGenderIntersexDuotone />
+         <h4>Sexo :</h4>
+         <p>{response.sexo}</p>
+       </div>
+       <div className={styles.infoUser}>
 
-                <IoIosCalculator />
-                <h4>IMC :</h4>
-                <p>{response.imc}</p>            
-            </div>
-            <div className={styles.infoUser}>
-                <HiOutlineAnnotation />
-                <h4>Classificacao :</h4>
-                <p>{response.imc_classificacao}</p>
-            </div>
-            <div className={styles.infoUser}>
-              <MdDirectionsRun />
-              <h4>Nivel de Atividade :</h4>
-              <p>{response.nivel_de_atividade}</p>
-            </div>
-            <div className={styles.infoUser}>
-              <GoGoal />
-              <h4>Objetivo :</h4>
-              <p>{`${response.objetivo} peso`}</p>
-            </div>
-          </div>
-          <div className={styles.infoUserCalorias}>
-            <h2>
-              Quantidadade de calorias necessárias para o seu objetivo : kcal
-            </h2>
-            <div className={styles.infoCircle}>
-              <svg>
-                <circle
-                  cx="150"
-                  cy="100"
-                  r="90"
-                  fill="#1bfaad"
-                  stroke="#fff"
-                  strokeWidth={3}
-                ></circle>
-                <circle cx="150" cy="100" r="75" fill="#1a2037"></circle>
-              </svg>
-              <div className={styles.infoCircleNumber}>
-                {<h3>{tmb.TMB} <span>KCAL</span></h3>}
-              </div>
-            </div>
-            <div className={styles.infoMacroNutrientes}>
-                  <h4>Proteina: <span>{tmb.gramasDeProteina}g</span></h4>
-                  <h4>Carboidrato: <span>{tmb.gramasDeCarbo}g</span></h4>
-                  <h4>Gordura: <span>{tmb.gramasDeGordura}g</span></h4>
-              </div>
-          </div>
-        </div>
-      )}
+           <IoIosCalculator />
+           <h4>IMC :</h4>
+           <p>{response.imc}</p>            
+       </div>
+       <div className={styles.infoUser}>
+           <HiOutlineAnnotation />
+           <h4>Classificacao :</h4>
+           <p>{response.imc_classificacao}</p>
+       </div>
+       <div className={styles.infoUser}>
+         <MdDirectionsRun />
+         <h4>Nivel de Atividade :</h4>
+         <p>{response.nivel_de_atividade}</p>
+       </div>
+       <div className={styles.infoUser}>
+         <GoGoal />
+         <h4>Objetivo :</h4>
+         <p>{`${response.objetivo} peso`}</p>
+       </div>
+     </div>
+     <div className={styles.infoUserCalorias}>
+       <h2>
+         Quantidadade de calorias necessárias para o seu objetivo : kcal
+       </h2>
+       <div className={styles.infoCircle}>
+         <svg>
+           <circle
+             cx="150"
+             cy="100"
+             r="90"
+             fill="#1bfaad"
+             stroke="#fff"
+             strokeWidth={3}
+           ></circle>
+           <circle cx="150" cy="100" r="75" fill="#1a2037"></circle>
+         </svg>
+         <div className={styles.infoCircleNumber}>
+           {<h3>{tmb.TMB} <span>KCAL</span></h3>}
+         </div>
+       </div>
+       <div className={styles.infoMacroNutrientes}>
+             <h4>Proteina: <span>{tmb.gramasDeProteina}g</span></h4>
+             <h4>Carboidrato: <span>{tmb.gramasDeCarbo}g</span></h4>
+             <h4>Gordura: <span>{tmb.gramasDeGordura}g</span></h4>
+         </div>
+     </div>
+   </div>
+     }
       <Grafico />
     </div>
   );

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styles from './FormEdit.module.css'
 import { IoMdClose } from "react-icons/io";
 import Input from '../input/Input';
@@ -10,14 +10,21 @@ import { MdDriveFileRenameOutline } from "react-icons/md";
 import { infoPOST } from '../../CustomHooks/UseFetch';
 import { useMutation } from 'react-query';
 import { imc } from '../../utlilitarios/imc';
+import axios from 'axios';
 
-const FormEdit = ({info,close}) => {
+
+const FormEdit = ({info,close,refetch}) => {
+  const [userSexo,setUserSexo] = useState(null);
+  const [userAtividade,setUserAtividade] = useState(null)
+  const [userObjetivo,setUserObjetivo] = useState(null);
+  const [error,setError] = useState(null)
   const userNome = UseForm()
   const userAltura = UseForm()
   const userPeso = UseForm()
   const userIdade = UseForm()
-
+  const token = window.localStorage.getItem("token")
   const imcINFO = imc(userPeso.value ,userAltura.value)
+
 
   const mutation = useMutation({
     mutationFn: async () => {
@@ -40,13 +47,20 @@ const FormEdit = ({info,close}) => {
           options
         )
         .then((response) => response.data);
+    },onSuccess: () =>{
+      refetch()
     }
   });
 
 
   const handleSubmit = async(e) =>{
-    e.preventDefault()
+    e.preventDefault();
+
+    if(!userSexo || !userPeso.value || !userNome.value || !userAltura.value || !userIdade.value || !userAtividade || !userObjetivo){
+      return setError('Preencha todos os campos')
+    }
     mutation.mutate();
+    close()
   }
 
   return (
@@ -86,6 +100,7 @@ const FormEdit = ({info,close}) => {
               <option value="pesado">Pesado</option>
             </select>
             <button>ENVIAR</button>
+            {error && <h4 className='error' style={{marginTop:'50px'}}>{error}</h4>}
         </form>
     </div>
   )

@@ -10,14 +10,13 @@ const Grafico = () => {
   const queryKey =  'buscarTreinos2'
 
   const treinos =  queryClient.getQueryData(queryKey);
-  console.log(treinos)
   const musculosTreinados = new Map();
 
   const data = [
-      ["Task", "Hours per Day"]
+      ["Treinos", "Quantidade de dias Treinados"]
   ];
   const options = {
-      title: "Meus Treinos",
+      title: "Resumo dos meus treinos ",
       backgroundColor: 'transparent',
     };
 
