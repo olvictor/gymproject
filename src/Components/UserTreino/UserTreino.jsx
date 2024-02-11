@@ -13,10 +13,7 @@ const UserTreino = () => {
   const [exercisesShow, setExercisesShow] = useState(null);
   const [treino,setTreino] = useState([])
   const [openModalTreino,setOpenModalTreino] = useState(false)
-  const [teste, setTeste] = useState([])
-  const [valorMax,setValorMax] = useState(8)
-  const [valorMin,setValorMin] = useState(0)
-
+  
   const options = {
     method: 'GET',
     headers: {
@@ -50,15 +47,6 @@ const UserTreino = () => {
     return <Loading />;
   }
   
-  useEffect(()=>{
-
-      for(let i=0; i < data.length; i++){
-        if(i <= valorMax && i >= valorMin){
-          teste.push(data[i])
-        }
-      }
-    
-  },[valorMax])
 
   return (
     <div>
