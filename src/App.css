@@ -8,9 +8,11 @@
   font-family: 'Sen', sans-serif;
 }
 
-body {
+body{
   --cor-primaria: #1a2037;
   background-color: var(--cor-primaria);
+  /* background: linear-gradient(180deg, rgba(26,32,55,1) 0%, rgba(31,36,56,1) 45%, rgba(26,31,45,1) 75%, rgba(37,42,61,1) 100%); */
+  background-repeat: no-repeat;
   color: #fff;
 }
 

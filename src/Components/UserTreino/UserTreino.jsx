@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./UserTreino.module.css";
 import UserTreinoHeader from "./UserTreinoHeader";
 import Loading from "../loading/Loading";
@@ -13,13 +13,16 @@ const UserTreino = () => {
   const [exercisesShow, setExercisesShow] = useState(null);
   const [treino,setTreino] = useState([])
   const [openModalTreino,setOpenModalTreino] = useState(false)
+  const [teste, setTeste] = useState([])
+  const [valorMax,setValorMax] = useState(8)
+  const [valorMin,setValorMin] = useState(0)
 
   const options = {
-    method: "GET",
+    method: 'GET',
     headers: {
-      'X-RapidAPI-Key': '52b2bef0b1msh7a3c3d95569cc0bp16bb3bjsnb4948159ced3',
+      'X-RapidAPI-Key': 'f1c6fe8ad9msh54f8722877ef276p13b3bfjsn2b3b8d943027',
       'X-RapidAPI-Host': 'exercisedb.p.rapidapi.com'
-    },
+    }
   };
 
   const { data, isLoading } = useQuery(
@@ -43,9 +46,20 @@ const UserTreino = () => {
     setCurrentShow(null);
   };
 
+  
   if (isLoading) {
     return <Loading />;
   }
+  
+  useEffect(()=>{
+
+      for(let i=0; i < data.length; i++){
+        if(i <= valorMax && i >= valorMin){
+          teste.push(data[i])
+        }
+      }
+    
+  },[valorMax])
 
   return (
     <div>
