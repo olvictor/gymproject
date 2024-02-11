@@ -24,7 +24,6 @@ const UserTreino = () => {
       'X-RapidAPI-Host': 'exercisedb.p.rapidapi.com'
     }
   };
-
   const { data, isLoading } = useQuery(
     "buscarExercicios",
     async () => {

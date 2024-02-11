@@ -9,9 +9,9 @@ const UserTreinoHeader = ({ setExercisesShow, treino, setOpenModalTreino }) => {
   const [musculoAlvo, setMusculoAlvo] = useState(null);
 
   const options = {
-    method: "GET",
+    method: 'GET',
     headers: {
-      'X-RapidAPI-Key': '52b2bef0b1msh7a3c3d95569cc0bp16bb3bjsnb4948159ced3',
+      'X-RapidAPI-Key': 'f1c6fe8ad9msh54f8722877ef276p13b3bfjsn2b3b8d943027',
       'X-RapidAPI-Host': 'exercisedb.p.rapidapi.com'
     }
   };
