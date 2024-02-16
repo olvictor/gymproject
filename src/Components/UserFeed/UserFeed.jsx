@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import { feedGET } from "../../CustomHooks/UseFetch";
 import styles from "./UserFeed.module.css";
 import { IoEyeSharp } from "react-icons/io5";
@@ -20,7 +20,7 @@ const UserFeed = () => {
     setOpenModal(true);
   };
 
-  const { data, isLoading } = useQuery("getFeed",
+  const { data, refetch } = useQuery("getFeed",
     async () => {
       return await axios
         .get(url, options)
@@ -32,41 +32,41 @@ const UserFeed = () => {
     }
   );
 
-  if (isLoading) {
-    return <Loading />;
-  }
 
   return (
-    <div className={styles.feed}>
-      {data.map((item, index) => (
-        <div
-          className={styles.feedItem}
-          key={index}
-          onMouseEnter={() => setCurrentShow(index)}
-          onMouseLeave={() => setCurrentShow(null)}
-          onClick={() => handleClick(index)}
-        >
-          <img src={item.imagem_url} alt={item.conteudo} />
-          <IoEyeSharp
-            style={{
-              display: index === currentShow ? "block" : "none",
-              position: "absolute",
-              fontSize: "4rem",
-              top: "38%",
-            }}
-          />
-        </div>
-      ))}
+    <Suspense fallback={<Loading />} >
+      <div className={styles.feed}>
+      {data && data.map((item, index) => (
+          <div
+            className={styles.feedItem}
+            key={index}
+            onMouseEnter={() => setCurrentShow(index)}
+            onMouseLeave={() => setCurrentShow(null)}
+            onClick={() => handleClick(index)}
+          >
+            <img src={item.imagem_url} alt={item.conteudo} />
+            <IoEyeSharp
+              style={{
+                display: index === currentShow ? "block" : "none",
+                position: "absolute",
+                fontSize: "4rem",
+                top: "38%",
+              }}
+            />
+          </div>
+        ))}
 
-      {openModal && (
-        <Modal
-          feed={data}
-          currentItem={currentItem}
-          setCurrentItem={setCurrentItem}
-          setOpenModal={setOpenModal}
-        />
-      )}
-    </div>
+        {openModal && (
+          <Modal
+            feed={data}
+            currentItem={currentItem}
+            setCurrentItem={setCurrentItem}
+            setOpenModal={setOpenModal}
+            buscarFeed={()=> refetch()}
+          />
+        )}
+      </div>
+    </Suspense>
   );
 };
 

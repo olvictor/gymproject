@@ -10,11 +10,12 @@ import { MdOutlineDateRange } from "react-icons/md";
 import { useMutation, useQuery } from "react-query";
 import { CSSTransition } from 'react-transition-group';
 import axios from "axios";
-import { userComentarios } from "../../CustomHooks/UseFetch";
+import { deletePOST, userComentarios } from "../../CustomHooks/UseFetch";
+import { CiTrash } from "react-icons/ci";
 
 
-
-const Modal = ({ feed, currentItem, setCurrentItem, setOpenModal }) => {
+const Modal = ({ feed, currentItem, setCurrentItem, setOpenModal, buscarFeed }) => {
+  console.log(buscarFeed)
   const [comentarios, setComentarios] = useState([]);
   const comentario = UseForm();
   let post_id = feed[currentItem].id;
@@ -22,7 +23,8 @@ const Modal = ({ feed, currentItem, setCurrentItem, setOpenModal }) => {
 
   const {url,options} = userComentarios(token)
 
-
+  console.log(feed[currentItem])
+  
   const { data, isLoading, refetch } = useQuery(
     "getComentarios",
     async () => {
@@ -73,6 +75,20 @@ const Modal = ({ feed, currentItem, setCurrentItem, setOpenModal }) => {
     },
   });
 
+
+  const deletePost = useMutation({
+    mutationFn: async() =>{
+      const {url,options} = deletePOST(token,post_id)  
+      return await axios.delete(url,options).then((response)=>response.data)
+    }
+  })
+
+  const handleDelete = () =>{
+    deletePost.mutate();
+    setOpenModal(false);
+    buscarFeed();
+  }
+
   if (isLoading) {
     return <div>Carregando...</div>;
   }
@@ -88,7 +104,7 @@ const Modal = ({ feed, currentItem, setCurrentItem, setOpenModal }) => {
    return (
     <div className={`${styles.modal}`}>
       <div className={styles.modalContent}>
-        <CSSTransition  key={feed[currentItem].id} className={styles.modalLeft} in={feed[currentItem].id -1  === currentItem} unmountOnExit>
+        <CSSTransition  key={feed[currentItem].id} timeout={300} className={styles.modalLeft} in={feed[currentItem].id -1  === currentItem}>
           <div className={styles.modalLeft}>
             <img
               src={feed[currentItem].imagem_url}
@@ -121,6 +137,7 @@ const Modal = ({ feed, currentItem, setCurrentItem, setOpenModal }) => {
               onClick={() => setOpenModal(null)}
             />
             <div className={styles.rightModalPostInfo}>
+              <CiTrash onClick={()=> handleDelete()} className={styles.deleteSVG} />
               <div className={styles.postInfoTittleData}>
                 <h3>
                   <PiSubtitlesLight /> {feed[currentItem].conteudo}

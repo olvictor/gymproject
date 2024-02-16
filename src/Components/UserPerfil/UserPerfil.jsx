@@ -133,7 +133,7 @@ const UserPerfil = () => {
 
   return (
     <div className={styles.containerPerfil}>
-      <BsFillGearFill className={styles.svgEditar} onClick={()=>setOpenModalEdit(true)} />
+      {userInfo && <BsFillGearFill className={styles.svgEditar} onClick={()=>setOpenModalEdit(true)} />}
       {openModalEdit && <FormEdit info={response} close={()=>setOpenModalEdit(false)} refetch={refetch} />}
       {!userInfo && 
         <div>

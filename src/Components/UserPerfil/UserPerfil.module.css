@@ -42,8 +42,8 @@
 .containerCustomInputImg form{
   position: absolute;
   height: 100%;
-  bottom: -100px;
-  right: 41%;
+  bottom: -70px;
+  right: 466px;
   display: flex;
   flex-direction: column;
   z-index: 10;
@@ -61,7 +61,7 @@
 }
 
 .containerCustomInputImg form button:hover{
-  border: 1px solid #fff;
+  opacity: .6;
 }
 .boxImgUsuario{
   height: 100%;
@@ -262,15 +262,7 @@ svg:hover {
   fill: #1BFAAD;
 }
 
-.boxMudarImg{
-  position: absolute;
-  width: 500px;
-  height: 400px;
-  background-color: red;
-  top: 0%;
-  right: 30%;
-  z-index: 999;
-}
+
 
 
 @keyframes slide-in-fwd-center {

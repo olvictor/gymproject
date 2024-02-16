@@ -7,7 +7,6 @@ import { RiUser3Line } from "react-icons/ri";
 import { RiLockPasswordLine } from "react-icons/ri";
 
 import { UserContext } from "../../UserContext";
-import Loading from "../loading/Loading";
 
 const LoginForm = () => {
   const username = UseForm();
@@ -21,10 +20,6 @@ const LoginForm = () => {
       loginUser(username.value, senha.value);
     }
   };
-
-  if(loading){
-    return <Loading />
-  }
 
   return (
     <div className={styles.loginForm}>

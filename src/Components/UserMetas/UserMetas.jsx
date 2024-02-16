@@ -36,6 +36,7 @@ const UserMetas = () => {
     return <Loading />
   }  
 
+  console.log(data)
 
 
   return (
@@ -44,7 +45,7 @@ const UserMetas = () => {
           <button className={styles.buttonNovaMeta} onClick={()=> setOpenModalForm(true)}>Adicionar nova meta .</button>
         </div>
         <div className={styles.boxMetas}>
-          <h4>Minhas metas :</h4>
+         {data.length > 0 &&  <h4>Minhas metas :</h4>}
             <div style={{marginTop:'50px'}}>
               {data && data.map((item,index)=>{
                 return <div key={index} onClick={()=> handleClick(item)} style={{cursor:'pointer',display:'flex',alignItems:'center',gap:'10px'}}>

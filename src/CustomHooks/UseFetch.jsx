@@ -52,6 +52,19 @@ export const userPOST = (formData, token) => {
   };
 };
 
+export const deletePOST = (token,id) => {
+  return {
+    url: API_URL + `/user/post/${id}`,
+    options: {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    },
+  };
+};
+
+
 export const feedGET = (token) => {
   return {
     url: API_URL + "/user/feed",
