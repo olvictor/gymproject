@@ -11,7 +11,9 @@ const UserFeed = () => {
   const [currentShow, setCurrentShow] = useState(null);
   const [openModal, setOpenModal] = useState(false);
   const [currentItem, setCurrentItem] = useState(null);
-  
+  const [showItem, setShowItem] = useState([])
+
+
   const token = window.localStorage.getItem("token");
   const { url, options } = feedGET(token);
 
@@ -29,14 +31,16 @@ const UserFeed = () => {
     {
       retry: false,
       refetchOnWindowFocus: false,
+      onSuccess: (data)=>{
+        setShowItem(data)
+      }
     }
   );
-
 
   return (
     <Suspense fallback={<Loading />} >
       <div className={styles.feed}>
-      {data && data.map((item, index) => (
+      {showItem.length > 0 && showItem.map((item, index) => (
           <div
             className={styles.feedItem}
             key={index}
@@ -58,11 +62,11 @@ const UserFeed = () => {
 
         {openModal && (
           <Modal
-            feed={data}
+            feed={showItem}
             currentItem={currentItem}
             setCurrentItem={setCurrentItem}
             setOpenModal={setOpenModal}
-            buscarFeed={()=> refetch()}
+            setShowItem={setShowItem}
           />
         )}
       </div>

@@ -61,10 +61,6 @@ export const UserStorage = ({ children }) => {
     }
   };
 
-  if(loading){
-    return <Loading />
-  }
-
   return (
     <UserContext.Provider
       value={{

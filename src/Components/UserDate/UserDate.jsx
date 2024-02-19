@@ -144,7 +144,7 @@ const UserDate =  () => {
         </ul>
       </div>
 
-      {treinos && <UserTreinos treinos={treinos} />}
+      {treinos && <UserTreinos treinos={treinos} setTreinos={setTreinos} />}
     </div>
   )
 }

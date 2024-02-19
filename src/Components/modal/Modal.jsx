@@ -14,16 +14,15 @@ import { deletePOST, userComentarios } from "../../CustomHooks/UseFetch";
 import { CiTrash } from "react-icons/ci";
 
 
-const Modal = ({ feed, currentItem, setCurrentItem, setOpenModal, buscarFeed }) => {
-  console.log(buscarFeed)
+const Modal = ({ feed, currentItem, setCurrentItem, setOpenModal, setShowItem }) => {
   const [comentarios, setComentarios] = useState([]);
   const comentario = UseForm();
+
   let post_id = feed[currentItem].id;
   const token = window.localStorage.getItem("token");
 
   const {url,options} = userComentarios(token)
 
-  console.log(feed[currentItem])
   
   const { data, isLoading, refetch } = useQuery(
     "getComentarios",
@@ -75,18 +74,19 @@ const Modal = ({ feed, currentItem, setCurrentItem, setOpenModal, buscarFeed }) 
     },
   });
 
-
   const deletePost = useMutation({
     mutationFn: async() =>{
       const {url,options} = deletePOST(token,post_id)  
       return await axios.delete(url,options).then((response)=>response.data)
+    },onSuccess:() =>{
+      const novoArray = feed.filter((item) => item.id !== feed[currentItem].id)
+      setShowItem(novoArray)
     }
   })
 
   const handleDelete = () =>{
     deletePost.mutate();
     setOpenModal(false);
-    buscarFeed();
   }
 
   if (isLoading) {

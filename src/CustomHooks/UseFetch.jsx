@@ -64,6 +64,18 @@ export const deletePOST = (token,id) => {
   };
 };
 
+export const editTreinoDiario = (token,id) => {
+  return {
+    url: API_URL + `/user/treinos/${id}`,
+    options: {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    },
+  };
+};
+
 
 export const feedGET = (token) => {
   return {

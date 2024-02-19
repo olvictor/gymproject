@@ -18,6 +18,12 @@
     animation: fade-in-left .7s ease-in-out;
     word-break: break-all;
 }
+
+.editTreino{
+    fill: red;
+    font-size: 2rem;
+    margin-top: 15px;
+}
 .cardTreino::after{
     content: " ";
     width: 6px;
@@ -40,6 +46,42 @@
     border-radius: 16px;
 }
 
+.modalEdit{
+    position: relative;
+    width:100%;
+    background-color:rgba(0,0,0,.6); 
+    padding: 50px;
+    height:'auto';
+    min-height:'250px';
+    align-self:'center';
+    z-index: 99;
+}
+
+.modalEdit input[type="date"]{
+    color: black;
+    font-weight: bolder;
+    margin-top: 50px;
+}
+.modalEdit select{
+    width: 50%;
+}
+
+.buttonModalEdit{
+    margin-top: 50px;
+    padding: 10px;
+    width: 100px;
+    background-color: #1bfaad;
+    color: #fff;
+    font-weight: bolder;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    opacity: .7;
+}
+
+.buttonModalEdit:hover{
+    opacity: 1;
+}
 
 .cardHeader{
     height: 20px;
