@@ -8,11 +8,25 @@
   font-family: 'Sen', sans-serif;
 }
 
-body{
+/* body{
   --cor-primaria: #1a2037;
   background-color: var(--cor-primaria);
-  /* background: linear-gradient(180deg, rgba(26,32,55,1) 0%, rgba(31,36,56,1) 45%, rgba(26,31,45,1) 75%, rgba(37,42,61,1) 100%); */
   background-repeat: no-repeat;
+  color: #fff;
+} */
+
+body {
+  background-image: radial-gradient(
+      circle at center,
+      rgba(255, 255, 255, 0.005) 0,
+      rgba(255, 255, 255, 0.005) 1px,
+      transparent 1px
+    ),
+    linear-gradient(to right, rgba(255, 255, 255, 0.01) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.01) 1px, transparent 1px);
+  background-size: 15px, 15px;
+  background-attachment: fixed;
+  background-color: #1a2037;
   color: #fff;
 }
 
