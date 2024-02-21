@@ -41,13 +41,12 @@ const RegistroForm = () => {
       setSenhaConfirmada(true);
       setError(null);
     } else {
-      setError("As senhas precisam ser iguais");
+      setError("As senhas precisam ser iguais.");
     }
 
-    if (usuario.value && email.value && senha.value && senhaConfirmada) {
+    if (usuario.value && senha.value && senhaConfirmada) {
       mutation.mutate({
         username: usuario.value,
-        email: email.value,
         senha: senha.value,
       });
     }
@@ -58,7 +57,6 @@ const RegistroForm = () => {
       <h1 className={styles.titulo}>Registrar</h1>
       <form onSubmit={handleSubmit}>
         <IoExitOutline  className={styles.irParaLogin} onClick={()=> navigate("/login")}/>
-        <Input label={"Email"} type={"email"} name={email} {...email} icon={<MdOutlineMailOutline />} />
         <Input label={"Usuário"} type={"text"} name={usuario} {...usuario} icon={<RiUser3Line />} />
         <Input label={"Senha"} type={"password"} name={senha} {...senha} icon={<RiLockPasswordLine />} />
         <Input label={"Confirmar senha"} type={"password"} name={senha} {...confirmarSenha} icon={<RiLockPasswordLine />}
