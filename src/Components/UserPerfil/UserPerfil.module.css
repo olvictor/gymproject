@@ -66,9 +66,8 @@
 .boxImgUsuario{
   height: 100%;
 }
-
-.boxUsuario svg:hover{
-  fill:#1bfaad;
+.boxUsuario svg{
+  fill: #1BFAAD;
 }
 
 .boxUsuario img {
