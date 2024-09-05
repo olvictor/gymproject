@@ -17,15 +17,15 @@ const UserTreino = () => {
   const options = {
     method: 'GET',
     headers: {
-      'X-RapidAPI-Key': 'f1c6fe8ad9msh54f8722877ef276p13b3bfjsn2b3b8d943027',
-      'X-RapidAPI-Host': 'exercisedb.p.rapidapi.com'
-    }
+		'x-rapidapi-key': 'f1c6fe8ad9msh54f8722877ef276p13b3bfjsn2b3b8d943027',
+		'x-rapidapi-host': 'exercisedb.p.rapidapi.com'
+	}
   };
   const { data, isLoading } = useQuery(
     "buscarExercicios",
     async () => {
       return await axios
-        .get("https://exercisedb.p.rapidapi.com/exercises", options)
+        .get("https://exercisedb.p.rapidapi.com/exercises?limit=10&offset=0", options)
         .then((response) => response.data);
     },
     {
