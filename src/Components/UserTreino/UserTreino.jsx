@@ -25,7 +25,7 @@ const UserTreino = () => {
     "buscarExercicios",
     async () => {
       return await axios
-        .get("https://exercisedb.p.rapidapi.com/exercises?limit=10&offset=0", options)
+        .get("https://exercisedb.p.rapidapi.com/exercises?limit=30&offset=0", options)
         .then((response) => response.data);
     },
     {
